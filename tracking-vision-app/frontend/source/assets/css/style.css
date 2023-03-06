@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Flat&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    justify-content: center;
+    background-color: white;
+}
+
+body {
+    background-color: #F2F2F2;
+    font-family: 'Nova Flat', cursive;
+    /* overflow-x: hidden; */
+}
+
+.container_header {
+    display: flex;
+    justify-content: center;
+}
+
+.barra_home {
+    height: 10px;
+    background-color: #6F0395;
+    border: none;
+}
+
+.box_header {
+    width: 80%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo_header {
+    width: 90px;
+    height: 80px;
+    cursor: pointer;
+}
+
+.container_nav {
+    width: 40%;
+}
+
+.box_nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box_nav a {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    padding: 10px;
+}
+
+.box_nav a:after {
+    position: absolute;
+    bottom: 15%;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 10%;
+    background-color: #BC4CE4;
+    border-radius: 10px;
+    content: "";
+    border-bottom: 1px solid #222;
+    transform: scale(0);
+    transition: transform .3s cubic-bezier(0.11, 0.7, 0, 1);
+}
+
+.box_nav a:hover:after {
+    transform: scale(1);
+    border: none;
+}
+
+.box_btnCadastro {
+    width: 25%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #8B04BB;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.box_btnCadastro:hover {
+    transition: all 0.3s;
+    background-color: #BC4CE4;
+}
+
+.box_btnCadastro span {
+    color: white;
+    padding: 10px;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_carousel {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_banner {
+    width: 80%;
+    height: 70vh;
+    background-image: url(../imgs/banner_img1.png);
+    border-radius: 10px;
+    background-size: cover;
+    margin-top: 3%;
+}
+
+.box_banner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5%;
+}
+
+.titulo_banner {
+    font-size: 34px;
+}
+
+.box_banner p, span{
+    color: white;
+}
+
+.box_banner p {
+    width: 30%;
+    margin-top: 1.5%;
+    font-size: 20px;
+}
+
+.box_btnSaibaMais {
+    width: 13%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #BC4CE4;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 2.5%;
+}
+
+.box_btnSaibaMais:hover {
+    transition: all 0.3s;
+    background-color: #8B04BB;
+}
+
+.box_btnSaibaMais span {
+    font-size: 18px;
+}
+
