@@ -1,0 +1,121 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  width: 100%;
+  height: 100%;
+
+  background: #f2f2f2;
+}
+
+body {
+  overflow: hidden;
+}
+
+.decoration {
+  position: absolute;
+  width: 486px;
+  height: 401px;
+  left: 140px;
+  top: 236px;
+
+  background: rgba(84, 4, 132, 0.75);
+  border-radius: 10px;
+}
+.border {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 474px;
+  height: 395px;
+  left: 18px;
+  top: -13px;
+
+  background: #ffffff;
+  border: 5px solid #540484;
+  border-radius: 10px;
+}
+h1 {
+  position: absolute;
+  width: 99px;
+  height: 48px;
+  left: 182px;
+  top: 24px;
+
+  font-family: "Nova Flat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 48px;
+
+  color: #000000;
+}
+button{
+  position: absolute;
+  width: 80%;
+  height: 48px;
+  left: 45px;
+  top: 293px;
+
+  background: #bc4ce4;
+  border-radius: 10px;
+}
+.ipt_1 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 80%;
+  height: 48px;
+  left: 45px;
+  top: 114px;
+
+  background: #f9f9f9;
+  border: 3px solid #e8e8e8;
+  border-radius: 10px;
+}
+.ipt_2 {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 80%;
+  height: 48px;
+  left: 45px;
+  top: 200px;
+
+  background: #f9f9f9;
+  border: 3px solid #e8e8e8;
+  border-radius: 10px;
+}
+img {
+  position: absolute;
+  width: 593px;
+  height: 351.73px;
+  left: 747px;
+  top: 253px;
+}
+.rectangle1 {
+  position: absolute;
+  width: 100%;
+  height: 14px;
+  left: 0px;
+  top: 0px;
+
+  background: #6f0395;
+}
+.rectangle2 {
+  position: absolute;
+  width: 100%;
+  height: 108px;
+  left: 0px;
+  top: 14px;
+
+  background: #ffffff;
+}
+.group {
+  position: absolute;
+  width: 83.07px;
+  height: 79px;
+  left: 1649px;
+  top: 28px;
+}
