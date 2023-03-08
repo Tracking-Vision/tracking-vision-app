@@ -115,22 +115,46 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.container_banner {
-    width: 80%;
-    height: 70vh;
-    background-image: url(../imgs/banner_img1.png);
-    border-radius: 10px;
-    background-size: cover;
     margin-top: 3%;
 }
 
-.box_banner {
+/* ========= START Carousel ========= */
+  
+.owl-dots {
+    position: absolute;
+    left: 47%;
+    top: 90%;
+    text-align: center;
+    padding-top: 15px;
+  }
+
+  .owl-carousel button.owl-dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 2px solid white!important;
+    background-color: #f2f2f2;
+    margin: 0 3px;
+  }
+  
+  .owl-dots button.owl-dot.active {
+    background-color: #ffffff;
+  }
+
+/* ========= END Carousel ========= */
+
+
+/* ==== START Banner 1 ==== */
+
+.box_banner1 {
+    width: 70vw;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: absolute;
+    top: 0%;
     margin-left: 5%;
 }
 
@@ -138,15 +162,110 @@ section {
     font-size: 34px;
 }
 
-.box_banner p, span{
+.box_banner1 p, span{
     color: white;
 }
 
-.box_banner p {
+.box_banner1 p {
     width: 30%;
     margin-top: 1.5%;
     font-size: 20px;
 }
+
+/* ==== END Banner 1 ==== */
+
+
+/* ==== START Banner 2 ==== */
+
+.box_banner2 {
+    width: 70vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0%;
+    left: 32%;
+    margin-left: 5%;
+}
+
+.titulo_banner {
+    font-size: 34px;
+}
+
+.box_banner2 p, span{
+    color: white;
+}
+
+.box_banner2 p {
+    width: 30%;
+    margin-top: 1.5%;
+    font-size: 20px;
+}
+
+/* ==== END Banner 2 ==== */
+
+
+/* ==== START Banner 3 ==== */
+
+.box_banner3 {
+    width: 70vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0%;
+    margin-left: 5%;
+}
+
+.titulo_banner {
+    font-size: 34px;
+}
+
+.box_banner3 p, span{
+    color: white;
+}
+
+.box_banner3 p {
+    width: 30%;
+    margin-top: 1.5%;
+    font-size: 20px;
+}
+
+/* ==== END Banner 3 ==== */
+
+
+/* ==== START Banner 4 ==== */
+
+.box_banner4 {
+    width: 70vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0%;
+    margin-left: 5%;
+}
+
+.titulo_banner {
+    font-size: 34px;
+}
+
+.box_banner4 p, span{
+    color: white;
+}
+
+.box_banner4 p {
+    width: 30%;
+    margin-top: 1.5%;
+    font-size: 20px;
+}
+
+/* ==== END Banner 4 ==== */
+
 
 .box_btnSaibaMais {
     width: 13%;
@@ -170,3 +289,63 @@ section {
     font-size: 18px;
 }
 
+.container_gerencia {
+    width: 60%;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    margin-top: 5%;
+    border-radius: 10px;
+}
+
+.box_titulo_gerencia {
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 8vh;
+    border-radius: 10px;
+    margin-top: 3%;
+}
+
+.box_titulo_gerencia span {
+    color: white;
+    font-size: 24px;
+}
+
+.card_container {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.box_card_gerencia {
+    width: 36%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    margin: 1.5%;
+}
+
+.card_img {
+    width: 250px;
+    padding: 3%;
+}
+
+.card_gerencia {
+    width: 70%;
+    border: 1px solid #CACACA;
+    border-radius: 10px;
+    padding: 3%;
+}
