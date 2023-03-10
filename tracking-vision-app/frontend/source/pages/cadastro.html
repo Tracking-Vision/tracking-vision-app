@@ -4,22 +4,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tracking Vision - Login</title>
-    <link rel="stylesheet" href="../assets/css/style-login.css" />
+    <title>Tracking Vision - Cadastro</title>
+    <link rel="stylesheet" href="../assets/css/style-cadastro.css" />
     <link rel="icon" href="../assets/imgs/Logo T-Vision.png">
   </head>
   <body>
     <header>
-      <hr class="barra_login">
+      <hr class="barra_cadastro">
       <div class="container_header">
           <div class="box_header">
               <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
-              <div id="nav_open" class="container_nav" style="display: none;">
+              <div id="nav_open" class="container_nav" style="display: none">
                   <nav class="box_nav">
                       <a href="index.html">Home</a>
-                      <a href="cadastro.html">Cadastro</a>
-                      <div class="box_btnClose">
-                        <img src="../assets/imgs/close.png" alt="img_close" onclick="closeNav()">
+                      <a href="login.html">Login</a>
+                      <div class="box_btnClose" onclick="closeNav()">
+                        <img src="../assets/imgs/close.png" alt="img_close">
                       </div>
                   </nav>
               </div>
@@ -32,19 +32,28 @@
       </div>
     </header>
     <section>
+      <img src="../assets/imgs/img_cadastro.png" alt="img_cadastro">
       <div class="decoration">
-        <div class="box_login">
-          <h1>Login</h1>
-          <input type="email" placeholder="E-mail">
-          <input type="password" placeholder="Senha">
-          <div class="spans">
-            <span>Não possui uma conta? <a href="cadastro.html">Cadastra-se</a></span>
-            <span><a href="">Esqueci a senha</a></span>
+        <div class="box_cadastro">
+          <h1>Cadastro</h1>
+          <div class="inputs">
+            <input type="text" placeholder="Nome empresa">
+            <input type="email" placeholder="E-mail">
           </div>
-          <button>Entrar</button>
+          <div class="inputs">
+            <input type="text" placeholder="CNPJ">
+            <input type="text" placeholder="Endereço">
+          </div>
+          <div class="inputs">
+            <input type="password" placeholder="Senha">
+            <input type="password" placeholder="Confirme a senha">
+          </div>
+          <div class="spans">
+            <span>Já possui uma conta? <a href="login.html">Entre</a></span>
+          </div>
+          <button>Cadastrar</button>
         </div>
       </div>
-      <img src="../assets/imgs/img_login.png" alt="img_login">
     </section>
   </body>
 </html>
