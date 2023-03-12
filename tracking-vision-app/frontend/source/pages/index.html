@@ -16,11 +16,13 @@
         <hr class="barra_home">
         <div class="container_header">
             <div class="box_header">
-                <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
+                <a href="#home">
+                    <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
+                </a>
                 <div class="container_nav">
                     <nav class="box_nav">
-                        <a href="#">Home</a>
-                        <a href="#">Sobre nós</a>
+                        <a href="#home" class="homeLink">Home</a>
+                        <a href="#sobre">Sobre nós</a>
                         <a href="#">Login</a>
                         <div class="box_btnCadastro">
                             <span>Cadastro</span>
@@ -30,7 +32,7 @@
             </div>
         </div>
     </header>
-    <section>
+    <section id="home">
         <div class="container_carousel">
             <div class="owl-carousel">
                 <div>
@@ -44,7 +46,7 @@
                     </div>
                 </div>
                 <div>
-                    <img src="../assets/imgs/banner_img2.jpg" alt="Banner 1">
+                    <img src="../assets/imgs/banner_img2.png" alt="Banner 1">
                     <div class="box_banner2">
                         <span class="titulo_banner">Tracking Vision</span>
                         <p>Venha melhorar seu Cyber café, aumente sua eficiência no seu gerenciamento</p>
@@ -54,7 +56,7 @@
                     </div>
                 </div>
                 <div>
-                    <img src="../assets/imgs/banner_img1.png" alt="Banner 1">
+                    <img src="../assets/imgs/banner_img3.png" alt="Banner 1">
                     <div class="box_banner3">
                         <span class="titulo_banner">Tracking Vision</span>
                         <p>Venha melhorar seu Cyber café, aumente sua eficiência no seu gerenciamento</p>
@@ -64,7 +66,7 @@
                     </div>
                 </div>
                 <div>
-                    <img src="../assets/imgs/banner_img1.png" alt="Banner 1">
+                    <img src="../assets/imgs/banner_img4.png" alt="Banner 1">
                     <div class="box_banner4">
                         <span class="titulo_banner">Tracking Vision</span>
                         <p>Venha melhorar seu Cyber café, aumente sua eficiência no seu gerenciamento</p>
@@ -78,7 +80,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="sobre">
         <div class="container_gerencia">
             <div class="box_titulo_gerencia">
                 <span>Gerenciamento completo de suas máquinas</span>
@@ -116,44 +118,89 @@
     </section>
 
     <section>
-        <div>
-            <div>
-                <span></span>
-            </div>
+        <div class="container_valores">
+            <div class="area">
+                <div class="container_area">
+                    <div class="box_tituloValores">
+                        <span>Missão, visão e valores</span>
+                    </div>
 
-            <div>
-                <div>
-                    <img src="" alt="">
-                </div>
-                <div>
-                    <img src="" alt="">
-                </div>
-                <div>
-                    <img src="" alt="">
+                    <div class="box_cardValor">
+                        <div id="cardMissao" class="card_valor" onmouseover="cardShowMissao()"
+                            onmouseout="cardHiddenMissao()">
+                            <img id="cardMissaoImg" src="../assets/imgs/mission.png" alt="Missão">
+                            <div class="box_conteudoCard">
+                                <span id="cardMissaoTitulo" class="tituloText">Missão</span>
+                                <p id="cardMissaoText" class="textValor">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            </div>
+                        </div>
+                        <div id="cardVisao" class="card_valor" onmouseover="cardShowVisao()"
+                            onmouseout="cardHiddenVisao()">
+                            <img id="cardVisaoImg" src="../assets/imgs/visao.png" alt="Visão">
+                            <div class="box_conteudoCard">
+                                <span id="cardVisaoTitulo" class="tituloText">Visão</span>
+                                <p id="cardVisaoText" class="textValor">Oi</p>
+                            </div>
+                        </div>
+                        <div id="cardValor" class="card_valor" onmouseover="cardShowValores()"
+                            onmouseout="cardHiddenValores()">
+                            <img id="cardValoresImg" src="../assets/imgs/valor.png" alt="Valores">
+                            <div class="box_conteudoCard">
+                                <span id="cardValoresTitulo" class="tituloText">Valores</span>
+                                <p id="cardValoresText" class="textValor">Olá</p>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="circles">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
                 </div>
             </div>
         </div>
+
     </section>
 
     <section>
-        <div>
-            <span></span>
-        </div>
-        <div>
-
+        <div class="container_map">
+            <div class="box_tituloMap">
+                <span>Onde estamos</span>
+            </div>
+            <div class="box_map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.2874820178436!2d-46.66380268439466!3d-23.558116367358934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59d2b063f663%3A0xc567c0d16d0bc582!2sS%C3%A3o%20Paulo%20Tech%20School!5e0!3m2!1spt-BR!2sbr!4v1678418959523!5m2!1spt-BR!2sbr"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" class="google_map">
+                </iframe>
+            </div>
         </div>
     </section>
 
     <footer>
-        <hr>
+        <div class="container_footer">
+            <hr class="barra_footer">
 
-        <div>
-            <div>
-                <span></span>
-            </div>
-            <div>
-                <span></span>
-                <span></span>
+            <div class="box_footer">
+                <div class="box_direitos">
+                    <span>© 2022 Track-V, todos os direitos reservados. </span>
+                </div>
+                <div class="box_termosPrivacidade">
+                    <a href="#">termos de serviço</a>
+                    <a href="#">política de privacidade</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -164,6 +211,21 @@
     <script src="../assets/OwlCarousel2-2.3.4/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
 
     <script>
+        const missaoImg = document.getElementById("cardMissaoImg");
+        const missaoTitulo = document.getElementById("cardMissaoTitulo");
+        const missaoText = document.getElementById("cardMissaoText");
+        const missao = document.getElementById("cardMissao");
+
+        const visaoImg = document.getElementById("cardVisaoImg");
+        const visaoTitulo = document.getElementById("cardVisaoTitulo");
+        const visaoText = document.getElementById("cardVisaoText");
+        const visao = document.getElementById("cardVisao");
+
+        const valoresImg = document.getElementById("cardValoresImg");
+        const valoresTitulo = document.getElementById("cardValoresTitulo");
+        const valoresText = document.getElementById("cardValoresText");
+        const valores = document.getElementById("cardValor");
+
         var owl = $('.owl-carousel');
         owl.owlCarousel({
             items: 1,
@@ -173,6 +235,65 @@
             autoplayTimeout: 2000,
             autoplayHoverPause: true,
         });
+
+        const menu = document.querySelector("header");
+
+        function activeScroll() {
+            menu.classList.toggle("ativo", scrollY > 275);
+            console.log(scrollY)
+        }
+
+        window.addEventListener("scroll", activeScroll);
+
+
+        function cardShowMissao() {
+            missaoImg.style.display = "none";
+            missaoTitulo.style.display = "block";
+            missaoText.style.display = "block";
+            missao.style.transform = "scale(1.1)";
+            missao.style.transition = "all 0.3s";
+        }
+
+        function cardShowVisao() {
+            visaoImg.style.display = "none";
+            visaoTitulo.style.display = "block";
+            visaoText.style.display = "block";
+            visao.style.transform = "scale(1.1)";
+            visao.style.transition = "all 0.3s";
+        }
+
+        function cardShowValores() {
+            valoresImg.style.display = "none";
+            valoresTitulo.style.display = "block";
+            valoresText.style.display = "block";
+            valores.style.transform = "scale(1.1)";
+            valores.style.transition = "all 0.3s";
+        }
+
+
+        function cardHiddenMissao() {
+            missaoImg.style.display = "block";
+            missaoTitulo.style.display = "none";
+            missaoText.style.display = "none";
+            missao.style.transform = "scale(1)";
+            missao.style.transition = "all 0.3s";
+        }
+
+        function cardHiddenVisao() {
+            visaoImg.style.display = "block";
+            visaoTitulo.style.display = "none";
+            visaoText.style.display = "none";
+            visao.style.transform = "scale(1)";
+            visao.style.transition = "all 0.3s";
+        }
+
+        function cardHiddenValores() {
+            valoresImg.style.display = "block";
+            valoresTitulo.style.display = "none";
+            valoresText.style.display = "none";
+            valores.style.transform = "scale(1)";
+            valores.style.transition = "all 0.3s";
+        }
     </script>
 </body>
 
