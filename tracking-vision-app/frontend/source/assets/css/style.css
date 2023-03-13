@@ -20,7 +20,7 @@ header {
     width: 100%;
     position: fixed;
     background-color: white;
-    z-index: 2;
+    z-index: 5;
     transition: all 0.3s;
 }
 
@@ -54,8 +54,8 @@ body {
 }
 
 .logo_header {
-    width: 90px;
-    height: 80px;
+    width: 100px;
+    height: 90px;
     cursor: pointer;
 }
 
@@ -127,6 +127,8 @@ section {
     align-items: center;
 }
 
+/* ========= START Carousel ========= */
+
 .container_carousel {
     width: 80%;
     display: flex;
@@ -134,8 +136,6 @@ section {
     align-items: center;
     margin-top: 8%;
 }
-
-/* ========= START Carousel ========= */
 
 .owl-dots {
     position: absolute;
@@ -368,9 +368,17 @@ span {
 
 .card_gerencia {
     width: 70%;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid #CACACA;
     border-radius: 10px;
     padding: 3%;
+}
+
+.card_gerencia p{
+    font-size: 14px;
 }
 
 
@@ -566,16 +574,17 @@ span {
 }
 
 .box_cardValor {
-    width: 50vw;
+    width: 70vw;
+    height: 30vh;
     display: flex;
     justify-content: space-between;
     position: absolute;
-    margin-top: 10%;
+    margin-top: 8%;
     z-index: 2;
 }
 
 .card_valor {
-    width: 12vw;
+    width: 20vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -596,13 +605,14 @@ span {
     display: flex;
     flex-direction: column;
     align-items: center;
-    word-break: break-all;
+    text-align: justify;
 }
 
 .card_valor img {
-    width: 95%;
-    padding: 10%;
+    width: 100%;
     object-fit: contain;
+    position: absolute;
+    padding: 30%;
 }
 
 .tituloText {
@@ -615,6 +625,7 @@ span {
     display: none;
     color: black;
     margin-top: 10%;
+    width: 17vw;
 }
 
 
@@ -701,6 +712,12 @@ span {
 
 
 @media screen and (max-width: 1100px) {
+    .logo_header {
+        width: 80px;
+        height: 60px;
+        cursor: pointer;
+    }
+    
     .container_header {
         height: 80px;
         align-items: center;
@@ -711,7 +728,7 @@ span {
     }
 
     .box_btnCadastro {
-        height: 40px;
+        height: 35px;
     }
 
     .container_carousel {
@@ -721,6 +738,7 @@ span {
 
     .owl-dots {
         display: flex;
+        left: 45%;
     }
 
     .box_banner1 {
@@ -772,7 +790,7 @@ span {
     .box_banner4 p {
         font-size: 16px;
     }
-    
+
     .box_btnSaibaMais {
         width: 20vw;
         height: 40px;
@@ -781,7 +799,7 @@ span {
     .box_btnSaibaMais span {
         font-size: 16px;
     }
-    
+
     .container_gerencia {
         height: 100%;
     }
@@ -799,7 +817,7 @@ span {
         font-size: 16px;
     }
 
-    .card_gerencia p{
+    .card_gerencia p {
         width: 15vw;
         font-size: 12px;
     }
@@ -811,7 +829,7 @@ span {
 
     .area {
         width: 100vw;
-        height: 90%;
+        height: 100%;
         padding-top: 5%;
     }
 
@@ -823,8 +841,21 @@ span {
         width: 30vw;
     }
 
-    .box_tituloValores span{
+    .box_tituloValores span {
         font-size: 14px;
+    }
+
+    .box_cardValor {
+        width: 95vw;
+        height: 35vh;
+    }
+    
+    .card_valor {
+        width: 30vw;
+    }
+
+    .card_valor p{
+        width: 25vw;
     }
 
     .box_tituloMap {
@@ -857,13 +888,14 @@ span {
     }
 
     .owl-dots {
-        width: 20%;
+        width: 20vw;
         display: flex;
+        left: 45%;
     }
-    
+
     .area {
         width: 100vw;
-        height: 50%;
+        height: 60%;
         padding-top: 5%;
     }
 
@@ -876,7 +908,7 @@ span {
     }
 
     .container_valores {
-        height: 40vh;
+        height: 45vh;
     }
 
     .box_tituloValores {
@@ -884,9 +916,29 @@ span {
         height: 4vh;
     }
 
-    .box_tituloMap {
+    .box_cardValor {
+        width: 75vw;
+        height: 15vh;
+        margin-top: 10%;
+    }
+
+    .card_valor {
         width: 20vw;
-        height: 4vh ;
+        height: 18vh;
+    }
+
+    .card_valor span{
+        font-size: 12px;
+    }
+
+    .card_valor p{
+        width: 18vw;
+        font-size: 10px;
+    }
+
+    .box_tituloMap {
+        width: 18vw;
+        height: 4vh;
     }
 
     .google_map {
@@ -894,7 +946,7 @@ span {
     }
 
     .box_direitos span {
-        font-size: 12px;
+        font-size: 10px;
     }
 
     .box_termosPrivacidade {
@@ -906,16 +958,266 @@ span {
     }
 }
 
-@media screen and (max-width: 850px) {
-    .box_direitos span {
+@media screen and (max-width: 690px) {
+    .logo_header {
+        width: 50px;
+        height: 40px;
+        cursor: pointer;
+    }
+
+    .container_nav {
+        width: 75%;
+    }
+
+    .box_nav a {
+        font-size: 0.6em;
+    }
+
+    .box_btnCadastro span{
         font-size: 12px;
     }
-    .box_termosPrivacidade {
+
+    .container_carousel {
+        border-radius: 10px;
+        margin-top: 25%;
+    }
+
+    .owl-dots {
+        width: 20vw;
+        display: flex;
+        left: 38%;
+    }
+    
+    .owl-dots button {
+        transform: scale(0.5);
+    }
+
+    .box_banner1 {
+        width: 100vw;
+    }
+
+    .box_banner1 span {
+        font-size: 12px;
+    }
+
+    .box_banner1 p {
+        font-size: 10px;
+    }
+
+    .box_banner2 {
+        width: 100vw;
+        left: 50%;
+    }
+
+    .box_banner2 span {
+        font-size: 12px;
+    }
+
+    .box_banner2 p {
+        font-size: 10px;
+    }
+
+    .box_banner3 {
+        width: 85vw;
+    }
+
+    .box_banner3 span {
+        font-size: 12px;
+    }
+
+    .box_banner3 p {
+        width: 35vw;
+        font-size: 10px;
+    }
+
+    .box_banner4 {
+        width: 85vw;
+        left: 52%;
+    }
+
+    .box_banner4 span {
+        font-size: 12px;
+    }
+
+    .box_banner4 p {
+        width: 35vw;
+        font-size: 10px;
+    }
+
+    .box_btnSaibaMais {
+        width: 20vw;
+        height: 25px;
+    }
+
+    .box_btnSaibaMais span {
+        font-size: 10px;
+    }
+
+    .container_gerencia {
+        width: 80vw;
+    }
+
+    .box_titulo_gerencia {
+        width: 70vw;
+    }
+
+    .box_titulo_gerencia span {
+        font-size: 12px;
+    }
+
+    .card_container {
+        width: 80vw;
+    }
+
+    .box_card_gerencia {
+        width: 40%;
+    }
+    
+    .card_img {
+        width: 80%;
+        height: 58%;
+        padding: 3%;
+        object-fit: contain;
+    }
+    
+    .card_gerencia {
+        width: 100%;
+        height: 40%;
+        border: 1px solid #CACACA;
+        border-radius: 10px;
+        padding: 3%;
+    }
+    
+    .card_gerencia p {
+        width: 100%;
+        font-size: 10px;
+        text-align: left;
+    }
+    
+    .area {
+        width: 100vw;
+        height: 90%;
+        padding-top: 5%;
+        clip-path: none;
+    }
+
+    .container_valores {
+        height: 90vh;
+    }
+
+    .box_tituloValores span {
+        font-size: 12px;
+    }
+
+    .box_cardValor {
+        width: 40vw;
+        height: 80vh;
+        margin-top: 16%;
+        flex-wrap: wrap;
+    }
+
+    .card_valor {
+        width: 40vw;
+        height: 20vh;
+    }
+
+    .card_valor span{
+        width: 11vw;
+        font-size: 12px;
+    }
+
+    .card_valor p{
+        width: 35vw;
+        font-size: 10px;
+    }
+    
+    .box_tituloMap {
         width: 30vw;
+        height: 4vh;
+        margin-top: 5%;
+    }
+
+    .box_tituloMap span{
+        font-size: 12px;
+    }
+
+    .google_map {
+        width: 75vw;
+    }
+
+    .box_direitos span {
+        font-size: 7px;
+    }
+
+    .box_termosPrivacidade {
+        width: 35vw;
     }
 
     .box_termosPrivacidade a {
-        font-size: 12px;
+        font-size: 7px;
+        margin-top: 6%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .box_btnCadastro {
+        height: 30px;
+        border-radius: 7px;
     }
 
+    .box_banner1 span {
+        font-size: 10px;
+    }
+
+    .box_banner1 p {
+        font-size: 9px;
+    }
+
+    .box_banner2 span {
+        font-size: 10px;
+    }
+
+    .box_banner2 p {
+        font-size: 9px;
+    }
+    
+    .box_banner3 span {
+        font-size: 10px;
+    }
+
+    .box_banner3 p {
+        font-size: 9px;
+    }
+    
+    .box_banner4 span {
+        font-size: 10px;
+    }
+
+    .box_banner4 p {
+        font-size: 9px;
+    }
+
+    .box_btnSaibaMais {
+        width: 20vw;
+        height: 20px;
+        border-radius: 7px;
+    }
+
+    .box_btnSaibaMais span {
+        font-size: 10px;
+    }
+
+    .card_gerencia p {
+        font-size: 9px;
+    }
+
+    .card_valor span{
+        width: 12vw;
+        font-size: 10px;
+    }
+
+    .card_valor p{
+        width: 35vw;
+        font-size: 9px;
+    }
 }
