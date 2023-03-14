@@ -116,7 +116,7 @@ body {
     background-color: #BC4CE4;
 }
 
-.box_btnCadastro span {
+.box_btnCadastro span a{
     color: white;
     padding: 10px;
 }
@@ -973,7 +973,7 @@ span {
         font-size: 0.6em;
     }
 
-    .box_btnCadastro span{
+    .box_btnCadastro span a{
         font-size: 12px;
     }
 
@@ -1079,6 +1079,11 @@ span {
         padding: 3%;
         object-fit: contain;
     }
+
+    .box_card_gerencia {
+        width: 35vw;
+        height: 110px;
+    }
     
     .card_gerencia {
         width: 100%;
@@ -1090,7 +1095,7 @@ span {
     
     .card_gerencia p {
         width: 100%;
-        font-size: 10px;
+        font-size: 9px;
         text-align: left;
     }
     
@@ -1207,8 +1212,18 @@ span {
         font-size: 10px;
     }
 
+    .box_card_gerencia {
+        width: 35vw;
+        height: 100px;
+    }
+
+    .card_gerencia {
+        width: 32vw;
+        height: 50px;
+    }
+
     .card_gerencia p {
-        font-size: 9px;
+        font-size: 8px;
     }
 
     .card_valor span{
