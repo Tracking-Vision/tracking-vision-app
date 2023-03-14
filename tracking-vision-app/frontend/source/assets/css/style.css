@@ -711,7 +711,7 @@ span {
 }
 
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1170px) {
     .logo_header {
         width: 80px;
         height: 60px;
@@ -728,7 +728,7 @@ span {
     }
 
     .box_btnCadastro {
-        height: 35px;
+        height: 40px;
     }
 
     .container_carousel {
@@ -1212,7 +1212,7 @@ span {
     }
 
     .card_valor span{
-        width: 12vw;
+        width: 8vw;
         font-size: 10px;
     }
 
