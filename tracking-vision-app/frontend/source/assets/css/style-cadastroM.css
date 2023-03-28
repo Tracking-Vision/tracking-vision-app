@@ -141,6 +141,7 @@ section {
     display: flex;
     align-items: center;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 .box_cadastro {
@@ -168,7 +169,8 @@ section {
     background-color: #F2F2F2;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #F1F1F1;
+    background-color: #777474;
+    border-radius: 5px;
 }
 
 section img {
@@ -200,11 +202,12 @@ section img {
     font-family: 'Nova Flat', cursive;
     font-size: 20px;
     border-radius: 5px;
-    color: #A4A4A4;
+    color: #777474;
     background-color: #F9F9F9;
     border: 1.5px solid #E8E8E8;
     margin-top: 6%;
 }
+
 .box_cadastro textarea{
     width: 85%;
     height: 100%;
