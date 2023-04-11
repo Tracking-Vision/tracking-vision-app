@@ -137,7 +137,7 @@
 
 .container_maquina {
     width: 80%;
-    height: 70vh;
+    height: 700px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -147,29 +147,37 @@
     margin-top: 5%;
 }
 
-.container_all_maquina::-webkit-scrollbar {
+.container_all_maquinaTest::-webkit-scrollbar {
     width: 0.8vw;
 }
 
-.container_all_maquina::-webkit-scrollbar-thumb {
+.container_all_maquinaTest::-webkit-scrollbar-thumb {
     background-color: #BC4CE4;
     border-radius: 10px;
 }
 
-.container_all_maquina {
+.container_all_maquinaTest {
+    width: 66vw;
+    display: flex;
+    align-self: center;
+    justify-content: center;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding-inline: 90px;
+}
+
+.container_all_maquina {
+    width: 92%;
+    /* background-color: rgba(85, 85, 85, 0.3); */
 }
 
 .containerBox_maquina {
     width: 65vw;
-    height: 165%;
+    height: 428px;
     display: flex;
+    align-self: center;
     flex-direction: row;
-    justify-content: space-around;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 16px;
 }
 
 .box_maquina {
@@ -187,7 +195,8 @@
     align-self: center;
 }
 
-.box_maquina h3, span {
+.box_maquina h3,
+span {
     color: black;
 }
 
@@ -197,7 +206,7 @@
     display: flex;
     align-self: center;
     align-items: center;
-    padding-left: 10px;
+        padding-left: 10px;
     border-radius: 10px;
 }
 
@@ -214,49 +223,34 @@
 }
 
 .container_tools {
-    width: 74vw;
+    width: 98.8%;
     height: 20vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-.container_tools .box_edit {
-    width: 27vw;
-    height: 10vh;
-    background-color: rgba(85, 85, 85, 0.3);
-    border-radius: 10px;
-}
-
-.container_tools .box_remove {
-    width: 27vw;
-    height: 10vh;
+.box_edit,
+.box_remove {
+    height: 12vh;
     background-color: rgba(85, 85, 85, 0.3);
     border-radius: 10px;
 }
 
 .box_edit {
+    width: 23vw;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
-}
-
-.box_edit:hover {
-    transition: all 0.3s;
-    background-color: #e8d73f83;
 }
 
 .box_remove {
+    width: 23vw;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
-}
-
-.box_remove:hover {
-    transition: all 0.3s;
-    background-color: #e83f3f85;
 }
 
 .areaGrafico {
@@ -269,7 +263,6 @@
     align-items: center;
     flex-direction: column;
     clip-path: polygon(19% 45%, 82% 35%, 100% 21%, 100% 100%, 0 100%, 0 23%);
-    background: #4e54c8;
     background-color: #540484;
 }
 
@@ -286,4 +279,56 @@
 
 .all_edit:first-child {
     margin-top: 5%;
+}
+
+.helperMaquina {
+    background-color: #00000062;
+    border: dotted 3px white;
+}
+
+.helperMaquina h3,
+.helperMaquina div {
+    display: none;
+}
+
+.dropEdit {
+    background-color: #e8d73f83;
+}
+
+.dropRemove {
+    background-color: #e83f3f85;
+}
+
+.dropEdit::after {
+    content: "Editar";
+    color: white;
+    padding-left: 3%;
+}
+
+.dropRemove::after {
+    content: "Remover";
+    color: white;
+    padding-left: 2%;
+}
+
+.box_imgEmpty {
+    width: 92.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(85, 85, 85, 0.3);
+    border-radius: 10px;
+}
+
+.box_imgEmpty span {
+    font-size: 30px;
+    color: white;
+    margin-top: 20px;
+}
+
+.imgEmpty {
+    width: 150px;
+    height: 150px;
+    align-self: center;
 }
