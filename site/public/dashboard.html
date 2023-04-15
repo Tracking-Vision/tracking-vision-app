@@ -6,12 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Tracking Vision</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/style-dashboard.css">
+=======
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style-dashboard.css">
+    <link rel="icon" href="../assets/imgs/Logo T-Vision.png">
+>>>>>>> d8673d7324c43e0f06e2b9ed6edd16a7bd30792d
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
+<body onload="createMaquina()">
     <header>
         <hr class="barra_header">
         <div class="container_header">
@@ -22,8 +28,9 @@
                 <div id="menu" class="container_nav_menu">
                     <nav id="menuClose" class="boxClose">
                         <div class="box_nav">
-                            <a href="#" id="cadastroFunc">Cadastro funcionário</a>
+                            <a href="../public/dashboard/cadastroFuncionario.html" id="cadastroFunc">Cadastro funcionário</a>
                             <a href="#" id="cadastroMaq">Cadastro máquina</a>
+                            <a href="#" id="cadastroMaq">Sair</a>
                             <div id="containerClose" class="container_imgClose">
                                 <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
                                     <img src="./assets/imgs/close.png" alt="img_close">
@@ -61,197 +68,26 @@
     </section>
     <section>
         <div class="container_maquina">
-            <div class="container_all_maquina">
-                <div class="containerBox_maquina">
-                    <div class="box_maquina" id="box1" draggable="true" ondragstart="dragRemove(event)">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
-                    <div class="box_maquina">
-                        <h3>Máquina</h3>
-                        <div class="box_dado">
-                            <span>Uso de RAM</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Espaço de disco</span>
-                        </div>
-                        <div class="box_dado">
-                            <span>Uso de rede</span>
-                        </div>
-                    </div>
+            <div class="container_all_maquinaTest">
+                <div class="container_all_maquina">
+                    <div class="containerBox_maquina" id="maquinas_box"></div>
                 </div>
             </div>
             <div class="container_tools">
+<<<<<<< HEAD
                 <div class="box_edit" draggable="false" ondrop="dropEdit(event)" ondragover="allowDropEdit(event)">
                     <img draggable="false" src="./assets/imgs/edit.png" alt="Icon editar">
                 </div>
                 <div id="box_tool_edit" class="box_remove" draggable="false" ondrop="dropRemove(event)"
                     ondragover="allowDropRemove(event)">
                     <img draggable="false" src="./assets/imgs/excluir.png" alt="Icon excluir">
+=======
+                <div id="box_tool_edit" class="box_edit">
+                    <img draggable="false" src="../assets/imgs/edit.png" alt="Icon editar">
+                </div>
+                <div id="box_tool_remove" class="box_remove">
+                    <img draggable="false" src="../assets/imgs/excluir.png" alt="Icon excluir">
+>>>>>>> d8673d7324c43e0f06e2b9ed6edd16a7bd30792d
                 </div>
             </div>
         </div>
@@ -281,6 +117,8 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <script>
     var menu = document.getElementById("menu");
@@ -288,17 +126,137 @@
     var menuClose = document.getElementById("menuClose");
     var imgClose = document.getElementById("imgClose");
     var containerClose = document.getElementById("containerClose");
+    const containerMaquina = document.getElementById("maquinas_box");
+    var qtdMaquina = 1;
+
+    verifyQtd();
+
+    function verifyQtd() {
+        if (qtdMaquina == 0) {
+            containerMaquina.innerHTML = `<div class="box_imgEmpty"><img class="imgEmpty" src="../assets/imgs/empty.png"><span>Vazio</span></div>`;
+        }
+    }
+
+    function createMaquina() {
+        for (let index = 0; index < qtdMaquina; index++) {
+            containerMaquina.innerHTML += `
+            <div class="box_maquina" id="box">
+                 <h3>Máquina do grau</h3>
+                 <div class="box_dado">
+                   <span>Uso de RAM</span>
+                 </div>
+                <div class="box_dado">
+                   <span>Espaço de disco</span>
+                </div>
+                <div class="box_dado">
+                   <span>Uso de rede</span>
+                </div>
+            </div>`;
+        }
+
+        $(function () {
+            var $maquinaBox = $("#maquinas_box"),
+                $remove = $("#box_tool_remove"),
+                $edit = $("#box_tool_edit");
+
+            $(".box_maquina", $maquinaBox).draggable({
+                revert: "invalid",
+                containment: "document",
+                helper: "clone",
+                start: function (event, ui) {
+                    $(this).addClass("helperMaquina");
+                    $remove.addClass("dropRemove");
+                    $edit.addClass("dropEdit");
+                },
+                stop: function (event, ui) {
+                    $(this).removeClass("helperMaquina");
+                    $remove.removeClass("dropRemove");
+                    $edit.removeClass("dropEdit");
+                },
+                cursor: "move",
+            });
+
+            $remove.droppable({
+                accept: ".box_maquina",
+                drop: function (event, ui) {
+
+                    Swal.fire({
+                        title: 'Aviso',
+                        text: 'Você deseja excluir essa máquina?',
+                        icon: 'warning',
+                        confirmButtonText: 'Confirmar',
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            $(ui.helper).remove();
+                            $(ui.draggable).remove();
+                            qtdMaquina--;
+                            verifyQtd();
+
+                            Swal.fire(
+                                'Sucesso!',
+                                'A máquina foi deletada.',
+                                'success'
+                            )
+                        }
+                    })
+                }
+            });
+
+            $edit.droppable({
+                accept: ".box_maquina",
+                classes: {
+                    "ui-droppable-active": "ui-state-highlight"
+                },
+                drop: async function (event, ui) {
+                    const { value: formValues } = await Swal.fire({
+                        title: 'Edição de máquina',
+                        confirmButtonText: 'Editar',
+                        html:
+                            '<div class="all_edit">' +
+                            '<span class="label_editMaquina">Armazenamento</span>' +
+                            '<input id="swal-input1" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Ram</span>' +
+                            '<input id="swal-input2" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Status</span>' +
+                            '<input id="swal-input3" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Última manutenção</span>' +
+                            '<input id="swal-input4" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Descrição</span>' +
+                            '<input id="swal-input5" class="swal2-input" required><br>' +
+                            '</div>',
+                        focusConfirm: false,
+                        preConfirm: () => {
+                            return [
+                                document.getElementById('swal-input1').value,
+                                document.getElementById('swal-input2').value,
+                                document.getElementById('swal-input3').value,
+                                document.getElementById('swal-input4').value,
+                                document.getElementById('swal-input5').value
+                            ]
+                        }
+                    })
+
+                    if (formValues) {
+                        Swal.fire(JSON.stringify(formValues))
+                    }
+                }
+            })
+        })
+    }
 
     var active = false;
 
     function MenuShow() {
         menu.classList.remove("menu_move_close");
         menu.classList.toggle("menu_move_open");
-        menuClose.classList.toggle("menuClose");
         menuOpen.classList.toggle("menuOpen");
         setTimeout(() => {
+            menuClose.classList.toggle("menuClose");
             containerClose.classList.toggle("closeHidden");
-        }, 150)
+        }, 200)
     }
 
     function MenuHidden() {
@@ -312,77 +270,6 @@
     const ctx = document.getElementById('myChart');
     const ctx2 = document.getElementById('myChart2');
     const ctx3 = document.getElementById('myChart3');
-
-    function allowDropRemove(ev) {
-        ev.preventDefault();
-    }
-
-    function dragRemove(ev) {
-        ev.dataTransfer.setData("Text", ev.target.id);
-    }
-
-    function dropRemove(ev) {
-        var data = ev.dataTransfer.getData("Text");
-        const a = document.getElementById(data);
-
-        Swal.fire({
-            title: 'Aviso',
-            text: 'Você deseja excluir essa máquina?',
-            icon: 'warning',
-            confirmButtonText: 'Confirmar',
-            showCancelButton: true,
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-
-                a.remove();
-
-                Swal.fire(
-                    'Sucesso!',
-                    'A máquina foi deletada.',
-                    'success'
-                )
-            }
-        })
-    }
-
-    function allowDropEdit(ev) {
-        ev.preventDefault();
-    }
-
-    async function dropEdit(ev) {
-        const { value: formValues } = await Swal.fire({
-            title: 'Edição de máquina',
-            confirmButtonText: 'Editar',
-            html:
-                '<div class="all_edit">' +
-                '<span class="label_editMaquina">Armazenamento</span>' +
-                '<input id="swal-input1" class="swal2-input" required><br>' +
-                '<span class="label_editMaquina">Ram</span>' +
-                '<input id="swal-input2" class="swal2-input" required><br>' +
-                '<span class="label_editMaquina">Status</span>' +
-                '<input id="swal-input3" class="swal2-input" required><br>' +
-                '<span class="label_editMaquina">Última manutenção</span>' +
-                '<input id="swal-input4" class="swal2-input" required><br>' +
-                '<span class="label_editMaquina">Descrição</span>' +
-                '<input id="swal-input5" class="swal2-input" required><br>' +
-                '</div>',
-            focusConfirm: false,
-            preConfirm: () => {
-                return [
-                    document.getElementById('swal-input1').value,
-                    document.getElementById('swal-input2').value,
-                    document.getElementById('swal-input3').value,
-                    document.getElementById('swal-input4').value,
-                    document.getElementById('swal-input5').value
-                ]
-            }
-        })
-
-        if (formValues) {
-            Swal.fire(JSON.stringify(formValues))
-        }
-    }
 
     new Chart(ctx, {
         type: 'line',
