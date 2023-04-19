@@ -6,9 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Tracking Vision</title>
+<<<<<<< HEAD
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style-dashboard.css">
+=======
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/style-dashboard.css">
     <link rel="icon" href="../assets/imgs/Logo T-Vision.png">
+>>>>>>> d8673d7324c43e0f06e2b9ed6edd16a7bd30792d
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/funcoes.js"></script>
 </head>
@@ -19,7 +24,7 @@
         <div class="container_header">
             <div class="box_header">
                 <a href="#home">
-                    <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
+                    <img class="logo_header" src="./assets/imgs/Logo T-Vision.png" alt="Logo">
                 </a>
                 <div id="menu" class="container_nav_menu">
                     <nav id="menuClose" class="boxClose">
@@ -29,14 +34,14 @@
                             <a onclick="limparSessao()">Sair</a>
                             <div id="containerClose" class="container_imgClose">
                                 <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
-                                    <img src="../assets/imgs/close.png" alt="img_close">
+                                    <img src="./assets/imgs/close.png" alt="img_close">
                                 </div>
                             </div>
                         </div>
                     </nav>
                     <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
                         <div class="box_imgMenu">
-                            <img src="../assets/imgs/menu.png" alt="img_hamburger">
+                            <img src="./assets/imgs/menu.png" alt="img_hamburger">
                         </div>
                     </div>
                 </div>
@@ -150,11 +155,20 @@
                 </div>
             </div>
             <div class="container_tools">
+<<<<<<< HEAD
+                <div class="box_edit" draggable="false" ondrop="dropEdit(event)" ondragover="allowDropEdit(event)">
+                    <img draggable="false" src="./assets/imgs/edit.png" alt="Icon editar">
+                </div>
+                <div id="box_tool_edit" class="box_remove" draggable="false" ondrop="dropRemove(event)"
+                    ondragover="allowDropRemove(event)">
+                    <img draggable="false" src="./assets/imgs/excluir.png" alt="Icon excluir">
+=======
                 <div id="box_tool_edit" class="box_edit">
                     <img draggable="false" src="../assets/imgs/edit.png" alt="Icon editar">
                 </div>
                 <div id="box_tool_remove" class="box_remove">
                     <img draggable="false" src="../assets/imgs/excluir.png" alt="Icon excluir">
+>>>>>>> d8673d7324c43e0f06e2b9ed6edd16a7bd30792d
                 </div>
             </div>
         </div>
