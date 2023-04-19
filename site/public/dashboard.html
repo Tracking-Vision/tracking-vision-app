@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Tracking Vision</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style-dashboard.css">
+    <link rel="icon" href="../assets/imgs/Logo T-Vision.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/funcoes.js"></script>
+</head>
+
+<body onload="createMaquina()">
+    <header>
+        <hr class="barra_header">
+        <div class="container_header">
+            <div class="box_header">
+                <a href="#home">
+                    <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
+                </a>
+                <div id="menu" class="container_nav_menu">
+                    <nav id="menuClose" class="boxClose">
+                        <div class="box_nav">
+                            <a href="dashboard/cadastroFuncionario.html" id="cadastroFunc">Cadastro funcionário</a>
+                            <a href="dashboard/cadastroMaquina.html" id="cadastroMaq">Cadastro máquina</a>
+                            <a onclick="limparSessao()">Sair</a>
+                            <div id="containerClose" class="container_imgClose">
+                                <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
+                                    <img src="../assets/imgs/close.png" alt="img_close">
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
+                        <div class="box_imgMenu">
+                            <img src="../assets/imgs/menu.png" alt="img_hamburger">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="container_grafico">
+            <div class="box_grafico">
+                <div class="box_tituloAlert">
+                    <span>Nome Gráfico</span>
+                    <div class="box_alert" id="box_alert_grafico1">
+                        <img src="./assets/imgs/correto.png" alt="Correto">
+                        <span>80%</span>
+                    </div>
+                </div>
+                <div class="chart">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div class="container_alert_kpi">
+                    <div class="box_kpi">
+                        <img src="./assets/imgs/correto.png" alt="Correto">
+                        <span>50%</span>
+                    </div>
+                    <div class="box_kpi">
+                        <img src="./assets/imgs/aviso.png" alt="Aviso">
+                        <span>80%</span>
+                    </div>
+                    <div class="box_kpi">
+                        <img src="./assets/imgs/perigo.png" alt="Perigo">
+                        <span>95%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box_grafico">
+                <div class="box_tituloAlert">
+                    <span>Nome Gráfico</span>
+                    <div class="box_alert" id="box_alert_grafico2">
+                        <img src="./assets/imgs/aviso.png" alt="Aviso">
+                        <span>80%</span>
+                    </div>
+                </div>
+                <div class="chart2">
+                    <canvas id="myChart2"></canvas>
+                </div>
+                <div class="container_alert_kpi">
+                    <div class="box_kpi">
+                        <img src="./assets/imgs/correto.png" alt="Correto">
+                        <span>50%</span>
+                    </div>
+                    <div class="box_kpi">
+                        <img src="./assets/imgs/aviso.png" alt="Aviso">
+                        <span>80%</span>
+                    </div>
+                    <div class="box_kpi">
+                        <img src="./assets/imgs/perigo.png" alt="Perigo">
+                        <span>95%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box_grafico">
+                <div class="box_tituloAlert">
+                    <span>Nome Gráfico</span>
+                    <div class="box_alert" id="box_alert_grafico3">
+                        <img src="./assets/imgs/perigo.png" alt="Aviso">
+                        <span>80%</span>
+                    </div>
+                </div>
+                <div class="chart3">
+                    <canvas id="myChart3"></canvas>
+                </div>
+                <div class="container_alert_kpi">
+                    <div class="box_kpi">
+                        <img src="./assets/imgs/correto.png" alt="Correto">
+                        <span>50%</span>
+                    </div>
+                    <div class="box_kpi">
+                        <img src="./assets/imgs/aviso.png" alt="Aviso">
+                        <span>80%</span>
+                    </div>
+                    <div class="box_kpi">
+                        <img src="./assets/imgs/perigo.png" alt="Perigo">
+                        <span>95%</span>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container_maquina">
+            <div class="container_kpi_maquina">
+                <div class="box_kpi_maquina">
+                    <img src="./assets/imgs/correto.png" alt="Correto">
+                    <span>Ok</span>
+                    <span>50%</span>
+                </div>
+                <div class="box_kpi_maquina">
+                    <img src="./assets/imgs/aviso.png" alt="Aviso">
+                    <span>Aviso</span>
+                    <span>50%</span>
+                </div>
+                <div class="box_kpi_maquina">
+                    <img src="./assets/imgs/perigo.png" alt="Perigo">
+                    <span>Perigo</span>
+                    <span>50%</span>
+                </div>
+            </div>
+            <div class="container_card_all_maquina">
+                <div class="container_card_maquina">
+                    <div class="containerBox_maquina" id="maquinas_box"></div>
+                </div>
+            </div>
+            <div class="container_tools">
+                <div id="box_tool_edit" class="box_edit">
+                    <img draggable="false" src="../assets/imgs/edit.png" alt="Icon editar">
+                </div>
+                <div id="box_tool_remove" class="box_remove">
+                    <img draggable="false" src="../assets/imgs/excluir.png" alt="Icon excluir">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="areaGrafico">
+        <div class="container_area">
+            <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script>
+    var menu = document.getElementById("menu");
+    var menuOpen = document.getElementById("menuOpen");
+    var menuClose = document.getElementById("menuClose");
+    var imgClose = document.getElementById("imgClose");
+    var containerClose = document.getElementById("containerClose");
+    const containerMaquina = document.getElementById("maquinas_box");
+    var qtdMaquina = 15;
+
+    verifyQtd();
+
+    function verifyQtd() {
+        if (qtdMaquina == 0) {
+            containerMaquina.innerHTML = `<div class="box_imgEmpty"><img class="imgEmpty" src="../assets/imgs/empty.png"><span>Vazio</span></div>`;
+        }
+    }
+    var imgStatus;
+    var statusMaquina;
+
+    function createMaquina() {
+        for (let index = 0; index < qtdMaquina; index++) {
+            verifyStatus();
+            containerMaquina.innerHTML += `
+            <div class="box_maquina" id="box" onclick="abrirMaquina()">
+                <div class="box_nome_maquina_status">
+                   <h3>Máquina do grau</h3>
+                   <img src=${imgStatus} alt="Status">
+                </div>
+                 <div class="box_dado">
+                   <span>Uso de RAM</span>
+                 </div>
+                <div class="box_dado">
+                   <span>Espaço de disco</span>
+                </div>
+                <div class="box_dado">
+                   <span>Uso de rede</span>
+                </div>
+            </div>`;
+        }
+
+        $(function () {
+            var $maquinaBox = $("#maquinas_box"),
+                $remove = $("#box_tool_remove"),
+                $edit = $("#box_tool_edit");
+
+            $(".box_maquina", $maquinaBox).draggable({
+                revert: "invalid",
+                containment: "document",
+                helper: "clone",
+                start: function (event, ui) {
+                    $(this).addClass("helperMaquina");
+                    $remove.addClass("dropRemove");
+                    $edit.addClass("dropEdit");
+                },
+                stop: function (event, ui) {
+                    $(this).removeClass("helperMaquina");
+                    $remove.removeClass("dropRemove");
+                    $edit.removeClass("dropEdit");
+                },
+                cursor: "move",
+            });
+
+            $remove.droppable({
+                accept: ".box_maquina",
+                drop: function (event, ui) {
+
+                    Swal.fire({
+                        title: 'Aviso',
+                        text: 'Você deseja excluir essa máquina?',
+                        icon: 'warning',
+                        confirmButtonText: 'Confirmar',
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            $(ui.helper).remove();
+                            $(ui.draggable).remove();
+                            qtdMaquina--;
+                            verifyQtd();
+
+                            Swal.fire(
+                                'Sucesso!',
+                                'A máquina foi deletada.',
+                                'success'
+                            )
+                        }
+                    })
+                }
+            });
+
+            $edit.droppable({
+                accept: ".box_maquina",
+                classes: {
+                    "ui-droppable-active": "ui-state-highlight"
+                },
+                drop: async function (event, ui) {
+                    const { value: formValues } = await Swal.fire({
+                        title: 'Edição de máquina',
+                        confirmButtonText: 'Editar',
+                        html:
+                            '<div class="all_edit">' +
+                            '<span class="label_editMaquina">Armazenamento</span>' +
+                            '<input id="swal-input1" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Ram</span>' +
+                            '<input id="swal-input2" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Status</span>' +
+                            '<input id="swal-input3" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Última manutenção</span>' +
+                            '<input id="swal-input4" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Descrição</span>' +
+                            '<input id="swal-input5" class="swal2-input" required><br>' +
+                            '</div>',
+                        focusConfirm: false,
+                        preConfirm: () => {
+                            return [
+                                document.getElementById('swal-input1').value,
+                                document.getElementById('swal-input2').value,
+                                document.getElementById('swal-input3').value,
+                                document.getElementById('swal-input4').value,
+                                document.getElementById('swal-input5').value
+                            ]
+                        }
+                    })
+
+                    if (formValues) {
+                        Swal.fire(JSON.stringify(formValues))
+                    }
+                }
+            })
+        })
+    }
+
+    var active = false;
+
+    const ctx = document.getElementById('myChart');
+    const ctx2 = document.getElementById('myChart2');
+    const ctx3 = document.getElementById('myChart3');
+
+    function abrirMaquina() {
+        alert("Teste");
+    }
+
+    function verifyStatus() {
+        if (statusMaquina < 0.5) {
+            imgStatus = "./assets/imgs/correto.png";
+        } else if (statusMaquina > 0.5 && statusMaquina < 0.7) {
+            imgStatus = "./assets/imgs/aviso.png";
+        } else if (statusMaquina > 0.7) {
+            imgStatus = "./assets/imgs/perigo.png";
+        } else {
+            imgStatus = "./assets/imgs/question.png";
+        }
+    }
+
+    function percentGrafico() {
+        var perigo = 0.95;
+        var aviso = 0.8;
+        var ok = 0.5;
+
+        var percent1 = 0.4;
+        var percent2 = 0.8;
+        var percent3 = 0.96;
+
+        var boxAlert1 = document.getElementById("box_alert_grafico1")
+        var boxAlert2 = document.getElementById("box_alert_grafico2")
+        var boxAlert3 = document.getElementById("box_alert_grafico3")
+
+        if (percent1 >= perigo) {
+            boxAlert1.classList.toggle("alertPerigo");
+        } else if (percent1 >= aviso) {
+            boxAlert1.classList.toggle("alertAviso");
+        } else {
+            boxAlert1.classList.toggle("alertOk");
+        }
+
+        if (percent2 >= perigo) {
+            boxAlert2.classList.toggle("alertPerigo");
+        } else if (percent2 >= aviso) {
+            boxAlert2.classList.toggle("alertAviso");
+        } else {
+            boxAlert2.classList.toggle("alertOk");
+        }
+
+        if (percent3 >= perigo) {
+            boxAlert3.classList.toggle("alertPerigo");
+        } else if (percent3 >= aviso) {
+            boxAlert3.classList.toggle("alertAviso");
+        } else {
+            boxAlert3.classList.toggle("alertOk");
+        }
+    }
+
+    percentGrafico();
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+            datasets: [{
+                label: 'Computadores precisando manutenção',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['Ativo', 'Inativo'],
+            datasets: [{
+                label: 'Quantidade de computadores',
+                data: [12, 19],
+                borderWidth: 1
+            }]
+        },
+    });
+
+    new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            datasets: [{
+                label: 'Uso dos computadores',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+</script>
+
+</html>
