@@ -11,6 +11,118 @@ header {
     background-color: white;
 }
 
+.barra_header {
+    height: 10px;
+    background-color: #6F0395;
+    border: none;
+}
+
+.container_nav_menu {
+    width: 70px;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #8B04BB;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container_nav_menu a {
+    text-decoration: none;
+    color: white;
+}
+
+.boxClose {
+    width: 30vw;
+    display: none;
+}
+
+.boxOpen {
+    width: 5vw;
+    display: block;
+}
+
+.box_imgMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box_nav {
+    width: 30vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.box_nav a {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    padding: 10px;
+}
+
+.box_nav a:after {
+    position: absolute;
+    bottom: 15%;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 10%;
+    background-color: white;
+    border-radius: 10px;
+    content: "";
+    border-bottom: 1px solid #222;
+    transform: scale(0);
+    transition: transform .3s cubic-bezier(0.11, 0.7, 0, 1);
+}
+
+.container_imgClose {
+    display: none;
+}
+
+.closeHidden {
+    display: block;
+}
+
+.box_imgClose {
+    width: 43px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.menu_move_open {
+    width: 600px;
+    cursor: default;
+    transition: all 0.3s;
+}
+
+.menu_move_close {
+    width: 75px;
+    transition: all 0.3s;
+}
+
+.menuClose {
+    display: block;
+    transition: all 0.3s;
+}
+
+.menuOpen {
+    display: none;
+    transition: all 0.3s;
+}
+
 body {
     background-color: #F2F2F2;
     font-family: 'Nova Flat', cursive;

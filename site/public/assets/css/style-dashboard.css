@@ -121,13 +121,51 @@
     width: 22vw;
     height: 40vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: #F2F2F2;
     border-radius: 10px;
 }
 
-.chart {
+.box_tituloAlert, .container_alert_kpi {
+    width: 20vw;
+    height: 10vh;
+    display: flex;
+    align-items: center; 
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 1%;
+}
+
+.box_tituloAlert {
+    justify-content: space-between;
+}
+
+.box_alert {
+    width: 6vw;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    
+    border-radius: 10px;
+}
+
+.alertPerigo {
+    background-color: #FFBBBB;
+}
+
+.alertAviso {
+    background-color: #F6FFC0;
+}
+
+.alertOk {
+    background-color: #C5FFBC;
+}
+
+.chart, .chart3 {
     width: 100%;
     height: 100%;
     display: flex;
@@ -135,28 +173,70 @@
     padding: 20px;
 }
 
+.chart2 {
+    width: 58%;
+    height: 58%;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.container_alert_kpi {
+    justify-content: space-around;
+    border: dotted 3px;
+}
+
+.box_kpi {
+    width: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .container_maquina {
     width: 80%;
-    height: 700px;
+    height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
-    padding: 2%;
-    margin-top: 5%;
+    margin-top: 1%;
 }
 
-.container_all_maquinaTest::-webkit-scrollbar {
+.container_kpi_maquina {
+    width: 65vw;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    align-self: center;
+    background-color: rgba(85, 85, 85, 0.3);
+    margin: 1%;
+    border-radius: 10px;
+}
+
+.box_kpi_maquina {
+    width: 15vw;
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.container_card_all_maquina::-webkit-scrollbar {
     width: 0.8vw;
 }
 
-.container_all_maquinaTest::-webkit-scrollbar-thumb {
+.container_card_all_maquina::-webkit-scrollbar-thumb {
     background-color: #BC4CE4;
     border-radius: 10px;
 }
 
-.container_all_maquinaTest {
+.container_card_all_maquina {
     width: 66vw;
     display: flex;
     align-self: center;
@@ -165,13 +245,13 @@
     overflow-x: hidden;
 }
 
-.container_all_maquina {
-    width: 92%;
-    /* background-color: rgba(85, 85, 85, 0.3); */
+.container_card_maquina {
+    width: 90%;
+    margin-top: 2%;
 }
 
 .containerBox_maquina {
-    width: 65vw;
+    width: 60vw;
     height: 428px;
     display: flex;
     align-self: center;
@@ -191,8 +271,18 @@
     cursor: pointer;
 }
 
+.box_nome_maquina_status {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .box_maquina h3 {
+    font-size: 16px;
     align-self: center;
+}
+
+.box_maquina img {
+    width: 25px;
 }
 
 .box_maquina h3,
@@ -206,7 +296,7 @@ span {
     display: flex;
     align-self: center;
     align-items: center;
-        padding-left: 10px;
+    padding-left: 10px;
     border-radius: 10px;
 }
 
@@ -232,7 +322,7 @@ span {
 
 .box_edit,
 .box_remove {
-    height: 12vh;
+    height: 11vh;
     background-color: rgba(85, 85, 85, 0.3);
     border-radius: 10px;
 }
@@ -255,7 +345,7 @@ span {
 
 .areaGrafico {
     width: 100%;
-    height: 153vh;
+    height: 154.5vh;
     position: absolute;
     top: 0;
     z-index: -1;

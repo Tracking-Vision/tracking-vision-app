@@ -1,84 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tracking Vision - Cadastro Maquina</title>
-    <link rel="stylesheet" href="../assets/css/style-cadastroM.css" />
-    <link rel="icon" href="../assets/imgs/Logo T-Vision.png">
-  </head>
-  <body>
-    <header>
-      <hr class="barra_login">
-      <div class="container_header">
-          <div class="box_header">
-              <a href="index.html">
-                <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
-              </a>
-              <div id="nav_open" class="container_nav" style="display: none;">
-                  <nav class="box_nav">
-                      <a href="">Dashboard</a>
-                      <a href="cadastroFuncionario.html">Cadastro Funcionário</a>
-                      <a onclick="limparSessao()">Logout</a>
-                      <div class="box_btnClose">
-                        <img src="../assets/imgs/close.png" alt="img_close" onclick="closeNav()">
-                      </div>
-                  </nav>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracking Vision - Cadastro Maquina</title>
+  <link rel="stylesheet" href="../assets/css/style-cadastroM.css" />
+  <link rel="icon" href="../assets/imgs/Logo T-Vision.png">
+  <script src="../js/funcoes.js"></script>
+</head>
+
+<body>
+  <header>
+    <hr class="barra_header">
+    <div class="container_header">
+      <div class="box_header">
+        <a href="#home">
+          <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
+        </a>
+        <div id="menu" class="container_nav_menu">
+          <nav id="menuClose" class="boxClose">
+            <div class="box_nav">
+              <a href="../index.html" id="cadastroFunc">Dashboard</a>
+              <a href="cadastroMaquina.html" id="cadastroMaq">Cadastro máquina</a>
+              <a onclick="limparSessao()">Sair</a>
+              <div id="containerClose" class="container_imgClose">
+                <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
+                  <img src="../assets/imgs/close.png" alt="img_close">
+                </div>
               </div>
-              <div id="nav_close" class="container_nav2" onclick="openNav()">
-                <nav class="box_nav2">
-                  <img src="../assets/imgs/hamburger (1) 1.png" alt="img_hamburger">
-                </nav>
-              </div>
-          </div>
-      </div>
-    </header>
-    <section>
-      <div class="decoration">
-        <div class="box_cadastro">
-            <div class="scroll">
-                <h1>Cadastro</h1>
-                <div class="inputs">
-                    <input type="text" placeholder="Marca">
-                    <select id="memoria">
-                      <option value="">HD/SSD</option>
-                      <option value="">HD</option>
-                      <option value="">SSD</option>
-                    </select>
-                </div>
-                <div class="inputs">
-                  <input type="text" placeholder="Modelo">
-                  <input type="text" placeholder="Armazenamento">
-                </div>
-                <div class="inputs">
-                  <input type="text" placeholder="Processador">
-                  <input type="text" placeholder="RAM">
-                </div>
-                <div class="inputs">
-                  <select id="status">
-                      <option value="">Status</option>
-                  </select>
-                  <input type="text" placeholder="Data de aquisição">
-                </div>
-                <div class="textarea">
-                    <textarea id="" cols="30" rows="10" placeholder="Descrição"></textarea>
-                </div>
             </div>
-          <button>Cadastrar</button>
+          </nav>
+          <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
+            <div class="box_imgMenu">
+              <img src="../assets/imgs/menu.png" alt="img_hamburger">
+            </div>
+          </div>
         </div>
       </div>
-      <img src="../assets/imgs/cadastroM.png" alt="img_cadastro">
-    </section>
-  </body>
+    </div>
+  </header>
+  <section>
+    <div class="decoration">
+      <div class="box_cadastro">
+        <div class="scroll">
+          <h1>Cadastro</h1>
+          <div class="inputs">
+            <input type="text" placeholder="Marca">
+            <select id="memoria">
+              <option value="">HD/SSD</option>
+              <option value="">HD</option>
+              <option value="">SSD</option>
+            </select>
+          </div>
+          <div class="inputs">
+            <input type="text" placeholder="Modelo">
+            <input type="text" placeholder="Armazenamento">
+          </div>
+          <div class="inputs">
+            <input type="text" placeholder="Processador">
+            <input type="text" placeholder="RAM">
+          </div>
+          <div class="inputs">
+            <select id="status">
+              <option value="">Status</option>
+            </select>
+            <input type="text" placeholder="Data de aquisição">
+          </div>
+          <div class="textarea">
+            <textarea id="" cols="30" rows="10" placeholder="Descrição"></textarea>
+          </div>
+        </div>
+        <button>Cadastrar</button>
+      </div>
+    </div>
+    <img src="../assets/imgs/cadastroM.png" alt="img_cadastro">
+  </section>
+</body>
+
 </html>
 <script>
-      function openNav(){
-        document.getElementById("nav_open").style.display = "block"
-        document.getElementById("nav_close").style.display = "none"
-      }
-      function closeNav(){
-        document.getElementById("nav_close").style.display = "block"
-        document.getElementById("nav_open").style.display = "none"
-      }
+  function openNav() {
+    document.getElementById("nav_open").style.display = "block"
+    document.getElementById("nav_close").style.display = "none"
+  }
+  function closeNav() {
+    document.getElementById("nav_close").style.display = "block"
+    document.getElementById("nav_open").style.display = "none"
+  }
 </script>
