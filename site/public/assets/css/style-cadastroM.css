@@ -60,11 +60,6 @@ body {
     cursor: pointer;
 }
 
-.container_nav_menu a {
-    text-decoration: none;
-    color: white;
-}
-
 .boxClose {
     width: 30vw;
     display: none;
@@ -97,7 +92,7 @@ body {
     text-decoration: none;
     font-size: 20px;
     color: white;
-    padding: 5px;
+    padding: 10px;
 }
 
 .box_nav a:after {
@@ -113,6 +108,11 @@ body {
     border-bottom: 1px solid #222;
     transform: scale(0);
     transition: transform .3s cubic-bezier(0.11, 0.7, 0, 1);
+}
+
+.box_nav a:hover:after {
+    transform: scale(1);
+    border: none;
 }
 
 .container_imgClose {

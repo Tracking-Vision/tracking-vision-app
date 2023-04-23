@@ -1,64 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tracking Vision - Login</title>
 
-    <link rel="stylesheet" href="./assets/css/style-login.css" />
-    <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
-    <script src="js/funcoes.js"></script>
-  </head>
-  <body>
-    <header>
-        <hr class="barra_header">
-        <div class="container_header">
-            <div class="box_header">
-                <a href="#home">
-                    <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
-                </a>
-                <div id="menu" class="container_nav_menu">
-                    <nav id="menuClose" class="boxClose">
-                        <div class="box_nav">
-                            <a href="dashboard/cadastroFuncionario.html" id="cadastroFunc">Cadastro funcionário</a>
-                            <a href="dashboard/cadastroMaquina.html" id="cadastroMaq">Cadastro máquina</a>
-                            <a onclick="limparSessao()">Sair</a>
-                            <div id="containerClose" class="container_imgClose">
-                                <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
-                                    <img src="../assets/imgs/close.png" alt="img_close">
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                    <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
-                        <div class="box_imgMenu">
-                            <img src="../assets/imgs/menu.png" alt="img_hamburger">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <section>
-      <div class="decoration">
-        <div class="box_login">
-          <h1>Login</h1>
-          <input type="email" placeholder="E-mail" id="emailEmpresa" />
-          <input type="password" placeholder="Senha" id="senha" />
-          <div class="spans">
-            <span
-              >Não possui uma conta?
-              <a href="cadastro.html">Cadastra-se</a></span
-            >
-            <span><a href="">Esqueci a senha</a></span>
-          </div>
-          <button onclick="entrar()">Entrar</button>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracking Vision - Login</title>
+
+  <link rel="stylesheet" href="./assets/css/style-login.css" />
+  <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
+  <script src="js/funcoes.js"></script>
+</head>
+
+<body>
+  <header>
+    <hr class="barra_header">
+    <div class="container_header">
+      <div class="box_header">
+        <a href="#home">
+          <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
+        </a>
       </div>
-      <img src="./assets/imgs/img_login.png" alt="img_login" />
-    </section>
-  </body>
+    </div>
+  </header>
+  <section>
+    <div class="decoration">
+      <div class="box_login">
+        <h1>Login</h1>
+        <input type="email" placeholder="E-mail" id="emailEmpresa" />
+        <input type="password" placeholder="Senha" id="senha" />
+        <div class="spans">
+          <span>Não possui uma conta?
+            <a href="cadastro.html">Cadastra-se</a></span>
+          <span><a href="">Esqueci a senha</a></span>
+        </div>
+        <button onclick="entrar()">Entrar</button>
+      </div>
+    </div>
+    <img src="./assets/imgs/img_login.png" alt="img_login" />
+  </section>
+</body>
+
 </html>
 <script src="./js/verificacoesLogin.js"></script>
 <script>

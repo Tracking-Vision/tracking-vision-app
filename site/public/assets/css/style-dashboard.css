@@ -128,28 +128,12 @@
     border-radius: 10px;
 }
 
-.box_tituloAlert, .container_alert_kpi {
-    width: 20vw;
-    height: 10vh;
-    display: flex;
-    align-items: center; 
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 1%;
-}
-
-.box_tituloAlert {
-    justify-content: space-between;
-}
-
 .box_alert {
     width: 6vw;
     height: 5vh;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    
     border-radius: 10px;
 }
 
@@ -163,6 +147,53 @@
 
 .alertOk {
     background-color: #C5FFBC;
+}
+
+.box_tituloAlert {
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.box_tituloAlert, .container_alert_kpi {
+    width: 20vw;
+    height: 8vh;
+    display: flex;
+    align-items: center; 
+    background-color: white;
+    border-radius: 10px;
+    margin: 1%;
+}
+
+.container_alert_kpi {
+    flex-direction: column;
+}
+
+.box_titulo_metrica {
+    width: 100%;
+    height: 2.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #8a04bb2f;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.box_titulo_metrica span {
+    text-align: center;
+}
+
+.box_kpi {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.box_kpi_icon_percent {
+    width: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .chart, .chart3 {
@@ -181,18 +212,6 @@
     padding: 5px;
 }
 
-.container_alert_kpi {
-    justify-content: space-around;
-    border: dotted 3px;
-}
-
-.box_kpi {
-    width: 5vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
 .container_maquina {
     width: 80%;
     height: 80%;
@@ -206,14 +225,35 @@
 
 .container_kpi_maquina {
     width: 65vw;
-    height: 8vh;
+    height: 12vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
     align-self: center;
-    background-color: rgba(85, 85, 85, 0.3);
+    background-color: rgba(188, 76, 228, 0.25);
     margin: 1%;
     border-radius: 10px;
+}
+
+.box_metrica_maquina {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(188, 76, 228, 0.25);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.box_metrica_maquina span {
+    font-size: 18px;
+    color: white;
+}
+
+.box_all_kpi_maquina {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
 .box_kpi_maquina {
@@ -225,6 +265,7 @@
     background-color: white;
     border-radius: 10px;
     padding: 10px;
+    margin: 7px;
 }
 
 .container_card_all_maquina::-webkit-scrollbar {
