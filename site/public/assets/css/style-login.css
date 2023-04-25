@@ -34,7 +34,7 @@ header {
 }
 
 .boxClose {
-    width: 10vw;
+    width: 30vw;
     display: none;
 }
 
@@ -50,7 +50,6 @@ header {
 }
 
 .box_nav {
-    width: 10vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -83,6 +82,11 @@ header {
     transition: transform .3s cubic-bezier(0.11, 0.7, 0, 1);
 }
 
+.box_nav a:hover:after {
+    transform: scale(1);
+    border: none;
+}
+
 .container_imgClose {
     display: none;
 }
@@ -103,7 +107,7 @@ header {
 }
 
 .menu_move_open {
-    width: 200px;
+    width: 325px;
     cursor: default;
     transition: all 0.3s;
 }
@@ -133,7 +137,7 @@ body {
     justify-content: center;
 }
 
-.barra_login {
+.barra_cadastro {
     height: 10px;
     background-color: #6F0395;
     border: none;
@@ -155,30 +159,6 @@ body {
 
 .container_nav {
     width: 250px;
-}
-
-.container_nav2{
-    width: 50px;
-}
-
-.box_nav {
-    height: 50px;
-    padding: 0.5%;
-    border-radius: 10px;
-    background-color: #8B04BB;
-    display: flex;
-    justify-content: space-between;
-}
-
-.box_nav2 {
-    border-radius: 10px;
-    background-color: #8B04BB;
-    display: flex;
-    cursor: pointer;
-}
-
-.box_nav2 img{
-    width: 50px;
 }
 
 .box_nav a {
@@ -364,15 +344,6 @@ section img {
     .container_nav2 img {
         width: 30px;
         height: 30px;
-    }
-    
-    .box_nav {
-        height: 30px;
-        padding: 0.1%;
-        border-radius: 5px;
-        background-color: #8B04BB;
-        display: flex;
-        justify-content: space-between;
     }
     
     .box_nav2 {

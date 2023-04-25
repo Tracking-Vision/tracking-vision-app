@@ -50,7 +50,7 @@ header {
 }
 
 .box_nav {
-    width: 30vw;
+    width: 15vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -108,7 +108,7 @@ header {
 }
 
 .menu_move_open {
-    width: 600px;
+    width: 300px;
     cursor: default;
     transition: all 0.3s;
 }
@@ -160,30 +160,6 @@ body {
 
 .container_nav {
     width: 250px;
-}
-
-.container_nav2{
-    width: 50px;
-}
-
-.box_nav {
-    height: 50px;
-    padding: 0.5%;
-    border-radius: 10px;
-    background-color: #8B04BB;
-    display: flex;
-    justify-content: space-between;
-}
-
-.box_nav2 {
-    border-radius: 10px;
-    background-color: #8B04BB;
-    display: flex;
-    cursor: pointer;
-}
-
-.box_nav2 img{
-    width: 50px;
 }
 
 .box_nav a {
@@ -376,9 +352,15 @@ section img {
         width: 30px;
         height: 30px;
     }
+
+    .menu_move_open {
+        width: 190px;
+        cursor: default;
+        transition: all 0.3s;
+    }
     
     .box_nav {
-        height: 30px;
+        height: 20px;
         padding: 0.1%;
         border-radius: 5px;
         background-color: #8B04BB;

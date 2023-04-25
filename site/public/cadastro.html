@@ -1,138 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tracking Vision - Cadastro</title>
-    <script src="./js/funcoes.js"></script>
-    
-    <link rel="stylesheet" href="./assets/css/style-cadastro.css" />
-    <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <hr class="barra_header">
-      <div class="container_header">
-          <div class="box_header">
-              <a href="#home">
-                  <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
-              </a>
-              <div id="menu" class="container_nav_menu">
-                  <nav id="menuClose" class="boxClose">
-                      <div class="box_nav">
-                          <a href="dashboard/cadastroFuncionario.html" id="cadastroFunc">Cadastro funcionário</a>
-                          <a href="dashboard/cadastroJanela.html" id="cadastroMaq">Cadastro janela</a>
-                          <a onclick="limparSessao()">Sair</a>
-                          <div id="containerClose" class="container_imgClose">
-                              <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
-                                  <img src="../assets/imgs/close.png" alt="img_close">
-                              </div>
-                          </div>
-                      </div>
-                  </nav>
-                  <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
-                      <div class="box_imgMenu">
-                          <img src="../assets/imgs/menu.png" alt="img_hamburger">
-                      </div>
-                  </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracking Vision - Cadastro</title>
+  <script src="./js/funcoes.js"></script>
+
+  <link rel="stylesheet" href="./assets/css/style-cadastro.css" />
+  <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <hr class="barra_header">
+    <div class="container_header">
+      <div class="box_header">
+        <a href="index.html">
+          <img class="logo_header" src="./assets/imgs/Logo T-Vision.png" alt="Logo">
+        </a>
+        <div id="menu" class="container_nav_menu">
+          <nav id="menuClose" class="boxClose">
+            <div class="box_nav">
+              <a href="index.html" id="cadastroFunc">Home</a>
+              <a href="login.html" id="cadastroMaq">Login</a>
+              <div id="containerClose" class="container_imgClose">
+                <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
+                  <img src="./assets/imgs/close.png" alt="img_close">
+                </div>
               </div>
+            </div>
+          </nav>
+          <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
+            <div class="box_imgMenu">
+              <img src="./assets/imgs/menu.png" alt="img_hamburger">
+            </div>
           </div>
-      </div>
-  </header>
-    <section>
-      <img src="./assets/imgs/img_cadastro.png" alt="img_cadastro" />
-      <div class="decoration">
-        <div class="box_cadastro">
-          <h1>Cadastro</h1>
-          <div class="inputs">
-            <input type="text" placeholder="Nome empresa" id="nomeEmpresa" />
-            <input type="email" placeholder="E-mail" id="emailEmpresa" />
-          </div>
-          <div class="inputs">
-            <input type="text" placeholder="CNPJ" id="cnpjEmpresa" />
-            <input type="text" placeholder="Endereço" id="enderecoEmpresa" />
-          </div>
-          <div class="inputs">
-            <input type="password" placeholder="Senha" id="senha" />
-            <input
-              type="password"
-              placeholder="Confirme a senha"
-              id="confirmaSenha"
-            />
-          </div>
-          <div class="spans">
-            <span>Já possui uma conta? <a href="login.html">Entre</a></span>
-          </div>
-          <button onclick="cadastrar()">Cadastrar</button>
         </div>
       </div>
-    </section>
-  </body>
+    </div>
+  </header>
+  <section>
+    <img src="./assets/imgs/img_cadastro.png" alt="img_cadastro" />
+    <div class="decoration">
+      <div class="box_cadastro">
+        <h1>Cadastro</h1>
+        <div class="inputs">
+          <input type="text" placeholder="Nome empresa" id="nomeEmpresa" />
+          <input type="email" placeholder="E-mail" id="emailEmpresa" />
+        </div>
+        <div class="inputs">
+          <input type="text" placeholder="CNPJ" id="cnpjEmpresa" />
+          <input type="text" placeholder="Endereço" id="enderecoEmpresa" />
+        </div>
+        <div class="inputs">
+          <input type="password" placeholder="Senha" id="senha" />
+          <input type="password" placeholder="Confirme a senha" id="confirmaSenha" />
+        </div>
+        <div class="spans">
+          <span>Já possui uma conta? <a href="login.html">Entre</a></span>
+        </div>
+        <button onclick="cadastrar()">Cadastrar</button>
+      </div>
+    </div>
+  </section>
+</body>
+
 </html>
 <script src="./js/verificacoesCadastro.js"></script>
 <script>
-    function cadastrar() {
-        //aguardar();
-        var validacoes = validarCadastro();
-        console.log(validacoes);
-        if(validacoes) {
-          alert("Os campos não foram preenchidos corretamente!");
-        }else {
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
-        var nomeVar = nomeEmpresa.value;
-        var emailVar = emailEmpresa.value;
-        var senhaVar = senha.value;
-        var confirmacaoSenhaVar = confirmaSenha.value;
-        var cnpjVar = cnpjEmpresa.value;
-        var enderecoVar = enderecoEmpresa.value;
+  function cadastrar() {
+    //aguardar();
+    var validacoes = validarCadastro();
+    console.log(validacoes);
+    if (validacoes) {
+      alert("Os campos não foram preenchidos corretamente!");
+    } else {
+      //Recupere o valor da nova input pelo nome do id
+      // Agora vá para o método fetch logo abaixo
+      var nomeVar = nomeEmpresa.value;
+      var emailVar = emailEmpresa.value;
+      var senhaVar = senha.value;
+      var confirmacaoSenhaVar = confirmaSenha.value;
+      var cnpjVar = cnpjEmpresa.value;
+      var enderecoVar = enderecoEmpresa.value;
 
-        
 
-        // Enviando o valor da nova input
-        fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                confirmacaoSenhaServer: confirmacaoSenhaVar,
-                cnpjServer: cnpjVar,
-                enderecoServer: enderecoVar
-            })
-        }).then(function (resposta) {
 
-            console.log("resposta: ", resposta);
+      // Enviando o valor da nova input
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+          confirmacaoSenhaServer: confirmacaoSenhaVar,
+          cnpjServer: cnpjVar,
+          enderecoServer: enderecoVar
+        })
+      }).then(function (resposta) {
 
-            if (resposta.ok) {
-                //cardErro.style.display = "block";
+        console.log("resposta: ", resposta);
 
-              //  mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-              alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
-                setTimeout(() => {
-                    window.location = "login.html";
-                }, "2000")
+        if (resposta.ok) {
+          //cardErro.style.display = "block";
 
-                //limparFormulario();
-                //finalizarAguardar();
-            } else {
-                throw ("Houve um erro ao tentar realizar o cadastro!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            //finalizarAguardar();
-        });
+          //  mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000")
 
-        return false;
+          //limparFormulario();
+          //finalizarAguardar();
+        } else {
+          throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        //finalizarAguardar();
+      });
+
+      return false;
     }
   }
 
