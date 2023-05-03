@@ -92,14 +92,14 @@
 
 
       // Enviando o valor da nova input
-      fetch("/usuarios/cadastrar", {
+      fetch("/empresas/cadastrar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
           // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
+          // Agora vá para o arquivo routes/empresa.js
           nomeServer: nomeVar,
           emailServer: emailVar,
           senhaServer: senhaVar,
