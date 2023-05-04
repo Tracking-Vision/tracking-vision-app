@@ -15,7 +15,7 @@
       <div class="container_header">
           <div class="box_header">
               <a href="#home">
-                  <img class="logo_header" src="../assets/imgs/Logo T-Vision.png" alt="Logo">
+                  <img class="logo_header" src="assets/imgs/Logo T-Vision.png" alt="Logo">
               </a>
               <div id="menu" class="container_nav_menu">
                   <nav id="menuClose" class="boxClose">
@@ -45,20 +45,94 @@
         <div class="box_cadastro">
           <h1>Cadastro - Funcionário</h1>
           <div class="inputs">
-            <input type="text" placeholder="Nome funcionario">
-            <input type="email" placeholder="E-mail">
+            <input type="text" placeholder="Nome funcionario" id="nomeFuncionario">
+            <input type="email" placeholder="E-mail" id="emailFuncionario">
           </div>
           <div class="inputs">
-            <input type="text" placeholder="CPF">
-            <input type="text" placeholder="Cargo">
+            <input type="text" placeholder="CPF" id="cpfFuncionario">
+            <input type="text" placeholder="Cargo" id="cargoFuncionario">
           </div>
           <div class="inputs">
-            <input type="password" placeholder="Senha">
-            <input type="password" placeholder="Confirme a senha">
+            <input type="password" placeholder="Senha" id="senha">
+            <input type="password" placeholder="Confirme a senha" id="confirmaSenha">
           </div>
-          <button>Cadastrar</button>
+          <button onclick="cadastrar()">Cadastrar</button>
         </div>
       </div>
     </section>
   </body>
 </html>
+<script src="./js/verificacoesFuncionario.js"></script>
+<script>
+  function cadastrar() {
+    //aguardar();
+    var validacoes = validarCadastro();
+    console.log(validacoes);
+    if (validacoes) {
+      alert("Os campos não foram preenchidos corretamente!");
+    } else {
+      //Recupere o valor da nova input pelo nome do id
+      // Agora vá para o método fetch logo abaixo
+      var nomeVar = nomeFuncionario.value;
+      var emailVar = emailFuncionario.value;
+      var senhaVar = senha.value;
+      var confirmacaoSenhaVar = confirmaSenha.value;
+      var cpfVar = cpfFuncionario.value;
+      var cargoVar = cargoFuncionario.value;
+      var fkVar = sessionStorage.ID_USUARIO;
+
+
+
+      // Enviando o valor da nova input
+      fetch("/funcionarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/empresa.js
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+          confirmacaoSenhaServer: confirmacaoSenhaVar,
+          cpfServer: cpfVar,
+          cargoServer: cargoVar,
+          fkServer: fkVar
+
+        })
+      }).then(function (resposta) {
+
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          //cardErro.style.display = "block";
+
+          //  mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          alert("Cadastro realizado com sucesso!");
+          nomeFuncionario.value = "";
+          emailFuncionario.value = "";
+          cpfFuncionario.value = "";
+          cargoFuncionario.value = "";
+          senha.value = "";
+          confirmaSenha.value = "";
+
+          //limparFormulario();
+          //finalizarAguardar();
+        } else {
+          throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        //finalizarAguardar();
+      });
+
+      return false;
+    }
+  }
+
+    //function sumirMensagem() {
+      //  cardErro.style.display = "none"
+    //}
+
+</script>

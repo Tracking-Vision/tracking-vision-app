@@ -18,7 +18,10 @@ function entrar(email, senha) {
     senha
   );
   var instrucao = `
-        SELECT * FROM empresa WHERE emailEmpresa = '${email}' AND senha = '${senha}';
+      SELECT *
+      FROM empresa as e
+      LEFT JOIN funcionario as f ON e.idEmpresa = f.fkEmpresa
+      WHERE (e.emailEmpresa = '${email}' AND e.senha = '${senha}') OR (f.email = '${email}' AND f.senha = '${senha}');
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

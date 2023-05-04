@@ -10,7 +10,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var empresaRouter = require("./src/routes/empresas");
-// var funcionarioRouter = require("./src/routes/funcionarios")
+var funcionarioRouter = require("./src/routes/funcionarios")
 var medidasRouter = require("./src/routes/medidas");
 
 app.use(express.json());
@@ -21,7 +21,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/empresas", empresaRouter);
-// app.use("/funcionarios", funcionarioRouter)
+app.use("/funcionarios", funcionarioRouter)
 app.use("/medidas", medidasRouter)
 
 app.listen(PORTA, function () {
