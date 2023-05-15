@@ -1,364 +1,366 @@
 .container_nav_menu {
-    width: 70px;
-    height: 7vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #8B04BB;
-    border-radius: 10px;
-    cursor: pointer;
+  width: 70px;
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #8b04bb;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .container_nav_menu a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 .boxClose {
-    width: 30vw;
-    display: none;
+  width: 30vw;
+  display: none;
 }
 
 .boxOpen {
-    width: 5vw;
-    display: block;
+  width: 5vw;
+  display: block;
 }
 
 .box_imgMenu {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .box_nav {
-    width: 30vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: row;
+  width: 30vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
 }
 
 .box_nav a {
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    padding: 10px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  padding: 10px;
 }
 
 .box_nav a:after {
-    position: absolute;
-    bottom: 15%;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 10%;
-    background-color: white;
-    border-radius: 10px;
-    content: "";
-    border-bottom: 1px solid #222;
-    transform: scale(0);
-    transition: transform .3s cubic-bezier(0.11, 0.7, 0, 1);
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 10%;
+  background-color: white;
+  border-radius: 10px;
+  content: "";
+  border-bottom: 1px solid #222;
+  transform: scale(0);
+  transition: transform 0.3s cubic-bezier(0.11, 0.7, 0, 1);
 }
 
 .container_imgClose {
-    display: none;
+  display: none;
 }
 
 .closeHidden {
-    display: block;
+  display: block;
 }
 
 .box_imgClose {
-    width: 43px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border-radius: 20px;
-    cursor: pointer;
+  width: 43px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 .menu_move_open {
-    width: 600px;
-    cursor: default;
-    transition: all 0.3s;
+  width: 600px;
+  cursor: default;
+  transition: all 0.3s;
 }
 
 .menu_move_close {
-    width: 75px;
-    transition: all 0.3s;
+  width: 75px;
+  transition: all 0.3s;
 }
 
 .menuClose {
-    display: block;
-    transition: all 0.3s;
+  display: block;
+  transition: all 0.3s;
 }
 
 .menuOpen {
-    display: none;
-    transition: all 0.3s;
+  display: none;
+  transition: all 0.3s;
 }
 
 .container_grafico {
-    width: 80%;
-    height: 50vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    background-color: white;
-    margin-top: 10%;
-    border-radius: 10px;
-    box-shadow: 0px 4.01635px 25px rgba(0, 0, 0, 0.25);
+  width: 80%;
+  height: 50vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  margin-top: 10%;
+  border-radius: 10px;
+  box-shadow: 0px 4.01635px 25px rgba(0, 0, 0, 0.25);
 }
 
 .box_grafico {
-    width: 22vw;
-    height: 40vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #F2F2F2;
-    border-radius: 10px;
+  width: 22vw;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  border-radius: 10px;
 }
 
 .box_alert {
-    width: 6vw;
-    height: 5vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    border-radius: 10px;
+  width: 6vw;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 10px;
 }
 
 .alertPerigo {
-    background-color: #FFBBBB;
+  background-color: #ffbbbb;
 }
 
 .alertAviso {
-    background-color: #F6FFC0;
+  background-color: #f6ffc0;
 }
 
 .alertOk {
-    background-color: #C5FFBC;
+  background-color: #c5ffbc;
 }
 
 .box_tituloAlert {
-    justify-content: space-between;
-    padding: 5px;
+  justify-content: space-between;
+  padding: 5px;
 }
 
-.box_tituloAlert, .container_alert_kpi {
-    width: 20vw;
-    height: 8vh;
-    display: flex;
-    align-items: center; 
-    background-color: white;
-    border-radius: 10px;
-    margin: 1%;
+.box_tituloAlert,
+.container_alert_kpi {
+  width: 20vw;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  margin: 1%;
 }
 
 .container_alert_kpi {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .box_titulo_metrica {
-    width: 100%;
-    height: 2.5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #8a04bb2f;
-    border-radius: 10px 10px 0px 0px;
+  width: 100%;
+  height: 2.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #8a04bb2f;
+  border-radius: 10px 10px 0px 0px;
 }
 
 .box_titulo_metrica span {
-    text-align: center;
+  text-align: center;
 }
 
 .box_kpi {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 }
 
 .box_kpi_icon_percent {
-    width: 5vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  width: 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
-.chart, .chart3 {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 20px;
+.chart,
+.chart3 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
 }
 
 .chart2 {
-    width: 58%;
-    height: 58%;
-    display: flex;
-    align-items: center;
-    padding: 5px;
+  width: 58%;
+  height: 58%;
+  display: flex;
+  align-items: center;
+  padding: 5px;
 }
 
 .container_maquina {
-    width: 80%;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    margin-top: 1%;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  margin-top: 1%;
 }
 
 .container_kpi_maquina {
-    width: 65vw;
-    height: 12vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-self: center;
-    background-color: rgba(188, 76, 228, 0.25);
-    margin: 1%;
-    border-radius: 10px;
+  width: 65vw;
+  height: 12vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  background-color: rgba(188, 76, 228, 0.25);
+  margin: 1%;
+  border-radius: 10px;
 }
 
 .box_metrica_maquina {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(188, 76, 228, 0.25);
-    border-radius: 10px;
-    padding: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(188, 76, 228, 0.25);
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .box_metrica_maquina span {
-    font-size: 18px;
-    color: white;
+  font-size: 18px;
+  color: white;
 }
 
 .box_all_kpi_maquina {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .box_kpi_maquina {
-    width: 15vw;
-    height: 6vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 7px;
+  width: 15vw;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 7px;
 }
 
 .container_card_all_maquina::-webkit-scrollbar {
-    width: 0.8vw;
+  width: 0.8vw;
 }
 
 .container_card_all_maquina::-webkit-scrollbar-thumb {
-    background-color: #BC4CE4;
-    border-radius: 10px;
+  background-color: #bc4ce4;
+  border-radius: 10px;
 }
 
 .container_card_all_maquina {
-    width: 66vw;
-    display: flex;
-    align-self: center;
-    justify-content: center;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  width: 66vw;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .container_card_maquina {
-    width: 90%;
-    margin-top: 2%;
+  width: 90%;
+  margin-top: 2%;
 }
 
 .containerBox_maquina {
-    width: 60vw;
-    height: 428px;
-    display: flex;
-    align-self: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px;
+  width: 60vw;
+  height: 428px;
+  display: flex;
+  align-self: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .box_maquina {
-    width: 11vw;
-    height: 20vh;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 10px;
-    cursor: pointer;
+  width: 11vw;
+  height: 20vh;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .box_nome_maquina_status {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .box_maquina h3 {
-    font-size: 16px;
-    align-self: center;
+  font-size: 16px;
+  align-self: center;
 }
 
 .box_maquina img {
-    width: 25px;
+  width: 25px;
 }
 
 .box_maquina h3,
 span {
-    color: black;
+  color: black;
 }
 
 .box_dado {
-    width: 9vw;
-    height: 3vh;
-    display: flex;
-    align-self: center;
-    align-items: center;
-    padding-left: 10px;
-    border-radius: 10px;
+  width: 9vw;
+  height: 3vh;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  padding-left: 10px;
+  border-radius: 10px;
 }
 
 .box_dado:nth-child(2) {
-    background-color: #FFBBBB;
+  background-color: #ffbbbb;
 }
 
 .box_dado:nth-child(3) {
-    background-color: #F6FFC0;
+  background-color: #f6ffc0;
 }
 
 .box_dado:nth-child(4) {
-    background-color: #C5FFBC;
+  background-color: #c5ffbc;
 }
 
 .container_tools {
-    width: 98.8%;
-    height: 20vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  width: 98.8%;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .box_edit,
@@ -398,9 +400,9 @@ span {
 }
 
 .all_edit {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .label_editMaquina {
@@ -409,53 +411,53 @@ span {
 }
 
 .all_edit:first-child {
-    margin-top: 5%;
+  margin-top: 5%;
 }
 
 .helperMaquina {
-    background-color: #00000062;
-    border: dotted 3px white;
+  background-color: #00000062;
+  border: dotted 3px white;
 }
 
 .helperMaquina h3,
 .helperMaquina div {
-    display: none;
+  display: none;
 }
 
 .dropEdit {
-    background-color: #e8d73f83;
+  background-color: #e8d73f83;
 }
 
 .dropRemove {
-    background-color: #e83f3f85;
+  background-color: #e83f3f85;
 }
 
 .dropEdit::after {
-    content: "Editar";
-    color: white;
-    padding-left: 3%;
+  content: "Editar";
+  color: white;
+  padding-left: 3%;
 }
 
 .dropRemove::after {
-    content: "Remover";
-    color: white;
-    padding-left: 2%;
+  content: "Remover";
+  color: white;
+  padding-left: 2%;
 }
 
 .box_imgEmpty {
-    width: 92.5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(85, 85, 85, 0.3);
-    border-radius: 10px;
+  width: 92.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(85, 85, 85, 0.3);
+  border-radius: 10px;
 }
 
 .box_imgEmpty span {
-    font-size: 30px;
-    color: white;
-    margin-top: 20px;
+  font-size: 30px;
+  color: white;
+  margin-top: 20px;
 }
 
 .imgEmpty {

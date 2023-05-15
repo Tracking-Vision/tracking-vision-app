@@ -1,1238 +1,1222 @@
-@import url('https://fonts.googleapis.com/css2?family=Nova+Flat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nova+Flat&display=swap");
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
-    width: 15px;
+  width: 15px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 1px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 1px;
 }
 
 header {
-    width: 100%;
-    position: fixed;
-    background-color: white;
-    z-index: 5;
-    transition: all 0.3s;
+  width: 100%;
+  position: fixed;
+  background-color: white;
+  z-index: 5;
+  transition: all 0.3s;
 }
 
 .ativo {
-    background-color: #f7f0fd;
-    transition: all 0.3s;
+  background-color: #f7f0fd;
+  transition: all 0.3s;
 }
 
 body {
-    background-color: #F2F2F2;
-    font-family: 'Nova Flat', cursive;
+  background-color: #f2f2f2;
+  font-family: "Nova Flat", cursive;
 }
 
 .container_header {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .barra_header {
-    height: 10px;
-    background-color: #6F0395;
-    border: none;
+  height: 10px;
+  background-color: #6f0395;
+  border: none;
 }
 
 .box_header {
-    width: 80%;
-    height: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 80%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo_header {
-    width: 90px;
-    height: 80px;
-    cursor: pointer;
+  width: 90px;
+  height: 80px;
+  cursor: pointer;
 }
 
 .container_nav {
-    width: 45%;
+  width: 45%;
 }
 
 .box_nav {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .box_nav a {
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 20px;
-    color: black;
-    padding: 10px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+  padding: 10px;
 }
 
 .box_nav a:after {
-    position: absolute;
-    bottom: 15%;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 10%;
-    background-color: #BC4CE4;
-    border-radius: 10px;
-    content: "";
-    border-bottom: 1px solid #222;
-    transform: scale(0);
-    transition: transform .3s cubic-bezier(0.11, 0.7, 0, 1);
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 10%;
+  background-color: #bc4ce4;
+  border-radius: 10px;
+  content: "";
+  border-bottom: 1px solid #222;
+  transform: scale(0);
+  transition: transform 0.3s cubic-bezier(0.11, 0.7, 0, 1);
 }
 
 .box_nav a:hover:after {
-    transform: scale(1);
-    border: none;
+  transform: scale(1);
+  border: none;
 }
 
 .box_btnCadastro {
-    width: 25%;
-    height: 5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #8B04BB;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s;
+  width: 25%;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #8b04bb;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .box_btnCadastro:hover {
-    transition: all 0.3s;
-    background-color: #BC4CE4;
+  transition: all 0.3s;
+  background-color: #bc4ce4;
 }
 
-.box_btnCadastro span a{
-    color: white;
-    padding: 10px;
+.box_btnCadastro span a {
+  color: white;
+  padding: 10px;
 }
 
 section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ========= START Carousel ========= */
 
 .container_carousel {
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 8%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8%;
 }
 
 .owl-dots {
-    position: absolute;
-    left: 47%;
-    top: 90%;
-    text-align: center;
-    padding-bottom: 15px;
+  position: absolute;
+  left: 47%;
+  top: 90%;
+  text-align: center;
+  padding-bottom: 15px;
 }
 
 .owl-carousel button.owl-dot {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    display: inline-block;
-    border: 2px solid white !important;
-    background-color: #f2f2f2;
-    margin: 0 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid white !important;
+  background-color: #f2f2f2;
+  margin: 0 3px;
 }
 
 .owl-dots button.owl-dot.active {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 /* ========= END Carousel ========= */
 
-
 /* ==== START Banner 1 ==== */
 
 .box_banner1 {
-    width: 70vw;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    top: 0%;
-    margin-left: 5%;
+  width: 70vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 0%;
+  margin-left: 5%;
 }
 
 .titulo_banner {
-    font-size: 34px;
+  font-size: 34px;
 }
 
 .box_banner1 p,
 span {
-    color: white;
+  color: white;
 }
 
 .box_banner1 p {
-    width: 35%;
-    margin-top: 1.5%;
-    font-size: 20px;
+  width: 35%;
+  margin-top: 1.5%;
+  font-size: 20px;
 }
 
 /* ==== END Banner 1 ==== */
 
-
 /* ==== START Banner 2 ==== */
 
 .box_banner2 {
-    width: 70vw;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    top: 0%;
-    left: 67%;
+  width: 70vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 0%;
+  left: 67%;
 }
 
 .titulo_banner {
-    font-size: 34px;
+  font-size: 34px;
 }
 
 .box_banner2 p,
 span {
-    color: white;
+  color: white;
 }
 
 .box_banner2 p {
-    width: 35%;
-    margin-top: 1.5%;
-    font-size: 20px;
+  width: 35%;
+  margin-top: 1.5%;
+  font-size: 20px;
 }
 
 /* ==== END Banner 2 ==== */
 
-
 /* ==== START Banner 3 ==== */
 
 .box_banner3 {
-    width: 80vw;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0%;
+  width: 80vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0%;
 }
 
 .titulo_banner {
-    font-size: 34px;
+  font-size: 34px;
 }
 
 .box_banner3 p,
 span {
-    color: white;
+  color: white;
 }
 
 .box_banner3 p {
-    width: 30%;
-    margin-top: 1.5%;
-    font-size: 20px;
+  width: 30%;
+  margin-top: 1.5%;
+  font-size: 20px;
 }
 
 /* ==== END Banner 3 ==== */
 
-
 /* ==== START Banner 4 ==== */
 
 .box_banner4 {
-    width: 70vw;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    top: 0%;
-    left: 65%;
+  width: 70vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 0%;
+  left: 65%;
 }
 
 .titulo_banner {
-    font-size: 34px;
+  font-size: 34px;
 }
 
 .box_banner4 p,
 span {
-    color: white;
+  color: white;
 }
 
 .box_banner4 p {
-    width: 35%;
-    margin-top: 1.5%;
-    font-size: 20px;
+  width: 35%;
+  margin-top: 1.5%;
+  font-size: 20px;
 }
 
 /* ==== END Banner 4 ==== */
 
-
 .box_btnSaibaMais {
-    width: 13%;
-    height: 5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #BC4CE4;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 2.5%;
+  width: 13%;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #bc4ce4;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 2.5%;
 }
 
 .box_btnSaibaMais:hover {
-    transition: all 0.3s;
-    background-color: #8B04BB;
+  transition: all 0.3s;
+  background-color: #8b04bb;
 }
 
 .box_btnSaibaMais span {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .container_gerencia {
-    width: 60%;
-    height: 85vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    margin-top: 5%;
-    border-radius: 10px;
-    box-shadow: 0px 4.01635px 25px rgba(0, 0, 0, 0.25);
+  width: 60%;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  margin-top: 5%;
+  border-radius: 10px;
+  box-shadow: 0px 4.01635px 25px rgba(0, 0, 0, 0.25);
 }
 
 .box_titulo_gerencia {
-    width: 75%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.7);
-    height: 8vh;
-    border-radius: 10px;
-    margin-top: 3%;
-    padding: 2%;
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 8vh;
+  border-radius: 10px;
+  margin-top: 3%;
+  padding: 2%;
 }
 
 .box_titulo_gerencia span {
-    color: white;
-    font-size: 22px;
+  color: white;
+  font-size: 22px;
 }
 
 .card_container {
-    width: 100%;
-    height: 50%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2%;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2%;
 }
 
 .box_card_gerencia {
-    width: 36%;
-    height: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #F9F9F9;
-    border-radius: 10px;
-    margin: 1.5%;
+  width: 36%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  margin: 1.5%;
 }
 
 .card_img {
+  width: 80%;
+  height: 58%;
+  padding: 3%;
+  object-fit: contain;
+}
+
+.card_gerencia {
+  width: 70%;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cacaca;
+  border-radius: 10px;
+  padding: 3%;
+}
+
+.card_gerencia p {
+  font-size: 14px;
+}
+
+/* ======== Animação ======== */
+
+.area {
+  width: 100%;
+  height: 90vh;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 68% 62%, 23% 74%, 0 100%);
+  background: #4e54c8;
+  background-color: #540484;
+}
+
+.container_area {
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+.circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.circles li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(139, 4, 187, 0.5);
+  animation: animate 5s linear infinite;
+  bottom: -150px;
+}
+
+.circles li:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.circles li:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.circles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.circles li:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.circles li:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.circles li:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.circles li:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.circles li:nth-child(10) {
+  left: 65%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+.circles li:nth-child(11) {
+  left: 45%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 0s;
+  animation-duration: 15s;
+}
+
+.circles li:nth-child(12) {
+  left: 95%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 0s;
+  animation-duration: 8s;
+}
+
+.circles li:nth-child(13) {
+  left: 20%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 0s;
+  animation-duration: 7s;
+}
+
+.circles li:nth-child(14) {
+  left: 15%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 0s;
+  animation-duration: 10s;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    border-radius: 0;
+  }
+
+  100% {
+    transform: translateY(-2000px) rotate(720deg);
+    opacity: 0;
+    border-radius: 50%;
+  }
+}
+
+.container_valores {
+  width: 100%;
+  height: 65vh;
+  margin-top: 6%;
+}
+
+.box_tituloValores {
+  width: 20vw;
+  height: 6vh;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 1%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+.box_tituloValores span {
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.box_cardValor {
+  width: 70vw;
+  height: 30vh;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  margin-top: 8%;
+  z-index: 2;
+}
+
+.card_valor {
+  width: 20vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  cursor: pointer;
+  animation: animateCard 1s linear infinite;
+  animation-direction: alternate;
+}
+
+.card_valor:hover {
+  background-color: #e7e7e7;
+}
+
+.box_conteudoCard {
+  width: 10vw;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: justify;
+}
+
+.card_valor img {
+  width: 100%;
+  object-fit: contain;
+  position: absolute;
+  padding: 30%;
+}
+
+.tituloText {
+  display: none;
+  color: black;
+  font-weight: 600;
+}
+
+.textValor {
+  display: none;
+  color: black;
+  margin-top: 10%;
+  width: 17vw;
+}
+
+@keyframes animateCard {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.01);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+
+  75% {
+    transform: scale(1.03);
+  }
+
+  100% {
+    transform: scale(1.04);
+  }
+}
+
+.container_map {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box_tituloMap {
+  width: 12vw;
+  height: 6vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  margin-bottom: 5%;
+}
+
+.google_map {
+  border-radius: 10px;
+}
+
+.container_footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #540484;
+  height: 15vh;
+  margin-top: 3%;
+}
+
+.barra_footer {
+  width: 80%;
+  height: 1vh;
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 1%;
+}
+
+.box_footer {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.box_termosPrivacidade {
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box_termosPrivacidade a {
+  color: white;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 1170px) {
+  .logo_header {
+    width: 80px;
+    height: 60px;
+    cursor: pointer;
+  }
+
+  .container_header {
+    height: 80px;
+    align-items: center;
+  }
+
+  .container_nav {
+    width: 60%;
+  }
+
+  .box_btnCadastro {
+    height: 40px;
+  }
+
+  .container_carousel {
+    border-radius: 10px;
+    margin-top: 15%;
+  }
+
+  .owl-dots {
+    display: flex;
+    left: 45%;
+  }
+
+  .box_banner1 {
+    width: 100vw;
+  }
+
+  .box_banner1 span {
+    font-size: 20px;
+  }
+
+  .box_banner1 p {
+    font-size: 16px;
+  }
+
+  .box_banner2 {
+    width: 85vw;
+    left: 57%;
+  }
+
+  .box_banner2 span {
+    font-size: 20px;
+  }
+
+  .box_banner2 p {
+    font-size: 16px;
+  }
+
+  .box_banner3 {
+    width: 83vw;
+  }
+
+  .box_banner3 span {
+    font-size: 20px;
+  }
+
+  .box_banner3 p {
+    font-size: 16px;
+  }
+
+  .box_banner4 {
+    width: 85vw;
+    left: 57%;
+  }
+
+  .box_banner4 span {
+    font-size: 20px;
+  }
+
+  .box_banner4 p {
+    font-size: 16px;
+  }
+
+  .box_btnSaibaMais {
+    width: 20vw;
+    height: 40px;
+  }
+
+  .box_btnSaibaMais span {
+    font-size: 16px;
+  }
+
+  .container_gerencia {
+    height: 100%;
+  }
+
+  .box_card_gerencia {
+    width: 25vw;
+    padding: 10px;
+  }
+
+  .box_titulo_gerencia {
+    width: 52vw;
+  }
+
+  .box_titulo_gerencia span {
+    font-size: 16px;
+  }
+
+  .card_gerencia p {
+    width: 15vw;
+    font-size: 12px;
+  }
+
+  .card_img {
+    width: 12vw;
+    height: 10vh;
+  }
+
+  .area {
+    width: 100vw;
+    height: 100%;
+    padding-top: 5%;
+  }
+
+  .container_valores {
+    height: 70vh;
+  }
+
+  .box_tituloValores {
+    width: 30vw;
+  }
+
+  .box_tituloValores span {
+    font-size: 14px;
+  }
+
+  .box_cardValor {
+    width: 95vw;
+    height: 35vh;
+  }
+
+  .card_valor {
+    width: 30vw;
+  }
+
+  .card_valor p {
+    width: 25vw;
+  }
+
+  .box_tituloMap {
+    width: 20vw;
+    height: 8vh;
+  }
+
+  .box_direitos span {
+    font-size: 12px;
+  }
+
+  .box_termosPrivacidade {
+    width: 25vw;
+  }
+
+  .box_termosPrivacidade a {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .box_nav a {
+    font-size: 16px;
+  }
+
+  .container_carousel {
+    border-radius: 10px;
+    margin-top: 15%;
+  }
+
+  .owl-dots {
+    width: 20vw;
+    display: flex;
+    left: 45%;
+  }
+
+  .area {
+    width: 100vw;
+    height: 60%;
+    padding-top: 5%;
+  }
+
+  .container_area {
+    height: 100vh;
+  }
+
+  .box_titulo_gerencia {
+    height: 5vh;
+  }
+
+  .container_valores {
+    height: 45vh;
+  }
+
+  .box_tituloValores {
+    width: 40vw;
+    height: 4vh;
+  }
+
+  .box_cardValor {
+    width: 75vw;
+    height: 15vh;
+    margin-top: 10%;
+  }
+
+  .card_valor {
+    width: 20vw;
+    height: 18vh;
+  }
+
+  .card_valor span {
+    font-size: 12px;
+  }
+
+  .card_valor p {
+    width: 18vw;
+    font-size: 10px;
+  }
+
+  .box_tituloMap {
+    width: 18vw;
+    height: 4vh;
+  }
+
+  .google_map {
+    width: 65vw;
+  }
+
+  .box_direitos span {
+    font-size: 10px;
+  }
+
+  .box_termosPrivacidade {
+    width: 30vw;
+  }
+
+  .box_termosPrivacidade a {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .logo_header {
+    width: 50px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+  .container_nav {
+    width: 75%;
+  }
+
+  .box_nav a {
+    font-size: 0.6em;
+  }
+
+  .box_btnCadastro span a {
+    font-size: 12px;
+  }
+
+  .container_carousel {
+    border-radius: 10px;
+    margin-top: 25%;
+  }
+
+  .owl-dots {
+    width: 20vw;
+    display: flex;
+    left: 38%;
+  }
+
+  .owl-dots button {
+    transform: scale(0.5);
+  }
+
+  .box_banner1 {
+    width: 100vw;
+  }
+
+  .box_banner1 span {
+    font-size: 12px;
+  }
+
+  .box_banner1 p {
+    font-size: 10px;
+  }
+
+  .box_banner2 {
+    width: 100vw;
+    left: 50%;
+  }
+
+  .box_banner2 span {
+    font-size: 12px;
+  }
+
+  .box_banner2 p {
+    font-size: 10px;
+  }
+
+  .box_banner3 {
+    width: 85vw;
+  }
+
+  .box_banner3 span {
+    font-size: 12px;
+  }
+
+  .box_banner3 p {
+    width: 35vw;
+    font-size: 10px;
+  }
+
+  .box_banner4 {
+    width: 85vw;
+    left: 52%;
+  }
+
+  .box_banner4 span {
+    font-size: 12px;
+  }
+
+  .box_banner4 p {
+    width: 35vw;
+    font-size: 10px;
+  }
+
+  .box_btnSaibaMais {
+    width: 20vw;
+    height: 25px;
+  }
+
+  .box_btnSaibaMais span {
+    font-size: 10px;
+  }
+
+  .container_gerencia {
+    width: 80vw;
+  }
+
+  .box_titulo_gerencia {
+    width: 70vw;
+  }
+
+  .box_titulo_gerencia span {
+    font-size: 12px;
+  }
+
+  .card_container {
+    width: 80vw;
+  }
+
+  .box_card_gerencia {
+    width: 40%;
+  }
+
+  .card_img {
     width: 80%;
     height: 58%;
     padding: 3%;
     object-fit: contain;
-}
+  }
 
-.card_gerencia {
-    width: 70%;
-    height: 8vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #CACACA;
+  .box_card_gerencia {
+    width: 35vw;
+    height: 110px;
+  }
+
+  .card_gerencia {
+    width: 100%;
+    height: 40%;
+    border: 1px solid #cacaca;
     border-radius: 10px;
     padding: 3%;
-}
+  }
 
-.card_gerencia p{
-    font-size: 14px;
-}
-
-
-/* ======== Animação ======== */
-
-
-.area {
+  .card_gerencia p {
     width: 100%;
+    font-size: 9px;
+    text-align: left;
+  }
+
+  .area {
+    width: 100vw;
+    height: 90%;
+    padding-top: 5%;
+    clip-path: none;
+  }
+
+  .container_valores {
     height: 90vh;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 68% 62%, 23% 74%, 0 100%);
-    background: #4e54c8;
-    background-color: #540484;
-}
+  }
 
-.container_area {
-    display: flex;
-    justify-content: center;
-    margin-top: 2%;
-}
+  .box_tituloValores span {
+    font-size: 12px;
+  }
 
-.circles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
+  .box_cardValor {
+    width: 40vw;
+    height: 80vh;
+    margin-top: 16%;
+    flex-wrap: wrap;
+  }
 
-.circles li {
-    position: absolute;
-    display: block;
-    list-style: none;
-    width: 20px;
-    height: 20px;
-    background: rgba(139, 4, 187, 0.5);
-    animation: animate 5s linear infinite;
-    bottom: -150px;
+  .card_valor {
+    width: 40vw;
+    height: 20vh;
+  }
 
-}
+  .card_valor span {
+    width: 11vw;
+    font-size: 12px;
+  }
 
-.circles li:nth-child(1) {
-    left: 25%;
-    width: 80px;
-    height: 80px;
-    animation-delay: 0s;
-}
+  .card_valor p {
+    width: 35vw;
+    font-size: 10px;
+  }
 
+  .box_tituloMap {
+    width: 30vw;
+    height: 4vh;
+    margin-top: 5%;
+  }
 
-.circles li:nth-child(2) {
-    left: 10%;
-    width: 20px;
-    height: 20px;
-    animation-delay: 2s;
-    animation-duration: 12s;
-}
+  .box_tituloMap span {
+    font-size: 12px;
+  }
 
-.circles li:nth-child(3) {
-    left: 70%;
-    width: 20px;
-    height: 20px;
-    animation-delay: 4s;
-}
+  .google_map {
+    width: 75vw;
+  }
 
-.circles li:nth-child(4) {
-    left: 40%;
-    width: 60px;
-    height: 60px;
-    animation-delay: 0s;
-    animation-duration: 18s;
-}
+  .box_direitos span {
+    font-size: 7px;
+  }
 
-.circles li:nth-child(5) {
-    left: 65%;
-    width: 20px;
-    height: 20px;
-    animation-delay: 0s;
-}
+  .box_termosPrivacidade {
+    width: 35vw;
+  }
 
-.circles li:nth-child(6) {
-    left: 75%;
-    width: 110px;
-    height: 110px;
-    animation-delay: 3s;
-}
-
-.circles li:nth-child(7) {
-    left: 35%;
-    width: 150px;
-    height: 150px;
-    animation-delay: 7s;
-}
-
-.circles li:nth-child(8) {
-    left: 50%;
-    width: 25px;
-    height: 25px;
-    animation-delay: 15s;
-    animation-duration: 45s;
-}
-
-.circles li:nth-child(9) {
-    left: 20%;
-    width: 15px;
-    height: 15px;
-    animation-delay: 2s;
-    animation-duration: 35s;
-}
-
-.circles li:nth-child(10) {
-    left: 65%;
-    width: 150px;
-    height: 150px;
-    animation-delay: 0s;
-    animation-duration: 11s;
-}
-
-.circles li:nth-child(11) {
-    left: 45%;
-    width: 15px;
-    height: 15px;
-    animation-delay: 0s;
-    animation-duration: 15s;
-}
-
-.circles li:nth-child(12) {
-    left: 95%;
-    width: 25px;
-    height: 25px;
-    animation-delay: 0s;
-    animation-duration: 8s;
-}
-
-.circles li:nth-child(13) {
-    left: 20%;
-    width: 110px;
-    height: 110px;
-    animation-delay: 0s;
-    animation-duration: 7s;
-}
-
-.circles li:nth-child(14) {
-    left: 15%;
-    width: 25px;
-    height: 25px;
-    animation-delay: 0s;
-    animation-duration: 10s;
-}
-
-
-@keyframes animate {
-
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-        border-radius: 0;
-    }
-
-    100% {
-        transform: translateY(-2000px) rotate(720deg);
-        opacity: 0;
-        border-radius: 50%;
-    }
-
-}
-
-.container_valores {
-    width: 100%;
-    height: 65vh;
+  .box_termosPrivacidade a {
+    font-size: 7px;
     margin-top: 6%;
-}
-
-.box_tituloValores {
-    width: 20vw;
-    height: 6vh;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 1%;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2%;
-}
-
-.box_tituloValores span {
-    color: black;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.box_cardValor {
-    width: 70vw;
-    height: 30vh;
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    margin-top: 8%;
-    z-index: 2;
-}
-
-.card_valor {
-    width: 20vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #F4F4F4;
-    border-radius: 10px;
-    cursor: pointer;
-    animation: animateCard 1s linear infinite;
-    animation-direction: alternate;
-}
-
-.card_valor:hover {
-    background-color: #e7e7e7;
-}
-
-.box_conteudoCard {
-    width: 10vw;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: justify;
-}
-
-.card_valor img {
-    width: 100%;
-    object-fit: contain;
-    position: absolute;
-    padding: 30%;
-}
-
-.tituloText {
-    display: none;
-    color: black;
-    font-weight: 600;
-}
-
-.textValor {
-    display: none;
-    color: black;
-    margin-top: 10%;
-    width: 17vw;
-}
-
-
-@keyframes animateCard {
-
-    0% {
-        transform: scale(1);
-    }
-
-    25% {
-        transform: scale(1.01);
-    }
-
-    50% {
-        transform: scale(1.02);
-    }
-
-    75% {
-        transform: scale(1.03);
-    }
-
-    100% {
-        transform: scale(1.04);
-    }
-}
-
-.container_map {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.box_tituloMap {
-    width: 12vw;
-    height: 6vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    margin-bottom: 5%;
-}
-
-.google_map {
-    border-radius: 10px;
-}
-
-.container_footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #540484;
-    height: 15vh;
-    margin-top: 3%;
-}
-
-.barra_footer {
-    width: 80%;
-    height: 1vh;
-    border: none;
-    background-color: white;
-    border-radius: 10px;
-    margin-bottom: 1%;
-}
-
-.box_footer {
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-}
-
-.box_termosPrivacidade {
-    width: 30%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.box_termosPrivacidade a {
-    color: white;
-    text-decoration: none;
-}
-
-
-@media screen and (max-width: 1170px) {
-    .logo_header {
-        width: 80px;
-        height: 60px;
-        cursor: pointer;
-    }
-    
-    .container_header {
-        height: 80px;
-        align-items: center;
-    }
-
-    .container_nav {
-        width: 60%;
-    }
-
-    .box_btnCadastro {
-        height: 40px;
-    }
-
-    .container_carousel {
-        border-radius: 10px;
-        margin-top: 15%;
-    }
-
-    .owl-dots {
-        display: flex;
-        left: 45%;
-    }
-
-    .box_banner1 {
-        width: 100vw;
-    }
-
-    .box_banner1 span {
-        font-size: 20px;
-    }
-
-    .box_banner1 p {
-        font-size: 16px;
-    }
-
-    .box_banner2 {
-        width: 85vw;
-        left: 57%;
-    }
-
-    .box_banner2 span {
-        font-size: 20px;
-    }
-
-    .box_banner2 p {
-        font-size: 16px;
-    }
-
-    .box_banner3 {
-        width: 83vw;
-    }
-
-    .box_banner3 span {
-        font-size: 20px;
-    }
-
-    .box_banner3 p {
-        font-size: 16px;
-    }
-
-    .box_banner4 {
-        width: 85vw;
-        left: 57%;
-    }
-
-    .box_banner4 span {
-        font-size: 20px;
-    }
-
-    .box_banner4 p {
-        font-size: 16px;
-    }
-
-    .box_btnSaibaMais {
-        width: 20vw;
-        height: 40px;
-    }
-
-    .box_btnSaibaMais span {
-        font-size: 16px;
-    }
-
-    .container_gerencia {
-        height: 100%;
-    }
-
-    .box_card_gerencia {
-        width: 25vw;
-        padding: 10px;
-    }
-
-    .box_titulo_gerencia {
-        width: 52vw;
-    }
-
-    .box_titulo_gerencia span {
-        font-size: 16px;
-    }
-
-    .card_gerencia p {
-        width: 15vw;
-        font-size: 12px;
-    }
-
-    .card_img {
-        width: 12vw;
-        height: 10vh;
-    }
-
-    .area {
-        width: 100vw;
-        height: 100%;
-        padding-top: 5%;
-    }
-
-    .container_valores {
-        height: 70vh;
-    }
-
-    .box_tituloValores {
-        width: 30vw;
-    }
-
-    .box_tituloValores span {
-        font-size: 14px;
-    }
-
-    .box_cardValor {
-        width: 95vw;
-        height: 35vh;
-    }
-    
-    .card_valor {
-        width: 30vw;
-    }
-
-    .card_valor p{
-        width: 25vw;
-    }
-
-    .box_tituloMap {
-        width: 20vw;
-        height: 8vh;
-    }
-
-    .box_direitos span {
-        font-size: 12px;
-    }
-
-    .box_termosPrivacidade {
-        width: 25vw;
-    }
-
-    .box_termosPrivacidade a {
-        font-size: 12px;
-    }
-
-}
-
-@media screen and (max-width: 850px) {
-    .box_nav a {
-        font-size: 16px;
-    }
-
-    .container_carousel {
-        border-radius: 10px;
-        margin-top: 15%;
-    }
-
-    .owl-dots {
-        width: 20vw;
-        display: flex;
-        left: 45%;
-    }
-
-    .area {
-        width: 100vw;
-        height: 60%;
-        padding-top: 5%;
-    }
-
-    .container_area {
-        height: 100vh;
-    }
-
-    .box_titulo_gerencia {
-        height: 5vh;
-    }
-
-    .container_valores {
-        height: 45vh;
-    }
-
-    .box_tituloValores {
-        width: 40vw;
-        height: 4vh;
-    }
-
-    .box_cardValor {
-        width: 75vw;
-        height: 15vh;
-        margin-top: 10%;
-    }
-
-    .card_valor {
-        width: 20vw;
-        height: 18vh;
-    }
-
-    .card_valor span{
-        font-size: 12px;
-    }
-
-    .card_valor p{
-        width: 18vw;
-        font-size: 10px;
-    }
-
-    .box_tituloMap {
-        width: 18vw;
-        height: 4vh;
-    }
-
-    .google_map {
-        width: 65vw;
-    }
-
-    .box_direitos span {
-        font-size: 10px;
-    }
-
-    .box_termosPrivacidade {
-        width: 30vw;
-    }
-
-    .box_termosPrivacidade a {
-        font-size: 10px;
-    }
-}
-
-@media screen and (max-width: 690px) {
-    .logo_header {
-        width: 50px;
-        height: 40px;
-        cursor: pointer;
-    }
-
-    .container_nav {
-        width: 75%;
-    }
-
-    .box_nav a {
-        font-size: 0.6em;
-    }
-
-    .box_btnCadastro span a{
-        font-size: 12px;
-    }
-
-    .container_carousel {
-        border-radius: 10px;
-        margin-top: 25%;
-    }
-
-    .owl-dots {
-        width: 20vw;
-        display: flex;
-        left: 38%;
-    }
-    
-    .owl-dots button {
-        transform: scale(0.5);
-    }
-
-    .box_banner1 {
-        width: 100vw;
-    }
-
-    .box_banner1 span {
-        font-size: 12px;
-    }
-
-    .box_banner1 p {
-        font-size: 10px;
-    }
-
-    .box_banner2 {
-        width: 100vw;
-        left: 50%;
-    }
-
-    .box_banner2 span {
-        font-size: 12px;
-    }
-
-    .box_banner2 p {
-        font-size: 10px;
-    }
-
-    .box_banner3 {
-        width: 85vw;
-    }
-
-    .box_banner3 span {
-        font-size: 12px;
-    }
-
-    .box_banner3 p {
-        width: 35vw;
-        font-size: 10px;
-    }
-
-    .box_banner4 {
-        width: 85vw;
-        left: 52%;
-    }
-
-    .box_banner4 span {
-        font-size: 12px;
-    }
-
-    .box_banner4 p {
-        width: 35vw;
-        font-size: 10px;
-    }
-
-    .box_btnSaibaMais {
-        width: 20vw;
-        height: 25px;
-    }
-
-    .box_btnSaibaMais span {
-        font-size: 10px;
-    }
-
-    .container_gerencia {
-        width: 80vw;
-    }
-
-    .box_titulo_gerencia {
-        width: 70vw;
-    }
-
-    .box_titulo_gerencia span {
-        font-size: 12px;
-    }
-
-    .card_container {
-        width: 80vw;
-    }
-
-    .box_card_gerencia {
-        width: 40%;
-    }
-    
-    .card_img {
-        width: 80%;
-        height: 58%;
-        padding: 3%;
-        object-fit: contain;
-    }
-
-    .box_card_gerencia {
-        width: 35vw;
-        height: 110px;
-    }
-    
-    .card_gerencia {
-        width: 100%;
-        height: 40%;
-        border: 1px solid #CACACA;
-        border-radius: 10px;
-        padding: 3%;
-    }
-    
-    .card_gerencia p {
-        width: 100%;
-        font-size: 9px;
-        text-align: left;
-    }
-    
-    .area {
-        width: 100vw;
-        height: 90%;
-        padding-top: 5%;
-        clip-path: none;
-    }
-
-    .container_valores {
-        height: 90vh;
-    }
-
-    .box_tituloValores span {
-        font-size: 12px;
-    }
-
-    .box_cardValor {
-        width: 40vw;
-        height: 80vh;
-        margin-top: 16%;
-        flex-wrap: wrap;
-    }
-
-    .card_valor {
-        width: 40vw;
-        height: 20vh;
-    }
-
-    .card_valor span{
-        width: 11vw;
-        font-size: 12px;
-    }
-
-    .card_valor p{
-        width: 35vw;
-        font-size: 10px;
-    }
-    
-    .box_tituloMap {
-        width: 30vw;
-        height: 4vh;
-        margin-top: 5%;
-    }
-
-    .box_tituloMap span{
-        font-size: 12px;
-    }
-
-    .google_map {
-        width: 75vw;
-    }
-
-    .box_direitos span {
-        font-size: 7px;
-    }
-
-    .box_termosPrivacidade {
-        width: 35vw;
-    }
-
-    .box_termosPrivacidade a {
-        font-size: 7px;
-        margin-top: 6%;
-    }
+  }
 }
 
 @media screen and (max-width: 400px) {
-    .box_btnCadastro {
-        height: 30px;
-        border-radius: 7px;
-    }
+  .box_btnCadastro {
+    height: 30px;
+    border-radius: 7px;
+  }
 
-    .box_banner1 span {
-        font-size: 10px;
-    }
+  .box_banner1 span {
+    font-size: 10px;
+  }
 
-    .box_banner1 p {
-        font-size: 9px;
-    }
+  .box_banner1 p {
+    font-size: 9px;
+  }
 
-    .box_banner2 span {
-        font-size: 10px;
-    }
+  .box_banner2 span {
+    font-size: 10px;
+  }
 
-    .box_banner2 p {
-        font-size: 9px;
-    }
-    
-    .box_banner3 span {
-        font-size: 10px;
-    }
+  .box_banner2 p {
+    font-size: 9px;
+  }
 
-    .box_banner3 p {
-        font-size: 9px;
-    }
-    
-    .box_banner4 span {
-        font-size: 10px;
-    }
+  .box_banner3 span {
+    font-size: 10px;
+  }
 
-    .box_banner4 p {
-        font-size: 9px;
-    }
+  .box_banner3 p {
+    font-size: 9px;
+  }
 
-    .box_btnSaibaMais {
-        width: 20vw;
-        height: 20px;
-        border-radius: 7px;
-    }
+  .box_banner4 span {
+    font-size: 10px;
+  }
 
-    .box_btnSaibaMais span {
-        font-size: 10px;
-    }
+  .box_banner4 p {
+    font-size: 9px;
+  }
 
-    .box_card_gerencia {
-        width: 35vw;
-        height: 100px;
-    }
+  .box_btnSaibaMais {
+    width: 20vw;
+    height: 20px;
+    border-radius: 7px;
+  }
 
-    .card_gerencia {
-        width: 32vw;
-        height: 50px;
-    }
+  .box_btnSaibaMais span {
+    font-size: 10px;
+  }
 
-    .card_gerencia p {
-        font-size: 8px;
-    }
+  .box_card_gerencia {
+    width: 35vw;
+    height: 100px;
+  }
 
-    .card_valor span{
-        width: 8vw;
-        font-size: 10px;
-    }
+  .card_gerencia {
+    width: 32vw;
+    height: 50px;
+  }
 
-    .card_valor p{
-        width: 35vw;
-        font-size: 9px;
-    }
+  .card_gerencia p {
+    font-size: 8px;
+  }
+
+  .card_valor span {
+    width: 8vw;
+    font-size: 10px;
+  }
+
+  .card_valor p {
+    width: 35vw;
+    font-size: 9px;
+  }
 }

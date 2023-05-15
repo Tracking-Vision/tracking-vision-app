@@ -1,75 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracking Vision - Cadastro</title>
+    <script src="./js/funcoes.js"></script>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tracking Vision - Cadastro</title>
-  <script src="./js/funcoes.js"></script>
+    <link rel="stylesheet" href="./assets/css/style-cadastro.css" />
+    <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-  <link rel="stylesheet" href="./assets/css/style-cadastro.css" />
-  <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-</head>
-
-<body>
-  <header>
-    <hr class="barra_header">
-    <div class="container_header">
-      <div class="box_header">
-        <a href="index.html">
-          <img class="logo_header" src="./assets/imgs/Logo T-Vision.png" alt="Logo">
-        </a>
-        <div id="menu" class="container_nav_menu">
-          <nav id="menuClose" class="boxClose">
-            <div class="box_nav">
-              <a href="index.html" id="cadastroFunc">Home</a>
-              <a href="login.html" id="cadastroMaq">Login</a>
-              <div id="containerClose" class="container_imgClose">
-                <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
-                  <img src="./assets/imgs/close.png" alt="img_close">
+  <body>
+    <header>
+      <hr class="barra_header" />
+      <div class="container_header">
+        <div class="box_header">
+          <a href="index.html">
+            <img
+              class="logo_header"
+              src="./assets/imgs/Logo T-Vision.png"
+              alt="Logo"
+            />
+          </a>
+          <div id="menu" class="container_nav_menu">
+            <nav id="menuClose" class="boxClose">
+              <div class="box_nav">
+                <a href="index.html" id="cadastroFunc">Home</a>
+                <a href="login.html" id="cadastroMaq">Login</a>
+                <div id="containerClose" class="container_imgClose">
+                  <div
+                    id="imgClose"
+                    class="box_imgClose"
+                    onclick="MenuHidden()"
+                  >
+                    <img src="./assets/imgs/close.png" alt="img_close" />
+                  </div>
                 </div>
               </div>
-            </div>
-          </nav>
-          <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
-            <div class="box_imgMenu">
-              <img src="./assets/imgs/menu.png" alt="img_hamburger">
+            </nav>
+            <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
+              <div class="box_imgMenu">
+                <img src="./assets/imgs/menu.png" alt="img_hamburger" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </header>
-  <section>
-    <img src="./assets/imgs/img_cadastro.png" alt="img_cadastro" />
-    <div class="decoration">
-      <div class="box_cadastro">
-        <h1>Cadastro</h1>
-        <div class="inputs">
-          <input type="text" placeholder="Nome empresa" id="nomeEmpresa" />
-          <input type="email" placeholder="E-mail" id="emailEmpresa" />
+    </header>
+    <section>
+      <img src="./assets/imgs/img_cadastro.png" alt="img_cadastro" />
+      <div class="decoration">
+        <div class="box_cadastro">
+          <h1>Cadastro</h1>
+          <div class="inputs">
+            <input type="text" placeholder="Nome empresa" id="nomeEmpresa" />
+            <input type="email" placeholder="E-mail" id="emailEmpresa" />
+          </div>
+          <div class="inputs">
+            <input type="text" placeholder="CNPJ" id="cnpjEmpresa" />
+            <input type="text" placeholder="Endereço" id="enderecoEmpresa" />
+          </div>
+          <div class="inputs">
+            <input type="password" placeholder="Senha" id="senha" />
+            <input
+              type="password"
+              placeholder="Confirme a senha"
+              id="confirmaSenha"
+            />
+          </div>
+          <div class="spans">
+            <span>Já possui uma conta? <a href="login.html">Entre</a></span>
+          </div>
+          <button onclick="cadastrar()">Cadastrar</button>
         </div>
-        <div class="inputs">
-          <input type="text" placeholder="CNPJ" id="cnpjEmpresa" />
-          <input type="text" placeholder="Endereço" id="enderecoEmpresa" />
-        </div>
-        <div class="inputs">
-          <input type="password" placeholder="Senha" id="senha" />
-          <input type="password" placeholder="Confirme a senha" id="confirmaSenha" />
-        </div>
-        <div class="spans">
-          <span>Já possui uma conta? <a href="login.html">Entre</a></span>
-        </div>
-        <button onclick="cadastrar()">Cadastrar</button>
       </div>
-    </div>
-  </section>
-</body>
-
+    </section>
+  </body>
 </html>
 <script src="./js/verificacoesCadastro.js"></script>
 <script>
@@ -89,13 +100,11 @@
       var cnpjVar = cnpjEmpresa.value;
       var enderecoVar = enderecoEmpresa.value;
 
-
-
       // Enviando o valor da nova input
       fetch("/empresas/cadastrar", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           // crie um atributo que recebe o valor recuperado aqui
@@ -105,37 +114,39 @@
           senhaServer: senhaVar,
           confirmacaoSenhaServer: confirmacaoSenhaVar,
           cnpjServer: cnpjVar,
-          enderecoServer: enderecoVar
+          enderecoServer: enderecoVar,
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+
+          if (resposta.ok) {
+            //cardErro.style.display = "block";
+
+            //  mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+            alert(
+              "Cadastro realizado com sucesso! Redirecionando para tela de Login..."
+            );
+            setTimeout(() => {
+              window.location = "login.html";
+            }, "2000");
+
+            //limparFormulario();
+            //finalizarAguardar();
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
         })
-      }).then(function (resposta) {
-
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          //cardErro.style.display = "block";
-
-          //  mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-          alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000")
-
-          //limparFormulario();
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
           //finalizarAguardar();
-        } else {
-          throw ("Houve um erro ao tentar realizar o cadastro!");
-        }
-      }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        //finalizarAguardar();
-      });
+        });
 
       return false;
     }
   }
 
-    //function sumirMensagem() {
-      //  cardErro.style.display = "none"
-    //}
-
+  //function sumirMensagem() {
+  //  cardErro.style.display = "none"
+  //}
 </script>
