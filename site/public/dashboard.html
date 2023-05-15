@@ -45,13 +45,10 @@
     </header>
     <section>
         <div class="container_grafico">
-            <div class="box_grafico">
+            <div class="box_grafico" onclick="test()">
                 <div class="box_tituloAlert">
                     <span>Nome Gráfico</span>
-                    <div class="box_alert" id="box_alert_grafico1">
-                        <img src="./assets/imgs/correto.png" alt="Correto">
-                        <span>80%</span>
-                    </div>
+                    <div class="box_alert" id="box_alert_grafico1"></div>
                 </div>
                 <div class="chart">
                     <canvas id="myChart"></canvas>
@@ -76,13 +73,10 @@
                     </div>
                 </div>
             </div>
-            <div class="box_grafico">
+            <div class="box_grafico" onclick="test()">
                 <div class="box_tituloAlert">
                     <span>Nome Gráfico</span>
-                    <div class="box_alert" id="box_alert_grafico2">
-                        <img src="./assets/imgs/aviso.png" alt="Aviso">
-                        <span>80%</span>
-                    </div>
+                    <div class="box_alert" id="box_alert_grafico2"></div>
                 </div>
                 <div class="chart2">
                     <canvas id="myChart2"></canvas>
@@ -107,13 +101,10 @@
                     </div>
                 </div>
             </div>
-            <div class="box_grafico">
+            <div class="box_grafico" onclick="test()">
                 <div class="box_tituloAlert">
                     <span>Nome Gráfico</span>
-                    <div class="box_alert" id="box_alert_grafico3">
-                        <img src="./assets/imgs/perigo.png" alt="Aviso">
-                        <span>80%</span>
-                    </div>
+                    <div class="box_alert" id="box_alert_grafico3"></div>
                 </div>
                 <div class="chart3">
                     <canvas id="myChart3"></canvas>
@@ -214,39 +205,112 @@
     var imgClose = document.getElementById("imgClose");
     var containerClose = document.getElementById("containerClose");
     const containerMaquina = document.getElementById("maquinas_box");
-    var qtdMaquina = 15;
-
-    verifyQtd();
+    var qtdMaquina;
 
     function verifyQtd() {
         if (qtdMaquina == 0) {
             containerMaquina.innerHTML = `<div class="box_imgEmpty"><img class="imgEmpty" src="../assets/imgs/empty.png"><span>Vazio</span></div>`;
         }
     }
-    var imgStatus;
-    var statusMaquina;
+
+    function test() {
+        Swal.fire({
+            title: 'Aviso',
+            text: 'Você deseja excluir essa máquina?',
+            icon: 'warning',
+            confirmButtonText: 'Confirmar',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $(ui.helper).remove();
+                $(ui.draggable).remove();
+                qtdMaquina--;
+                verifyQtd();
+
+                Swal.fire(
+                    'Sucesso!',
+                    'A máquina foi deletada.',
+                    'success'
+                )
+            }
+        })
+    }
 
     function createMaquina() {
-        for (let index = 0; index < qtdMaquina; index++) {
-            verifyStatus();
-            containerMaquina.innerHTML += `
-            <div class="box_maquina" id="box" onclick="abrirMaquina()">
-                <div class="box_nome_maquina_status">
-                   <h3>Máquina do grau</h3>
-                   <img src=${imgStatus} alt="Status">
-                </div>
-                 <div class="box_dado">
-                   <span>Uso de RAM</span>
-                 </div>
-                <div class="box_dado">
-                   <span>Espaço de disco</span>
-                </div>
-                <div class="box_dado">
-                   <span>Uso de rede</span>
-                </div>
-            </div>`;
-        }
+        fetch("/maquina/listar", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
 
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    var idLog = 1;
+                    qtdMaquina = json.length;
+
+                    verifyQtd();
+
+                    for (let index = 0; index < json.length; index++) {
+
+                        containerMaquina.innerHTML += `
+                        <div class="box_maquina" id="box" onclick="abrirMaquina()">
+                            <div class="box_nome_maquina_status">
+                               <h3>${json[index].hostnameMaquina}</h3>
+                            </div>
+                            <div id="ram" class="box_dado">                          
+                            </div>
+                            <div id="disco" class="box_dado">
+                            </div>
+                            <div id="cpu" class="box_dado">
+                            </div>
+                        </div>`;
+
+                        fetch(`/log/listar/${idLog}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(function (resposta) {
+
+                            console.log("resposta: ", resposta);
+
+                            if (resposta.ok) {
+                                resposta.json().then(json => {
+                                    console.log(json);
+                                    console.log(`AAAAAAAA ${json[index].usoCpu}`);
+
+                                    alert(JSON.stringify(json));
+
+                                    ram.innerHTML += `<span>RAM:  ${json[index].usoRam} Gb</span>`
+                                    disco.innerHTML += `<span>Disco:  ${json[index].usoDisco} Gb</span>`
+                                    cpu.innerHTML += `<span>CPU:  ${json[index].usoCpu} %</span>`
+                                })
+                            }
+                        })
+                    }
+
+
+
+                    dragg();
+                })
+                alert("Consulta realizada com sucesso!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a listagem das máquinas!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function dragg() {
         $(function () {
             var $maquinaBox = $("#maquinas_box"),
                 $remove = $("#box_tool_remove"),
@@ -309,16 +373,24 @@
                         confirmButtonText: 'Editar',
                         html:
                             '<div class="all_edit">' +
-                            '<span class="label_editMaquina">Armazenamento</span>' +
+                            '<span class="label_editMaquina">Modelo disco</span>' +
                             '<input id="swal-input1" class="swal2-input" required><br>' +
-                            '<span class="label_editMaquina">Ram</span>' +
+                            '<span class="label_editMaquina">Armazenamento Gb</span>' +
+                            '<input id="swal-input1" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Modelo ram</span>' +
+                            '<input id="swal-input2" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Ram Gb</span>' +
+                            '<input id="swal-input2" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Leitura disco Gb</span>' +
+                            '<input id="swal-input2" class="swal2-input" required><br>' +
+                            '<span class="label_editMaquina">Escrita disco Gb</span>' +
                             '<input id="swal-input2" class="swal2-input" required><br>' +
                             '<span class="label_editMaquina">Status</span>' +
-                            '<input id="swal-input3" class="swal2-input" required><br>' +
-                            '<span class="label_editMaquina">Última manutenção</span>' +
-                            '<input id="swal-input4" class="swal2-input" required><br>' +
-                            '<span class="label_editMaquina">Descrição</span>' +
-                            '<input id="swal-input5" class="swal2-input" required><br>' +
+                            '<select id="swal-input3" class="swal2-input input_complement">' +
+                            '<option value="noSelect">Selecione</option>' +
+                            '<option value="1">Ativo</option>' +
+                            '<option value="0">Inativo</option>' +
+                            '</select>' +
                             '</div>',
                         focusConfirm: false,
                         preConfirm: () => {
@@ -347,60 +419,98 @@
     const ctx3 = document.getElementById('myChart3');
 
     function abrirMaquina() {
-        alert("Teste");
+        Swal.fire({
+            title: 'Aviso',
+            text: 'Você conhece o Juan?',
+            icon: 'warning',
+            confirmButtonText: 'Confirmar',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $(ui.helper).remove();
+                $(ui.draggable).remove();
+                qtdMaquina--;
+                verifyQtd();
+
+                Swal.fire(
+                    'Sucesso!',
+                    'A máquina foi deletada.',
+                    'success'
+                )
+            }
+        })
     }
 
     function verifyStatus() {
-        if (statusMaquina < 0.5) {
-            imgStatus = "./assets/imgs/correto.png";
-        } else if (statusMaquina > 0.5 && statusMaquina < 0.7) {
-            imgStatus = "./assets/imgs/aviso.png";
-        } else if (statusMaquina > 0.7) {
-            imgStatus = "./assets/imgs/perigo.png";
-        } else {
-            imgStatus = "./assets/imgs/question.png";
-        }
-    }
+        var statusGrafico1 = 0.95;
+        var statusGrafico2 = 0.81;
+        var statusGrafico3 = 0.3;
 
-    function percentGrafico() {
-        var perigo = 0.95;
+        var perigo = 0.9;
         var aviso = 0.8;
         var ok = 0.5;
-
-        var percent1 = 0.4;
-        var percent2 = 0.8;
-        var percent3 = 0.96;
 
         var boxAlert1 = document.getElementById("box_alert_grafico1")
         var boxAlert2 = document.getElementById("box_alert_grafico2")
         var boxAlert3 = document.getElementById("box_alert_grafico3")
 
-        if (percent1 >= perigo) {
-            boxAlert1.classList.toggle("alertPerigo");
-        } else if (percent1 >= aviso) {
+        // Inserir percentual e ícone de acordo com o valor do percentual
+
+        if (statusGrafico1 <= ok) {
+            box_alert_grafico1.innerHTML += `<span>${statusGrafico1 * 100}%</span> <img src='./assets/imgs/correto.png'>`;
+        } else if (box_alert_grafico1 <= aviso) {
+            box_alert_grafico1.innerHTML += `<span>${statusGrafico1 * 100}%</span> <img src='./assets/imgs/aviso.png'>`;
+        } else {
+            box_alert_grafico1.innerHTML += `<span>${statusGrafico1 * 100}%</span> <img src='./assets/imgs/perigo.png'>`;
+        }
+
+        if (statusGrafico2 <= ok) {
+            box_alert_grafico2.innerHTML += `<span>${statusGrafico2 * 100}%</span> <img src='./assets/imgs/correto.png'>`;
+        } else if (statusGrafico2 <= aviso) {
+            box_alert_grafico2.innerHTML += `<span>${statusGrafico2 * 100}%</span> <img src='./assets/imgs/aviso.png'>`;
+        } else {
+            box_alert_grafico2.innerHTML += `<span>${statusGrafico2 * 100}%</span> <img src='./assets/imgs/perigo.png'>`;
+        }
+
+        if (statusGrafico3 <= ok) {
+            box_alert_grafico3.innerHTML += `<span>${statusGrafico3 * 100}%</span> <img src='./assets/imgs/correto.png'>`;
+        } else if (statusGrafico3 <= aviso) {
+            box_alert_grafico3.innerHTML += `<span>${statusGrafico3 * 100}%</span> <img src='./assets/imgs/aviso.png'>`;
+        } else {
+            box_alert_grafico3.innerHTML += `<span>${statusGrafico3 * 100}%</span> <img src='./assets/imgs/perigo.png'>`;
+        }
+
+
+        // Atualizar a cor da box de acordo com o percentual
+
+        if (statusGrafico1 <= ok) {
+            boxAlert1.classList.toggle("alertOk");
+        } else if (statusGrafico1 <= aviso) {
             boxAlert1.classList.toggle("alertAviso");
         } else {
-            boxAlert1.classList.toggle("alertOk");
+            boxAlert1.classList.toggle("alertPerigo");
         }
 
-        if (percent2 >= perigo) {
-            boxAlert2.classList.toggle("alertPerigo");
-        } else if (percent2 >= aviso) {
+        if (statusGrafico2 <= ok) {
+            boxAlert2.classList.toggle("alertOk");
+        } else if (statusGrafico2 <= aviso) {
             boxAlert2.classList.toggle("alertAviso");
         } else {
-            boxAlert2.classList.toggle("alertOk");
+            boxAlert2.classList.toggle("alertPerigo");
         }
 
-        if (percent3 >= perigo) {
-            boxAlert3.classList.toggle("alertPerigo");
-        } else if (percent3 >= aviso) {
+        if (statusGrafico3 <= ok) {
+            boxAlert3.classList.toggle("alertOk");
+        } else if (statusGrafico3 <= aviso) {
             boxAlert3.classList.toggle("alertAviso");
         } else {
-            boxAlert3.classList.toggle("alertOk");
+            boxAlert3.classList.toggle("alertPerigo");
         }
     }
 
-    percentGrafico();
+    verifyStatus();
 
     new Chart(ctx, {
         type: 'line',
