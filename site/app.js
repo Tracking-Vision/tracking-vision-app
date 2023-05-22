@@ -12,13 +12,10 @@ var indexRouter = require("./src/routes/index");
 var empresaRouter = require("./src/routes/empresas");
 var funcionarioRouter = require("./src/routes/funcionarios")
 var medidasRouter = require("./src/routes/medidas");
-<<<<<<< HEAD
 var maquinaRouter = require("./src/routes/maquina");
 var logRouter = require("./src/routes/log");
-=======
 var limitesRouter = require("./src/routes/limites")
 var janelasRouter = require("./src/routes/janelas")
->>>>>>> 88a9c4de2bbc9c3b02f99feef7bcbeb932da8c37
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,14 +27,10 @@ app.use("/", indexRouter);
 app.use("/empresas", empresaRouter);
 app.use("/funcionarios", funcionarioRouter);
 app.use("/medidas", medidasRouter);
-<<<<<<< HEAD
 app.use("/maquina", maquinaRouter);
-app.use("/log", logRouter)
-
-=======
+app.use("/log", logRouter);
 app.use("/limites", limitesRouter);
 app.use("/janelas", janelasRouter);
->>>>>>> 88a9c4de2bbc9c3b02f99feef7bcbeb932da8c37
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

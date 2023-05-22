@@ -11,6 +11,17 @@ function listar() {
   return database.executar(instrucao);
 }
 
+function listarGraficoCommand() {
+  console.log(
+    "ACESSEI O LIMITES MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
+  );
+  var instrucao = `
+        SELECT * FROM limites WHERE fkMaquina IS NULL;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function cadastrar(perigo, aviso, ok, tipo, id) {
   console.log(
     "ACESSEI O LIMITES MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
@@ -43,6 +54,21 @@ function atualizar(perigo, aviso, ok, id) {
   return database.executar(instrucao);
 }
 
+function atualizarGraficoCommand(perigo, aviso, ok, id) {
+  console.log(
+    "Verificar as credenciais do Banco e se ele está rodando corretamente: ",
+    id,
+    perigo,
+    aviso,
+    ok
+  );
+  var instrucao = `
+    UPDATE limites SET horario = now(), perigo = ${perigo}, aviso = ${aviso}, ok = ${ok} WHERE idLimites = ${id};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function deletar(id) {
     console.log("Verificar as credenciais do Banco e se ele está rodando corretamente: ", id);
     var instrucao = `
@@ -54,6 +80,7 @@ function deletar(id) {
 
 module.exports = {
     listar,
+    listarGraficoCommand,
     cadastrar,
     atualizar,
     deletar

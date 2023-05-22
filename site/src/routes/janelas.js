@@ -18,3 +18,5 @@ router.put("/atualizar/:id", function (req, res) {
 router.delete("/deletar/:id", function (req, res) {
   janelasController.deletar(req, res);
 });
+
+module.exports = router;

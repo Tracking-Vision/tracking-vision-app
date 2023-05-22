@@ -45,7 +45,7 @@
     </header>
     <section>
         <div class="container_grafico">
-            <div class="box_grafico" onclick="test()">
+            <div class="box_grafico">
                 <div class="box_tituloAlert">
                     <span>Nome Gráfico</span>
                     <div class="box_alert" id="box_alert_grafico1"></div>
@@ -53,7 +53,7 @@
                 <div class="chart">
                     <canvas id="myChart"></canvas>
                 </div>
-                <div class="container_alert_kpi">
+                <div class="container_alert_kpi" onclick="abrirGrafico(3)">
                     <div class="box_titulo_metrica">
                         <span>Métrica</span>
                     </div>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="box_grafico" onclick="test()">
+            <div class="box_grafico" onclick="abrirGrafico(4)">
                 <div class="box_tituloAlert">
                     <span>Nome Gráfico</span>
                     <div class="box_alert" id="box_alert_grafico2"></div>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="box_grafico" onclick="test()">
+            <div class="box_grafico" onclick="abrirGrafico(5)">
                 <div class="box_tituloAlert">
                     <span>Nome Gráfico</span>
                     <div class="box_alert" id="box_alert_grafico3"></div>
@@ -133,28 +133,6 @@
     </section>
     <section>
         <div class="container_maquina">
-            <div class="container_kpi_maquina">
-                <div class="box_metrica_maquina">
-                    <span>Métricas das máquinas</span>
-                </div>
-                <div class="box_all_kpi_maquina">
-                    <div class="box_kpi_maquina">
-                        <img src="./assets/imgs/correto.png" alt="Correto">
-                        <span>Ok</span>
-                        <span>50%</span>
-                    </div>
-                    <div class="box_kpi_maquina">
-                        <img src="./assets/imgs/aviso.png" alt="Aviso">
-                        <span>Aviso</span>
-                        <span>50%</span>
-                    </div>
-                    <div class="box_kpi_maquina">
-                        <img src="./assets/imgs/perigo.png" alt="Perigo">
-                        <span>Perigo</span>
-                        <span>50%</span>
-                    </div>
-                </div>
-            </div>
             <div class="container_card_all_maquina">
                 <div class="container_card_maquina">
                     <div class="containerBox_maquina" id="maquinas_box"></div>
@@ -213,33 +191,106 @@
         }
     }
 
-    function test() {
+    function abrirMaquina(id) {
         Swal.fire({
-            title: 'Aviso',
-            text: 'Você deseja excluir essa máquina?',
-            icon: 'warning',
-            confirmButtonText: 'Confirmar',
-            showCancelButton: true,
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-
-                $(ui.helper).remove();
-                $(ui.draggable).remove();
-                qtdMaquina--;
-                verifyQtd();
-
-                Swal.fire(
-                    'Sucesso!',
-                    'A máquina foi deletada.',
-                    'success'
-                )
-            }
+            customClass: {
+                confirmButton: 'btn_maquina',
+            },
+            // buttonsStyling: false,
+            width: 1300,
+            confirmButtonText: 'Sair',
+            html:
+                '<div class="box_titulo_maquina">' +
+                '<span>Máquina</span>' +
+                '</div>' +
+                '<div class="all_maquina_modal">' +
+                '<div class="box_maquina_modal">' +
+                '<div class="box_dado_maquina">' +
+                '<span id="idMaquina">ID máquina: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="modeloCpu">Modelo CPU: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="maxRam">Máx RAM: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="totalDisco">Total disco: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="nomeRede">Nome rede: </span>' +
+                '</div>' +
+                '</div>' +
+                '<div class="box_maquina_modal">' +
+                '<div class="box_dado_maquina">' +
+                '<span id="mac">Mac: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="clockCPU">Clock CPU: </span>' +
+                '</div>' +
+                '<div class="box_logo_modal">' +
+                '<img src="./assets/imgs/Logo T-Vision.png">' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="leituraDisco">Leitura disco: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="nomeHost">Nome exibição: </span>' +
+                '</div>' +
+                '</div>' +
+                '<div class="box_maquina_modal">' +
+                '<div class="box_dado_maquina">' +
+                '<span id="status">Status: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="modeloRAM">Modelo RAM: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="modeloDisco">Modelo disco: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="escritaDisco">Escrita disco: </span>' +
+                '</div>' +
+                '<div class="box_dado_maquina">' +
+                '<span id="ipv4">IPV4: </span>' +
+                '</div>' +
+                '</div>' +
+                '<div class="container_kpi_modal">' +
+                '<div class="model_kpi box_kpi_maquina_modal_ok">' +
+                '<div class="box_value_icon_maquina">' +
+                '<img class="img_kpi_icon" src="./assets/imgs/okKPI.png">' +
+                `<span id="kpiOk">0%</span>` +
+                '</div>' +
+                '<div class="box_descricaoKpi">' +
+                `<span>Sucesso</span>` +
+                `<span>Está tudo certo</span>` +
+                '</div>' +
+                '</div>' +
+                '<div class="model_kpi box_kpi_maquina_modal_aviso">' +
+                '<div class="box_value_icon_maquina">' +
+                '<img class="img_kpi_icon" src="./assets/imgs/avisoKPI.png">' +
+                `<span id="kpiAviso">0%</span>` +
+                '</div>' +
+                '<div class="box_descricaoKpi">' +
+                `<span>Aviso</span>` +
+                `<span>Tenha cuidado</span>` +
+                '</div>' +
+                '</div>' +
+                '<div class="model_kpi box_kpi_maquina_modal_perigo">' +
+                '<div class="box_value_icon_maquina">' +
+                '<img class="img_kpi_icon" src="./assets/imgs/perigoKPI.png">' +
+                `<span id="kpiPerigo">0%</span>` +
+                '</div>' +
+                '<div class="box_descricaoKpi">' +
+                `<span>Perigo</span>` +
+                `<span>É preciso de ajuste</span>` +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>',
         })
-    }
 
-    function createMaquina() {
-        fetch("/maquina/listar", {
+        fetch(`/maquina/listar/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -253,27 +304,165 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
 
-                    var idLog = 1;
+                    var ok = document.getElementById("kpiOk");
+                    var aviso = document.getElementById("kpiAviso");
+                    var perigo = document.getElementById("kpiPerigo");
+
+                    var maqId = document.getElementById("idMaquina");
+                    var maqModelCPU = document.getElementById("modeloCpu");
+                    var maqMaxRam = document.getElementById("maxRam");
+                    var maqTotalDisco = document.getElementById("totalDisco");
+                    var maqNomeRede = document.getElementById("nomeRede");
+                    var maqMac = document.getElementById("mac");
+                    var maqClockCPU = document.getElementById("clockCPU");
+                    var maqLeiDisco = document.getElementById("leituraDisco");
+                    var maqNomeHost = document.getElementById("nomeHost");
+                    var maqStatus = document.getElementById("status");
+                    var maqModelRAM = document.getElementById("modeloRAM");
+                    var maqModelDisco = document.getElementById("modeloDisco");
+                    var maqEscritaDisco = document.getElementById("escritaDisco");
+                    var maqIpv4 = document.getElementById("ipv4");
+
+                    if (JSON.stringify(json[0].idMaquina).length > 13) {
+                        maqId.innerHTML += `<marquee scrolldelay="125">${json[0].idMaquina}</marquee>`;
+                    } else {
+                        maqId.innerHTML += `${json[0].idMaquina}`;
+                    }
+
+                    if (JSON.stringify(json[0].nomeModeloCpu).length > 13) {
+                        maqModelCPU.innerHTML += `<marquee scrolldelay="125">${json[0].nomeModeloCpu}</marquee>`;
+                    } else {
+                        maqModelCPU.innerHTML += `${json[0].nomeModeloCpu}`;
+                    }
+
+                    if (JSON.stringify(json[0].capacidadeTotalRam).length > 13) {
+                        maqMaxRam.innerHTML += `<marquee scrolldelay="125">${json[0].capacidadeTotalRam}</marquee>`;
+                    } else {
+                        maqMaxRam.innerHTML += `${json[0].capacidadeTotalRam}`;
+                    }
+
+                    if (JSON.stringify(json[0].capacidadeTotalDisco).length > 13) {
+                        maqTotalDisco.innerHTML += `<marquee scrolldelay="125">${json[0].capacidadeTotalDisco}</marquee>`;
+                    } else {
+                        maqTotalDisco.innerHTML += `${json[0].capacidadeTotalDisco}`;
+                    }
+
+                    if (JSON.stringify(json[0].nomeRede).length > 13) {
+                        maqNomeRede.innerHTML += `<marquee scrolldelay="125">${json[0].nomeRede}</marquee>`;
+                    } else {
+                        maqNomeRede.innerHTML += `${json[0].nomeRede}`;
+                    }
+
+                    if (JSON.stringify(json[0].mac).length > 13) {
+                        maqMac.innerHTML += `<marquee scrolldelay="125">${json[0].mac}</marquee>`;
+                    } else {
+                        maqMac.innerHTML += `${json[0].mac}`;
+                    }
+
+                    if (JSON.stringify(json[0].clockCpu).length > 13) {
+                        maqClockCPU.innerHTML += `<marquee scrolldelay="125">${json[0].clockCpu}</marquee>`;
+                    } else {
+                        maqClockCPU.innerHTML += `${json[0].clockCpu}`;
+                    }
+
+                    if (JSON.stringify(json[0].leituraDisco).length > 13) {
+                        maqLeiDisco.innerHTML += `<marquee scrolldelay="125">${json[0].leituraDisco}</marquee>`;
+                    } else {
+                        maqLeiDisco.innerHTML += `${json[0].leituraDisco}`;
+                    }
+
+                    if (JSON.stringify(json[0].hostnameMaquina).length > 13) {
+                        maqNomeHost.innerHTML += `<marquee scrolldelay="125">${json[0].hostnameMaquina}</marquee>`;
+                    } else {
+                        maqNomeHost.innerHTML += `${json[0].hostnameMaquina}`;
+                    }
+
+                    maqStatus.innerHTML += `${json[0].statusMaquina.data[0] == 1 ? "Ativo" : "Inativo"}`;
+
+                    if (JSON.stringify(json[0].nomeModeloRam).length > 13) {
+                        maqModelRAM.innerHTML += `<marquee scrolldelay="125">${json[0].nomeModeloRam}</marquee>`;
+                    } else {
+                        maqModelRAM.innerHTML += `${json[0].nomeModeloRam}`;
+                    }
+
+                    if (JSON.stringify(json[0].nomeModeloDisco).length > 13) {
+                        maqModelDisco.innerHTML += `<marquee scrolldelay="125">${json[0].nomeModeloDisco}</marquee>`;
+                    } else {
+                        maqModelDisco.innerHTML += `${json[0].nomeModeloDisco}`;
+                    }
+
+                    if (JSON.stringify(json[0].escritaDisco).length > 13) {
+                        maqEscritaDisco.innerHTML += `<marquee scrolldelay="125">${json[0].escritaDisco}</marquee>`;
+                    } else {
+                        maqEscritaDisco.innerHTML += `${json[0].escritaDisco}`;
+                    }
+
+                    if (JSON.stringify(json[0].ipv4).length > 13) {
+                        maqIpv4.innerHTML += `<marquee scrolldelay="125">${json[0].ipv4}</marquee>`;
+                    } else {
+                        maqIpv4.innerHTML += `${json[0].ipv4}`;
+                    }
+
+
+                    ok.innerHTML = `${json[0].ok * 100}%`;
+                    aviso.innerHTML = `${json[0].aviso * 100}%`;
+                    perigo.innerHTML = `${json[0].perigo * 100}%`;
+                })
+            }
+        })
+    }
+
+    async function setar(data) {
+        var a = document.getElementById("ativo");
+        var i = document.getElementById("inativo");
+
+        if (data == 0) {
+            i.setAttribute("selected", "selected");
+        } else if (data == 1) {
+            a.setAttribute("selected", "selected");
+        }
+    }
+
+    function createMaquina() {
+        fetch("/maquina/listar", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.status == 200) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    var idLog;
                     qtdMaquina = json.length;
 
                     verifyQtd();
 
                     for (let index = 0; index < json.length; index++) {
-
                         containerMaquina.innerHTML += `
-                        <div class="box_maquina" id="box" onclick="abrirMaquina()">
+                        <div ondrag="dragg(${json[index].idMaquina})" class="box_maquina" id="box" onclick="abrirMaquina(${json[index].idMaquina})">
                             <div class="box_nome_maquina_status">
                                <h3>${json[index].hostnameMaquina}</h3>
                             </div>
-                            <div id="ram" class="box_dado">                          
+                            <div id="ram${index}" class="box_dado">                          
                             </div>
-                            <div id="disco" class="box_dado">
+                            <div id="disco${index}" class="box_dado">
                             </div>
-                            <div id="cpu" class="box_dado">
+                            <div id="cpu${index}" class="box_dado">
                             </div>
                         </div>`;
 
-                        fetch(`/log/listar/${idLog}`, {
+                        var maquina = document.getElementById("box");
+                        maquina.ondrag();
+
+                        idMaq = json[index].idMaquina;
+
+                        fetch(`/log/listar/${idMaq}`, {
                             method: "GET",
                             headers: {
                                 "Content-Type": "application/json"
@@ -282,26 +471,27 @@
 
                             console.log("resposta: ", resposta);
 
-                            if (resposta.ok) {
+                            var idRam = document.getElementById(`ram${index}`);
+                            var idDisco = document.getElementById(`disco${index}`);
+                            var idCpu = document.getElementById(`cpu${index}`);
+
+                            if (resposta.status == 200) {
                                 resposta.json().then(json => {
                                     console.log(json);
-                                    console.log(`AAAAAAAA ${json[index].usoCpu}`);
 
-                                    alert(JSON.stringify(json));
-
-                                    ram.innerHTML += `<span>RAM:  ${json[index].usoRam} Gb</span>`
-                                    disco.innerHTML += `<span>Disco:  ${json[index].usoDisco} Gb</span>`
-                                    cpu.innerHTML += `<span>CPU:  ${json[index].usoCpu} %</span>`
+                                    idRam.innerHTML += `<span>RAM:  ${json[0].usoRam} Gb</span>`
+                                    idDisco.innerHTML += `<span>Disco:  ${json[0].usoDisco} Gb</span>`
+                                    idCpu.innerHTML += `<span>CPU:  ${json[0].usoCpu} %</span>`
                                 })
                             }
                         })
                     }
 
-
-
-                    dragg();
                 })
-                alert("Consulta realizada com sucesso!");
+            } else if (resposta.status == 204) {
+                qtdMaquina = 0;
+
+                verifyQtd();
             } else {
                 throw ("Houve um erro ao tentar realizar a listagem das máquinas!");
             }
@@ -310,7 +500,7 @@
         });
     }
 
-    function dragg() {
+    async function dragg(id) {
         $(function () {
             var $maquinaBox = $("#maquinas_box"),
                 $remove = $("#box_tool_remove"),
@@ -347,16 +537,28 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
 
-                            $(ui.helper).remove();
-                            $(ui.draggable).remove();
-                            qtdMaquina--;
-                            verifyQtd();
+                            fetch(`/maquina/deletar/${id}`, {
+                                method: "PATCH",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                }
+                            }).then(function (resposta) {
 
-                            Swal.fire(
-                                'Sucesso!',
-                                'A máquina foi deletada.',
-                                'success'
-                            )
+                                console.log("resposta: ", resposta);
+
+                                if (resposta.status === 204) {
+                                    $(ui.helper).remove();
+                                    $(ui.draggable).remove();
+                                    qtdMaquina--;
+                                    verifyQtd();
+
+                                    Swal.fire(
+                                        'Sucesso!',
+                                        'A máquina foi deletada.',
+                                        'success'
+                                    )
+                                }
+                            })
                         }
                     })
                 }
@@ -368,48 +570,121 @@
                     "ui-droppable-active": "ui-state-highlight"
                 },
                 drop: async function (event, ui) {
-                    const { value: formValues } = await Swal.fire({
-                        title: 'Edição de máquina',
-                        confirmButtonText: 'Editar',
-                        html:
-                            '<div class="all_edit">' +
-                            '<span class="label_editMaquina">Modelo disco</span>' +
-                            '<input id="swal-input1" class="swal2-input" required><br>' +
-                            '<span class="label_editMaquina">Armazenamento Gb</span>' +
-                            '<input id="swal-input1" class="swal2-input" required><br>' +
-                            '<span class="label_editMaquina">Modelo ram</span>' +
-                            '<input id="swal-input2" class="swal2-input" required><br>' +
-                            '<span class="label_editMaquina">Ram Gb</span>' +
-                            '<input id="swal-input2" class="swal2-input" required><br>' +
-                            '<span class="label_editMaquina">Leitura disco Gb</span>' +
-                            '<input id="swal-input2" class="swal2-input" required><br>' +
-                            '<span class="label_editMaquina">Escrita disco Gb</span>' +
-                            '<input id="swal-input2" class="swal2-input" required><br>' +
-                            '<span class="label_editMaquina">Status</span>' +
-                            '<select id="swal-input3" class="swal2-input input_complement">' +
-                            '<option value="noSelect">Selecione</option>' +
-                            '<option value="1">Ativo</option>' +
-                            '<option value="0">Inativo</option>' +
-                            '</select>' +
-                            '</div>',
-                        focusConfirm: false,
-                        preConfirm: () => {
-                            return [
-                                document.getElementById('swal-input1').value,
-                                document.getElementById('swal-input2').value,
-                                document.getElementById('swal-input3').value,
-                                document.getElementById('swal-input4').value,
-                                document.getElementById('swal-input5').value
-                            ]
+
+                    fetch(`/maquina/listar/${id}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }).then(async function (resposta) {
+
+                        console.log("resposta: ", resposta);
+
+                        var modeloDiscoVar;
+                        var armazenamentoVar;
+                        var modeloRamVar;
+                        var ramVar;
+                        var modeloCpuVar;
+                        var leituraDicoVar;
+                        var escritaDiscoVar;
+                        var nomeHostVar;
+                        var clockCpuVar;
+                        var statusVar;
+
+                        if (resposta.ok) {
+                            resposta.json().then(async json => {
+                                console.log(json);
+                                console.log(JSON.stringify(json));
+
+                                const { value: formValues } = await Swal.fire({
+                                    customClass: {
+                                        confirmButton: 'btn_maquina',
+                                    },
+                                    buttonsStyling: false,
+                                    title: 'Edição de máquina',
+                                    width: 1010,
+                                    confirmButtonText: 'Editar',
+                                    html:
+                                        '<div class="all_edit">' +
+                                        '<div class="box_edit_modal">' +
+                                        `<input id="swal-input1" placeholder="Modelo disco: ${json[0].nomeModeloDisco}" class="box_dado_maquina" required><br>` +
+                                        `<input id="swal-input2" placeholder="Armazenamento Gb: ${json[0].capacidadeTotalDisco}" class="box_dado_maquina" required><br>` +
+                                        `<input id="swal-input3" placeholder="Modelo RAM: ${json[0].nomeModeloRam}" class="box_dado_maquina" required><br>` +
+                                        `<input id="swal-input4" placeholder="RAM Gb: ${json[0].capacidadeTotalRam}" class="box_dado_maquina" required><br>` +
+                                        `<input id="swal-input5" placeholder="Modelo cpu: ${json[0].nomeModeloCpu}" class="box_dado_maquina" required><br>` +
+                                        '</div>' +
+                                        '<div class="box_edit_modal">' +
+                                        `<input id="swal-input6" placeholder="Leitura disco: ${json[0].leituraDisco}" class="box_dado_maquina" required><br>` +
+                                        `<input id="swal-input7" placeholder="Escrita disco: ${json[0].escritaDisco}" class="box_dado_maquina" required><br>` +
+                                        `<input id="swal-input8" placeholder="Nome host: ${json[0].hostnameMaquina}" class="box_dado_maquina" required><br>` +
+                                        `<input id="swal-input9" placeholder="Clock cpu: ${json[0].clockCpu}" class="box_dado_maquina" required><br>` +
+                                        `<select id="swal-input10" class="box_dado_maquina input_complement"> 
+                                        <option id="ativo" value="true">Ativo</option> 
+                                        <option id="inativo" value="false">Inativo</option> 
+                                        </select>
+                                        <div class="box_data_statusMaquina">
+                                        ${setTimeout(() => {
+                                            setar(json[0].statusMaquina.data);
+                                        }, "100")
+                                        }
+                                        </div>` +
+                                        '</div>' +
+                                        '</div>',
+                                    focusConfirm: false,
+                                    preConfirm: () => {
+                                        return [
+                                            modeloDiscoVar = document.getElementById('swal-input1').value,
+                                            armazenamentoVar = document.getElementById('swal-input2').value,
+                                            modeloRamVar = document.getElementById('swal-input3').value,
+                                            ramVar = document.getElementById('swal-input4').value,
+                                            modeloCpuVar = document.getElementById('swal-input5').value,
+                                            leituraDicoVar = document.getElementById('swal-input6').value,
+                                            escritaDiscoVar = document.getElementById('swal-input7').value,
+                                            nomeHostVar = document.getElementById('swal-input8').value,
+                                            clockCpuVar = document.getElementById('swal-input9').value,
+                                            statusVar = document.getElementById('swal-input10').value
+                                        ]
+                                    }
+                                })
+
+                                if (formValues) {
+                                    Swal.fire(JSON.stringify(formValues))
+                                    fetch(`/maquina/editar/${id}`, {
+                                        method: "PATCH",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({
+                                            modeloDiscoServer: modeloDiscoVar,
+                                            armazenamentoServer: armazenamentoVar,
+                                            modeloRamServer: modeloRamVar,
+                                            ramServer: ramVar,
+                                            modeloCpuServer: modeloCpuVar,
+                                            leituraDiscoServer: leituraDicoVar,
+                                            escritaDiscoServer: escritaDiscoVar,
+                                            nomeHostServer: nomeHostVar,
+                                            clockCpuServer: clockCpuVar,
+                                            statusServer: statusVar,
+                                        }),
+                                    }).then(async function (resposta) {
+
+                                        // if (resposta.statusTex) {
+
+                                        // }
+
+                                        if (formValues) {
+                                            Swal.fire(JSON.stringify(formValues))
+                                        }
+                                    })
+                                }
+                            })
                         }
                     })
-
-                    if (formValues) {
-                        Swal.fire(JSON.stringify(formValues))
-                    }
                 }
             })
         })
+
+        return id;
     }
 
     var active = false;
@@ -418,27 +693,76 @@
     const ctx2 = document.getElementById('myChart2');
     const ctx3 = document.getElementById('myChart3');
 
-    function abrirMaquina() {
-        Swal.fire({
-            title: 'Aviso',
-            text: 'Você conhece o Juan?',
-            icon: 'warning',
-            confirmButtonText: 'Confirmar',
-            showCancelButton: true,
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
+    function abrirGrafico(id) {
 
-                $(ui.helper).remove();
-                $(ui.draggable).remove();
-                qtdMaquina--;
-                verifyQtd();
+        fetch(`/limites/listarGrafico/`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }).then(async function (resposta) {
 
-                Swal.fire(
-                    'Sucesso!',
-                    'A máquina foi deletada.',
-                    'success'
-                )
+            if (resposta.ok) {
+                resposta.json().then(async json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    Swal.fire({
+                        customClass: {
+                            confirmButton: 'btn_grafico',
+                        },
+                        // buttonsStyling: false,
+                        title: 'Métrica',
+                        text: 'Conteúdo',
+                        confirmButtonText: 'Atualizar',
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancelar',
+                        html:
+                            '<div class="all_edit_grafico">' +
+                            '<div class="box_edit_modal_grafico">' +
+                            `<input id="ok" placeholder="Ok: ${json[0].ok * 100}%" class="box_dado_maquina" required><br>` +
+                            `<input id="aviso" placeholder="Aviso: ${json[0].aviso * 100}%" class="box_dado_maquina" required><br>` +
+                            `<input id="perigo" placeholder="Perigo: ${json[0].perigo * 100}%" class="box_dado_maquina" required><br>` +
+                            '</div>' +
+                            '</div>',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            var okVar = document.getElementById("ok").value;
+                            var avisoVar = document.getElementById("aviso").value;
+                            var perigoVar = document.getElementById("perigo").value;
+
+                            fetch(`/limites/atualizar/${id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    okServer: okVar,
+                                    avisoServer: avisoVar,
+                                    perigoServer: perigoVar
+                                }),
+                            }).then(async function (resposta) {
+
+                                if (resposta.status === 204) {
+                                    $(ui.helper).remove();
+                                    $(ui.draggable).remove();
+                                    qtdMaquina--;
+                                    verifyQtd();
+
+
+
+                                    Swal.fire(
+                                        'Sucesso!',
+                                        'A máquina foi deletada.',
+                                        'success'
+                                    )
+                                }
+
+                            })
+
+                        }
+                    })
+                })
             }
         })
     }
