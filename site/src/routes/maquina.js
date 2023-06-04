@@ -3,11 +3,11 @@ var router = express.Router();
 
 var maquinaController = require("../controllers/maquinaController");
 
-router.get("/listar", function (req, res) {
+router.get("/listar/:idEmpresa", function (req, res) {
     maquinaController.listar(req, res);
 });
 
-router.get("/listar/:idMaquina", function (req, res) {
+router.get("/listarPorId/:idMaquina", function (req, res) {
     maquinaController.listarPorId(req, res);
 });
 

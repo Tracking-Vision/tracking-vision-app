@@ -11,29 +11,24 @@ function listar() {
   return database.executar(instrucao);
 }
 
-function listarGraficoCommand() {
+function listarGraficoCommand(idTipo, idEmpresa) {
   console.log(
     "ACESSEI O LIMITES MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-        SELECT * FROM limites WHERE fkMaquina IS NULL;
+        SELECT * FROM limites WHERE tipo = ${idTipo} AND fkEmpresa = ${idEmpresa};
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
-function cadastrar(perigo, aviso, ok, tipo, id) {
+function cadastrarCommand(perigo, aviso, ok, tipo, idMaquina, idEmpresa) {
   console.log(
-    "ACESSEI O LIMITES MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
-    perigo,
-    aviso,
-    ok,
-    tipo,
-    id
+    "ACESSEI O LIMITES MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():"
   );
 
   var instrucao = `
-          INSERT INTO limites (perigo, aviso, ok, tipo, fkMaquina) VALUES ('${perigo}', '${aviso}', '${ok}', '${tipo}', '${id}');
+          INSERT INTO limites (perigo, aviso, ok, tipo, fkMaquina, fkEmpresa) VALUES (${perigo}, ${aviso}, ${ok}, ${tipo}, ${idMaquina = idMaquina == 0 ? null : idMaquina}, ${idEmpresa});
       `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -63,25 +58,26 @@ function atualizarGraficoCommand(perigo, aviso, ok, id) {
     ok
   );
   var instrucao = `
-    UPDATE limites SET horario = now(), perigo = ${perigo}, aviso = ${aviso}, ok = ${ok} WHERE idLimites = ${id};
+    UPDATE limites SET perigo = ${perigo}, aviso = ${aviso}, ok = ${ok} WHERE idLimites = ${id};
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
 function deletar(id) {
-    console.log("Verificar as credenciais do Banco e se ele está rodando corretamente: ", id);
-    var instrucao = `
+  console.log("Verificar as credenciais do Banco e se ele está rodando corretamente: ", id);
+  var instrucao = `
         DELETE FROM limites WHERE idLimites = ${id};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
 }
 
 module.exports = {
-    listar,
-    listarGraficoCommand,
-    cadastrar,
-    atualizar,
-    deletar
+  listar,
+  listarGraficoCommand,
+  cadastrarCommand,
+  atualizar,
+  atualizarGraficoCommand,
+  deletar
 };

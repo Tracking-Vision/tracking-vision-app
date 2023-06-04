@@ -53,27 +53,27 @@
                 <div class="chart">
                     <canvas id="myChart"></canvas>
                 </div>
-                <div class="container_alert_kpi" onclick="abrirGrafico(3)">
+                <div class="container_alert_kpi" onclick="abrirGrafico(0)">
                     <div class="box_titulo_metrica">
                         <span>Métrica</span>
                     </div>
                     <div class="box_kpi">
                         <div class="box_kpi_icon_percent">
                             <img src="./assets/imgs/correto.png" alt="Correto">
-                            <span>50%</span>
+                            <span id="okGraph1">0%</span>
                         </div>
                         <div class="box_kpi_icon_percent">
                             <img src="./assets/imgs/aviso.png" alt="Aviso">
-                            <span>80%</span>
+                            <span id="avisoGraph1">0%</span>
                         </div>
                         <div class="box_kpi_icon_percent">
                             <img src="./assets/imgs/perigo.png" alt="Perigo">
-                            <span>95%</span>
+                            <span id="perigoGraph1">0%</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="box_grafico" onclick="abrirGrafico(4)">
+            <div class="box_grafico">
                 <div class="box_tituloAlert">
                     <span>Nome Gráfico</span>
                     <div class="box_alert" id="box_alert_grafico2"></div>
@@ -81,27 +81,27 @@
                 <div class="chart2">
                     <canvas id="myChart2"></canvas>
                 </div>
-                <div class="container_alert_kpi">
+                <div class="container_alert_kpi" onclick="abrirGrafico(1)">
                     <div class="box_titulo_metrica">
                         <span>Métrica</span>
                     </div>
                     <div class="box_kpi">
                         <div class="box_kpi_icon_percent">
                             <img src="./assets/imgs/correto.png" alt="Correto">
-                            <span>50%</span>
+                            <span id="okGraph2">0%</span>
                         </div>
                         <div class="box_kpi_icon_percent">
                             <img src="./assets/imgs/aviso.png" alt="Aviso">
-                            <span>80%</span>
+                            <span id="avisoGraph2">0%</span>
                         </div>
                         <div class="box_kpi_icon_percent">
                             <img src="./assets/imgs/perigo.png" alt="Perigo">
-                            <span>95%</span>
+                            <span id="perigoGraph2">0%</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="box_grafico" onclick="abrirGrafico(5)">
+            <div class="box_grafico">
                 <div class="box_tituloAlert">
                     <span>Nome Gráfico</span>
                     <div class="box_alert" id="box_alert_grafico3"></div>
@@ -109,22 +109,22 @@
                 <div class="chart3">
                     <canvas id="myChart3"></canvas>
                 </div>
-                <div class="container_alert_kpi">
+                <div class="container_alert_kpi" onclick="abrirGrafico(2)">
                     <div class="box_titulo_metrica">
                         <span>Métrica</span>
                     </div>
                     <div class="box_kpi">
                         <div class="box_kpi_icon_percent">
                             <img src="./assets/imgs/correto.png" alt="Correto">
-                            <span>50%</span>
+                            <span id="okGraph3">0%</span>
                         </div>
                         <div class="box_kpi_icon_percent">
                             <img src="./assets/imgs/aviso.png" alt="Aviso">
-                            <span>80%</span>
+                            <span id="avisoGraph3">0%</span>
                         </div>
                         <div class="box_kpi_icon_percent">
                             <img src="./assets/imgs/perigo.png" alt="Perigo">
-                            <span>95%</span>
+                            <span id="perigoGraph3">0%</span>
                         </div>
                     </div>
                 </div>
@@ -175,6 +175,12 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/pt-br.min.js"
+    integrity="sha512-1IpxmBdyZx3okPiZ14mzw6+pOGa690uDmcdjqvT310Kwv3NRcjvL/aOtoSprEyvkDdAb7ZtM2um6KrLqLOY97w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
 
 <script>
     var menu = document.getElementById("menu");
@@ -190,6 +196,76 @@
             containerMaquina.innerHTML = `<div class="box_imgEmpty"><img class="imgEmpty" src="../assets/imgs/empty.png"><span>Vazio</span></div>`;
         }
     }
+
+    var elementOk1 = document.getElementById("okGraph1");
+    var elementOk2 = document.getElementById("okGraph2");
+    var elementOk3 = document.getElementById("okGraph3");
+
+    var elementAviso1 = document.getElementById("avisoGraph1");
+    var elementAviso2 = document.getElementById("avisoGraph2");
+    var elementAviso3 = document.getElementById("avisoGraph3");
+
+    var elementPerigo1 = document.getElementById("perigoGraph1");
+    var elementPerigo2 = document.getElementById("perigoGraph2");
+    var elementPerigo3 = document.getElementById("perigoGraph3");
+
+    var valueOk1;
+    var valueOk2;
+    var valueOk3;
+
+    var valueAviso1;
+    var valueAviso2;
+    var valueAviso3;
+
+    var valuePerigo1;
+    var valuePerigo2;
+    var valuePerigo3;
+
+    function carregarLimites() {
+        var idEmpresa = sessionStorage.getItem("ID_USUARIO");
+        fetch(`/limites/listarGrafico/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    elementOk1.innerHTML = `${json[0].ok}%`;
+                    valueOk1 = json[0].ok;
+
+                    elementOk2.innerHTML = `${json[1].ok}%`;
+                    valueOk2 = json[1].ok;
+
+                    elementOk3.innerHTML = `${json[2].ok}%`;
+                    valueOk3 = json[2].ok;
+
+                    elementAviso1.innerHTML = `${json[0].aviso}%`;
+                    valueAviso1 = json[0].aviso;
+
+                    elementAviso2.innerHTML = `${json[1].aviso}%`;
+                    valueAviso2 = json[1].aviso;
+
+                    elementAviso3.innerHTML = `${json[2].aviso}%`;
+                    valueAviso3 = json[2].aviso;
+
+                    elementPerigo1.innerHTML = `${json[0].perigo}%`;
+                    valuePerigo1 = json[0].perigo;
+
+                    elementPerigo2.innerHTML = `${json[1].perigo}%`;
+                    valuePerigo2 = json[1].perigo;
+
+                    elementPerigo3.innerHTML = `${json[2].perigo}%`;
+                    valuePerigo3 = json[2].perigo;
+                })
+            }
+        })
+    }
+
+    carregarLimites();
 
     function abrirMaquina(id) {
         Swal.fire({
@@ -290,7 +366,7 @@
                 '</div>',
         })
 
-        fetch(`/maquina/listar/${id}`, {
+        fetch(`/maquina/listarPorId/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -307,7 +383,6 @@
                     var ok = document.getElementById("kpiOk");
                     var aviso = document.getElementById("kpiAviso");
                     var perigo = document.getElementById("kpiPerigo");
-
                     var maqId = document.getElementById("idMaquina");
                     var maqModelCPU = document.getElementById("modeloCpu");
                     var maqMaxRam = document.getElementById("maxRam");
@@ -322,6 +397,8 @@
                     var maqModelDisco = document.getElementById("modeloDisco");
                     var maqEscritaDisco = document.getElementById("escritaDisco");
                     var maqIpv4 = document.getElementById("ipv4");
+
+                    alert(JSON.stringify(json));
 
                     if (JSON.stringify(json[0].idMaquina).length > 13) {
                         maqId.innerHTML += `<marquee scrolldelay="125">${json[0].idMaquina}</marquee>`;
@@ -404,9 +481,9 @@
                     }
 
 
-                    ok.innerHTML = `${json[0].ok * 100}%`;
-                    aviso.innerHTML = `${json[0].aviso * 100}%`;
-                    perigo.innerHTML = `${json[0].perigo * 100}%`;
+                    ok.innerHTML = `${json[0].ok}%`;
+                    aviso.innerHTML = `${json[0].aviso}%`;
+                    perigo.innerHTML = `${json[0].perigo}%`;
                 })
             }
         })
@@ -424,7 +501,9 @@
     }
 
     function createMaquina() {
-        fetch("/maquina/listar", {
+        var idEmpresa = sessionStorage.getItem("ID_USUARIO");
+
+        fetch(`/maquina/listar/${idEmpresa}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -445,7 +524,7 @@
 
                     for (let index = 0; index < json.length; index++) {
                         containerMaquina.innerHTML += `
-                        <div ondrag="dragg(${json[index].idMaquina})" class="box_maquina" id="box" onclick="abrirMaquina(${json[index].idMaquina})">
+                        <div ondrag="dragg(${json[index].idMaquina})" class="box_maquina" id="box${index}" onclick="abrirMaquina(${json[index].idMaquina})">
                             <div class="box_nome_maquina_status">
                                <h3>${json[index].hostnameMaquina}</h3>
                             </div>
@@ -457,10 +536,14 @@
                             </div>
                         </div>`;
 
-                        var maquina = document.getElementById("box");
+                        var maquina = document.getElementById(`box${index}`);
                         maquina.ondrag();
 
                         idMaq = json[index].idMaquina;
+
+                        var usoRam;
+                        var usoDisco;
+                        var usoCpu;
 
                         fetch(`/log/listar/${idMaq}`, {
                             method: "GET",
@@ -479,9 +562,66 @@
                                 resposta.json().then(json => {
                                     console.log(json);
 
+                                    usoRam = json[0].usoRam;
+                                    usoDisco = json[0].usoDisco;
+                                    usoCpu = json[0].usoCpu;
+
                                     idRam.innerHTML += `<span>RAM:  ${json[0].usoRam} Gb</span>`
                                     idDisco.innerHTML += `<span>Disco:  ${json[0].usoDisco} Gb</span>`
                                     idCpu.innerHTML += `<span>CPU:  ${json[0].usoCpu} %</span>`
+                                })
+                            }
+                        })
+
+                        fetch(`/maquina/listarPorId/${idMaq}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(function (resposta) {
+
+                            console.log("resposta: ", resposta);
+
+                            if (resposta.status == 200) {
+                                resposta.json().then(json => {
+                                    console.log(json);
+
+                                    var box = document.getElementById(`box${index}`);
+
+                                    var limiteOk = json[0].ok;
+                                    var limiteAviso = json[0].aviso;
+                                    var limitePerigo = json[0].perigo;
+
+                                    var percentDesempenhoRam = (usoRam / json[0].capacidadeTotalRam);
+                                    // alert(percentDesempenhoRam);
+
+                                    var percentDesempenhoDisco = (usoDisco / json[0].capacidadeTotalDisco);
+                                    // alert(percentDesempenhoDisco);
+
+                                    var percentDesempenhoCpu = (usoCpu / json[0].clockCpu);
+                                    // alert(percentDesempenhoCpu);
+
+                                    var percentDesempenhoMaquina = (percentDesempenhoRam + percentDesempenhoDisco + percentDesempenhoCpu) / 3;
+
+                                    // alert((percentDesempenhoMaquina * 100).toFixed(2))
+
+                                    if (limiteOk > limitePerigo) {
+                                        if (percentDesempenhoMaquina >= limiteOk) {
+                                            box.classList.toggle("box_dado_green");
+                                        } else if (percentDesempenhoMaquina >= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
+                                            box.classList.toggle("box_dado_yellow");
+                                        } else {
+                                            box.classList.toggle("box_dado_red");
+                                        }
+                                    } else {
+                                        if (percentDesempenhoMaquina <= limiteOk) {
+                                            box.classList.toggle("box_dado_green");
+                                        } else if (percentDesempenhoMaquina <= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
+                                            box.classList.toggle("box_dado_yellow");
+                                        } else {
+                                            box.classList.toggle("box_dado_red");
+                                        }
+                                    }
                                 })
                             }
                         })
@@ -571,7 +711,7 @@
                 },
                 drop: async function (event, ui) {
 
-                    fetch(`/maquina/listar/${id}`, {
+                    fetch(`/maquina/listarPorId/${id}`, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json"
@@ -592,11 +732,11 @@
                         var statusVar;
 
                         if (resposta.ok) {
-                            resposta.json().then(async json => {
+                            resposta.json().then(json => {
                                 console.log(json);
                                 console.log(JSON.stringify(json));
 
-                                const { value: formValues } = await Swal.fire({
+                                const { value: formValues } = Swal.fire({
                                     customClass: {
                                         confirmButton: 'btn_maquina',
                                     },
@@ -632,22 +772,84 @@
                                         '</div>',
                                     focusConfirm: false,
                                     preConfirm: () => {
+
+                                        if (document.getElementById("swal-input1").value == '') {
+                                            modeloDiscoVar = json[0].nomeModeloDisco;
+                                        } else {
+                                            modeloDiscoVar = document.getElementById("swal-input1").value;
+                                        }
+
+                                        if (document.getElementById("swal-input2").value == '') {
+                                            armazenamentoVar = json[0].capacidadeTotalDisco;
+                                        } else {
+                                            armazenamentoVar = document.getElementById("swal-input2").value;
+                                        }
+
+                                        if (document.getElementById("swal-input3").value == '') {
+                                            modeloRamVar = json[0].nomeModeloRam;
+                                        } else {
+                                            modeloRamVar = document.getElementById("swal-input3").value;
+                                        }
+
+                                        if (document.getElementById("swal-input4").value == '') {
+                                            ramVar = json[0].capacidadeTotalRam;
+                                        } else {
+                                            ramVar = document.getElementById("swal-input4").value;
+                                        }
+
+                                        if (document.getElementById("swal-input5").value == '') {
+                                            modeloCpuVar = json[0].nomeModeloCpu;
+                                        } else {
+                                            modeloCpuVar = document.getElementById("swal-input5").value;
+                                        }
+
+                                        if (document.getElementById("swal-input6").value == '') {
+                                            leituraDicoVar = json[0].leituraDisco;
+                                        } else {
+                                            leituraDicoVar = document.getElementById("swal-input6").value;
+                                        }
+
+                                        if (document.getElementById("swal-input7").value == '') {
+                                            escritaDiscoVar = json[0].escritaDisco;
+                                        } else {
+                                            escritaDiscoVar = document.getElementById("swal-input7").value;
+                                        }
+
+                                        if (document.getElementById("swal-input8").value == '') {
+                                            nomeHostVar = json[0].hostnameMaquina;
+                                        } else {
+                                            nomeHostVar = document.getElementById("swal-input8").value;
+                                        }
+
+                                        if (document.getElementById("swal-input9").value == '') {
+                                            clockCpuVar = json[0].clockCpu;
+                                        } else {
+                                            clockCpuVar = document.getElementById("swal-input9").value;
+                                        }
+
+                                        if (document.getElementById("swal-input10").value == '') {
+                                            statusVar = json[0].statusMaquina.data;
+                                        } else {
+                                            statusVar = document.getElementById("swal-input10").value;
+                                        }
+
                                         return [
-                                            modeloDiscoVar = document.getElementById('swal-input1').value,
-                                            armazenamentoVar = document.getElementById('swal-input2').value,
-                                            modeloRamVar = document.getElementById('swal-input3').value,
-                                            ramVar = document.getElementById('swal-input4').value,
-                                            modeloCpuVar = document.getElementById('swal-input5').value,
-                                            leituraDicoVar = document.getElementById('swal-input6').value,
-                                            escritaDiscoVar = document.getElementById('swal-input7').value,
-                                            nomeHostVar = document.getElementById('swal-input8').value,
-                                            clockCpuVar = document.getElementById('swal-input9').value,
-                                            statusVar = document.getElementById('swal-input10').value
+                                            modeloDiscoVar,
+                                            armazenamentoVar,
+                                            modeloRamVar,
+                                            ramVar,
+                                            modeloCpuVar,
+                                            leituraDicoVar,
+                                            escritaDiscoVar,
+                                            nomeHostVar,
+                                            clockCpuVar,
+                                            statusVar
                                         ]
                                     }
                                 })
 
                                 if (formValues) {
+
                                     Swal.fire(JSON.stringify(formValues))
                                     fetch(`/maquina/editar/${id}`, {
                                         method: "PATCH",
@@ -687,23 +889,22 @@
         return id;
     }
 
-    var active = false;
-
     const ctx = document.getElementById('myChart');
     const ctx2 = document.getElementById('myChart2');
     const ctx3 = document.getElementById('myChart3');
 
-    function abrirGrafico(id) {
+    function abrirGrafico(numGraph) {
 
-        fetch(`/limites/listarGrafico/`, {
+        var idEmpresa = sessionStorage.getItem("ID_USUARIO");
+
+        fetch(`/limites/listarGrafico/${idEmpresa}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
-            },
-        }).then(async function (resposta) {
-
+            }
+        }).then(function (resposta) {
             if (resposta.ok) {
-                resposta.json().then(async json => {
+                resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
                     Swal.fire({
@@ -719,19 +920,37 @@
                         html:
                             '<div class="all_edit_grafico">' +
                             '<div class="box_edit_modal_grafico">' +
-                            `<input id="ok" placeholder="Ok: ${json[0].ok * 100}%" class="box_dado_maquina" required><br>` +
-                            `<input id="aviso" placeholder="Aviso: ${json[0].aviso * 100}%" class="box_dado_maquina" required><br>` +
-                            `<input id="perigo" placeholder="Perigo: ${json[0].perigo * 100}%" class="box_dado_maquina" required><br>` +
+                            `<input id="ok" placeholder="Ok: ${json[numGraph].ok}%" class="box_dado_maquina" required><br>` +
+                            `<input id="aviso" placeholder="Aviso: ${json[numGraph].aviso}%" class="box_dado_maquina" required><br>` +
+                            `<input id="perigo" placeholder="Perigo: ${json[numGraph].perigo}%" class="box_dado_maquina" required><br>` +
                             '</div>' +
                             '</div>',
                     }).then((result) => {
                         if (result.isConfirmed) {
 
-                            var okVar = document.getElementById("ok").value;
-                            var avisoVar = document.getElementById("aviso").value;
-                            var perigoVar = document.getElementById("perigo").value;
+                            var okVar;
+                            var avisoVar;
+                            var perigoVar;
 
-                            fetch(`/limites/atualizar/${id}`, {
+                            if (document.getElementById("ok").value == '') {
+                                okVar = json[numGraph].ok
+                            } else {
+                                okVar = document.getElementById("ok").value;
+                            }
+
+                            if (document.getElementById("aviso").value == '') {
+                                avisoVar = json[numGraph].aviso
+                            } else {
+                                avisoVar = document.getElementById("aviso").value;
+                            }
+
+                            if (document.getElementById("perigo").value == '') {
+                                perigoVar = json[numGraph].perigo
+                            } else {
+                                perigoVar = document.getElementById("perigo").value;
+                            }
+
+                            fetch(`/limites/atualizarGrafico`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json"
@@ -739,7 +958,8 @@
                                 body: JSON.stringify({
                                     okServer: okVar,
                                     avisoServer: avisoVar,
-                                    perigoServer: perigoVar
+                                    perigoServer: perigoVar,
+                                    idLimitesServer: json[numGraph].idLimites
                                 }),
                             }).then(async function (resposta) {
 
@@ -748,8 +968,6 @@
                                     $(ui.draggable).remove();
                                     qtdMaquina--;
                                     verifyQtd();
-
-
 
                                     Swal.fire(
                                         'Sucesso!',
@@ -767,124 +985,427 @@
         })
     }
 
+    var percentFinal1;
+    var percentFinal2;
+    var percentFinal3;
+
+    var statusGrafico1;
+    var statusGrafico2;
+    var statusGrafico3;
+
+    var boxAlert1 = document.getElementById("box_alert_grafico1");
+    var boxAlert2 = document.getElementById("box_alert_grafico2");
+    var boxAlert3 = document.getElementById("box_alert_grafico3");
+
+    var created = false;
+    var level;
+
+    var minutos = [];
+    var recebidos = [];
+    var enviados = [];
+    var somaRecebidos = 0;
+    var somaEnviados = 0;
+    var graph = true;
+
+    var minutosFinal = [];
+    var dataFinal = [];
+    var dataFinalEnviado = [];
+    var idEmpresa = sessionStorage.getItem("ID_USUARIO");
+    var qtdBytes = 0;
+
     function verifyStatus() {
-        var statusGrafico1 = 0.95;
-        var statusGrafico2 = 0.81;
-        var statusGrafico3 = 0.3;
 
-        var perigo = 0.9;
-        var aviso = 0.8;
-        var ok = 0.5;
 
-        var boxAlert1 = document.getElementById("box_alert_grafico1")
-        var boxAlert2 = document.getElementById("box_alert_grafico2")
-        var boxAlert3 = document.getElementById("box_alert_grafico3")
+        // setInterval(() => {
+        fetch(`/dashboard/listarBytesHorario/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
 
-        // Inserir percentual e ícone de acordo com o valor do percentual
+            console.log("resposta: ", resposta);
 
-        if (statusGrafico1 <= ok) {
-            box_alert_grafico1.innerHTML += `<span>${statusGrafico1 * 100}%</span> <img src='./assets/imgs/correto.png'>`;
-        } else if (box_alert_grafico1 <= aviso) {
-            box_alert_grafico1.innerHTML += `<span>${statusGrafico1 * 100}%</span> <img src='./assets/imgs/aviso.png'>`;
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    qtdBytes = json.length;
+
+                    for (let index = 0; index < json.length; index++) {
+                        minutos.push(json[index].intervaloMinuto);
+                        recebidos.push(json[index].totalBytesRecebidos);
+                        enviados.push(json[index].totalBytesEnviados);
+                        somaRecebidos += Number(json[index].totalBytesRecebidos);
+                        somaEnviados += Number(json[index].totalBytesEnviados);
+                    }
+
+                    // function setHorario() {
+                    moment.locale('pt-br');
+                    for (let index = json.length; index >= 0; index--) {
+                        const dta = moment(minutos[index - 1]).format('HH:mm');
+                        minutosFinal.push(dta);
+                    }
+                    // minutosFinal.shift(minutos[0]);
+                    // }
+
+                    // function setDataRec() {
+                    for (let index = json.length; index >= 0; index--) {
+                        dataFinal.push(recebidos[index - 1]);
+                    }
+                    // dataFinal.shift(recebidos[0]);
+                    // }
+
+                    // function setDataEnv() {
+                    for (let index = json.length; index >= 0; index--) {
+                        dataFinalEnviado.push(enviados[index - 1]);
+                    }
+                    // dataFinalEnviado.shift(enviados[0]);
+                    // }
+
+                    percentFinal1 = Math.round((((somaEnviados + somaRecebidos) / 2) / (json.length * 1000)) * 100);
+                    statusGrafico1 = percentFinal1;
+
+                    var perigo1 = valuePerigo1;
+                    var aviso1 = valueAviso1;
+                    var ok1 = valueOk1;
+
+                    if (ok1 > perigo1) {
+                        if (statusGrafico1 >= ok1) {
+                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/correto.png'>`;
+                        } else if (statusGrafico1 >= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
+                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/aviso.png'>`;
+                        } else {
+                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/perigo.png'>`;
+                        }
+                    } else {
+                        if (statusGrafico1 <= ok1) {
+                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/correto.png'>`;
+                        } else if (statusGrafico1 <= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
+                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/aviso.png'>`;
+                        } else {
+                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/perigo.png'>`;
+                        }
+                    }
+
+                    if (ok1 > perigo1) {
+                        if (statusGrafico1 >= ok1) {
+                            boxAlert1.classList.toggle("alertOk");
+                        } else if (statusGrafico1 >= aviso1 || (statusGrafico1 < aviso1 && statusGrafico1 > perigo1)) {
+                            boxAlert1.classList.toggle("alertAviso");
+                        } else {
+                            boxAlert1.classList.toggle("alertPerigo");
+                        }
+                    } else {
+                        if (statusGrafico1 <= ok1) {
+                            boxAlert1.classList.toggle("alertOk");
+                        } else if (statusGrafico1 <= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
+                            boxAlert1.classList.toggle("alertAviso");
+                        } else {
+                            boxAlert1.classList.toggle("alertPerigo");
+                        }
+                    }
+                    var graph1 = document.getElementById("valuePercent1");
+                    graph1.innerHTML = `${percentFinal1}%`;
+                })
+            }
+        })
+        // }, 3000);
+
+        fetch(`/dashboard/listarStatusMaquina/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    var qtdStatus = json[0][0].QTD;
+
+                    var percentAtivo = json[0][0].ATIVO / qtdStatus;
+
+                    percentFinal2 = Math.round(percentAtivo * 100);
+                    statusGrafico2 = percentFinal2;
+
+                    var perigo2 = valuePerigo2;
+                    var aviso2 = valueAviso2;
+                    var ok2 = valueOk2;
+
+                    if (ok2 > perigo2) {
+                        if (statusGrafico2 >= ok2) {
+                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
+                        } else if (statusGrafico2 >= aviso2 || (statusGrafico2 < aviso2 && statusGrafico2 > perigo2)) {
+                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
+                        } else {
+                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
+                        }
+                    } else {
+                        if (statusGrafico2 <= ok2) {
+                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
+                        } else if (statusGrafico2 <= aviso2 || (statusGrafico2 > aviso2 && statusGrafico2 < perigo2)) {
+                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
+                        } else {
+                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
+                        }
+                    }
+
+                    if (ok2 > perigo2) {
+                        if (statusGrafico2 >= ok2) {
+                            boxAlert2.classList.toggle("alertOk");
+                        } else if (statusGrafico2 >= aviso2 || (statusGrafico2 < aviso2 && statusGrafico2 > perigo2)) {
+                            boxAlert2.classList.toggle("alertAviso");
+                        } else {
+                            boxAlert2.classList.toggle("alertPerigo");
+                        }
+                    } else {
+                        if (statusGrafico2 <= ok2) {
+                            boxAlert2.classList.toggle("alertOk");
+                        } else if (statusGrafico2 <= aviso2 || (statusGrafico2 > aviso2 && statusGrafico2 < perigo2)) {
+                            boxAlert2.classList.toggle("alertAviso");
+                        } else {
+                            boxAlert2.classList.toggle("alertPerigo");
+                        }
+                    }
+
+                    if (qtdStatus == 0) {
+                        var status = document.getElementById("statusGraph");
+                        status.classList.toggle("imgStatus");
+                        boxAlert2.classList.toggle("emptyPercent")
+                    }
+
+                    var graph2 = document.getElementById("valuePercent2");
+                    graph2.innerHTML = `${qtdStatus != 0 ? percentFinal2 : 0}%`;
+
+                    new Chart(ctx2, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Ativo', 'Inativo'],
+                            datasets: [{
+                                label: 'Quantidade de computadores',
+                                data: [json[0][0].ATIVO, json[0][0].INATIVO],
+                                borderWidth: 1
+                            }]
+                        },
+                    });
+                })
+            }
+        })
+
+        percentFinal3 = Math.round(0.6 * 100);
+        statusGrafico3 = percentFinal3;
+        var perigo3 = valuePerigo3;
+        var aviso3 = valueAviso3;
+        var ok3 = valueOk3;
+
+        if (ok3 > perigo3) {
+            if (statusGrafico3 >= ok3) {
+                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
+            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
+            } else {
+                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
+            }
         } else {
-            box_alert_grafico1.innerHTML += `<span>${statusGrafico1 * 100}%</span> <img src='./assets/imgs/perigo.png'>`;
+            if (statusGrafico3 <= ok3) {
+                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
+            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
+            } else {
+                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
+            }
         }
 
-        if (statusGrafico2 <= ok) {
-            box_alert_grafico2.innerHTML += `<span>${statusGrafico2 * 100}%</span> <img src='./assets/imgs/correto.png'>`;
-        } else if (statusGrafico2 <= aviso) {
-            box_alert_grafico2.innerHTML += `<span>${statusGrafico2 * 100}%</span> <img src='./assets/imgs/aviso.png'>`;
+        if (ok3 > perigo3) {
+            if (statusGrafico3 >= ok3) {
+                boxAlert3.classList.toggle("alertOk");
+            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 < aviso3 && statusGrafico3 > perigo3)) {
+                boxAlert3.classList.toggle("alertAviso");
+            } else {
+                boxAlert3.classList.toggle("alertPerigo");
+            }
         } else {
-            box_alert_grafico2.innerHTML += `<span>${statusGrafico2 * 100}%</span> <img src='./assets/imgs/perigo.png'>`;
+            if (statusGrafico3 <= ok3) {
+                boxAlert3.classList.toggle("alertOk");
+            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                boxAlert3.classList.toggle("alertAviso");
+            } else {
+                boxAlert3.classList.toggle("alertPerigo");
+            }
         }
 
-        if (statusGrafico3 <= ok) {
-            box_alert_grafico3.innerHTML += `<span>${statusGrafico3 * 100}%</span> <img src='./assets/imgs/correto.png'>`;
-        } else if (statusGrafico3 <= aviso) {
-            box_alert_grafico3.innerHTML += `<span>${statusGrafico3 * 100}%</span> <img src='./assets/imgs/aviso.png'>`;
-        } else {
-            box_alert_grafico3.innerHTML += `<span>${statusGrafico3 * 100}%</span> <img src='./assets/imgs/perigo.png'>`;
-        }
+        var graph3 = document.getElementById("valuePercent3");
 
+        graph3.innerHTML = `${percentFinal3}%`;
 
-        // Atualizar a cor da box de acordo com o percentual
-
-        if (statusGrafico1 <= ok) {
-            boxAlert1.classList.toggle("alertOk");
-        } else if (statusGrafico1 <= aviso) {
-            boxAlert1.classList.toggle("alertAviso");
-        } else {
-            boxAlert1.classList.toggle("alertPerigo");
-        }
-
-        if (statusGrafico2 <= ok) {
-            boxAlert2.classList.toggle("alertOk");
-        } else if (statusGrafico2 <= aviso) {
-            boxAlert2.classList.toggle("alertAviso");
-        } else {
-            boxAlert2.classList.toggle("alertPerigo");
-        }
-
-        if (statusGrafico3 <= ok) {
-            boxAlert3.classList.toggle("alertOk");
-        } else if (statusGrafico3 <= aviso) {
-            boxAlert3.classList.toggle("alertAviso");
-        } else {
-            boxAlert3.classList.toggle("alertPerigo");
-        }
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                datasets: [{
+                    label: 'Uso dos computadores',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     }
 
     verifyStatus();
 
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
-            datasets: [{
-                label: 'Computadores precisando manutenção',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    // level = new Chart(ctx, {
+    //     type: 'line',
+    //     data: {
+    //         labels: minutosFinal,
+    //         datasets: [{
+    //             label: 'Enviados',
+    //             backgroundColor: '#FF6961',
+    //             borderColor: '#FF6961',
+    //             data: dataFinalEnviado,
+    //         },
+    //         {
+    //             label: 'Recebidos',
+    //             backgroundColor: '#4169E1',
+    //             borderColor: '#4169E1',
+    //             data: dataFinal,
+    //         }]
+    //     },
+    //     options: {
+    //         scales: {
+    //             y: {
+    //                 beginAtZero: true
+    //             }
+    //         }
+    //     }
+    // });
 
-    new Chart(ctx2, {
-        type: 'pie',
-        data: {
-            labels: ['Ativo', 'Inativo'],
-            datasets: [{
-                label: 'Quantidade de computadores',
-                data: [12, 19],
-                borderWidth: 1
-            }]
-        },
-    });
-
-    new Chart(ctx3, {
-        type: 'bar',
-        data: {
-            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            datasets: [{
-                label: 'Uso dos computadores',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+    setTimeout(() => {
+        let labels = [];
+        let dados = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Bytes Recebidos',
+                    data: [],
+                    fill: false,
+                    borderColor: "#b91d47",
+                    backgroundColor: "#b91d47",
+                    tension: 0.1
+                },
+                {
+                    label: 'Bytes Enviados',
+                    data: [],
+                    fill: false,
+                    borderColor: "#00aba9",
+                    backgroundColor: "#00aba9",
+                    tension: 0.1
                 }
+            ]
+        };
+
+        console.log('----------------------------------------------');
+        console.log('Estes dados foram recebidos pela função "obterDados" e passados para "desenharGrafico":');
+
+        function atualizarGrafico() {
+            for (let i = 0; i < qtdBytes; i++) {
+                dados.labels.push(minutosFinal[i]);
+                dados.datasets[0].data.push(dataFinalEnviado[i]);
+                dados.datasets[1].data.push(dataFinal[i]);
             }
+
+            console.log('----------------------------------------------');
+            console.log('O gráfico será plotado com os respectivos valores:');
+            console.log('Labels:');
+            console.log(labels);
+            console.log('Dados Recebidos:');
+            console.log(dados.datasets[0].data);
+            console.log('Dados Enviados:');
+            console.log(dados.datasets[1].data);
+            console.log('----------------------------------------------');
+
+            const config = {
+                type: 'line',
+                data: dados
+            };
+
+            let bytes = new Chart(
+                ctx,
+                config
+            );
+
+            setInterval(() => {
+                obterNovosDados().then(novosDados => {
+                    dados.labels = [];
+                    dados.datasets[0].data = [];
+                    dados.datasets[1].data = [];
+
+                    for (let i = 0; i < qtdBytes; i++) {
+                        dados.labels.push(novosDados.minutosFinal[i]);
+                        dados.datasets[0].data.push(novosDados.dataFinal[i]);
+                        dados.datasets[1].data.push(novosDados.dataFinalEnviado[i]);
+                    }
+
+                    bytes.update();
+                }).catch(error => {
+                    console.log('Erro ao obter novos dados:', error);
+                });
+            }, 1000);
         }
-    });
+
+        function obterNovosDados() {
+            return new Promise((resolve, reject) => {
+                // Fazer a requisição AJAX para obter os novos dados
+                // Substitua o trecho abaixo pelo seu código de requisição
+
+                fetch(`/dashboard/listarBytesHorario/${idEmpresa}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(function (resposta) {
+                    if (resposta.ok) {
+                        resposta.json().then(json => {
+                            let minutosFinal = [];
+                            let dataFinal = [];
+                            let dataFinalEnviado = [];
+
+                            for (let index = json.length; index > 0; index--) {               
+                                minutosFinal.push(moment(json[index - 1].intervaloMinuto).format('HH:mm'));
+                                dataFinal.push(json[index - 1].totalBytesRecebidos);
+                                dataFinalEnviado.push(json[index - 1].totalBytesEnviados);
+                            }
+
+                            resolve({
+                                minutosFinal: minutosFinal,
+                                dataFinal: dataFinal,
+                                dataFinalEnviado: dataFinalEnviado
+                            });
+                        });
+                    } else {
+                        reject(new Error('Erro na requisição'));
+                    }
+                }).catch(error => {
+                    reject(error);
+                });
+            });
+        }
+
+        atualizarGrafico();
+    }, 1000);
+
+
+
+    // setTimeout(() => atualizarGrafico(idEmpresa, dados, bytes), 1000);
 
 </script>
 

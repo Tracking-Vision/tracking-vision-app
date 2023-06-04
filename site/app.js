@@ -16,6 +16,7 @@ var maquinaRouter = require("./src/routes/maquina");
 var logRouter = require("./src/routes/log");
 var limitesRouter = require("./src/routes/limites")
 var janelasRouter = require("./src/routes/janelas")
+var dashboardRouter = require("./src/routes/dashboard")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,6 +32,7 @@ app.use("/maquina", maquinaRouter);
 app.use("/log", logRouter);
 app.use("/limites", limitesRouter);
 app.use("/janelas", janelasRouter);
+app.use("/dashboard", dashboardRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

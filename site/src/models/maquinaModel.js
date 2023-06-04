@@ -1,11 +1,11 @@
 var database = require("../database/config");
 
-function listarCommand() {
+function listarCommand(idEmpresa) {
   console.log(
     "ACESSEI O MAQUINA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-        SELECT * FROM maquina WHERE statusMaquina IS NOT NULL;
+        SELECT * FROM maquina WHERE statusMaquina IS NOT NULL AND fkEmpresa = ${idEmpresa};
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -17,11 +17,11 @@ function listarMaquinaId(id) {
     "ACESSEI O MAQUINA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarMaquinaId(): ",
   );
   var instrucao = `
-        SELECT * FROM maquina JOIN rede as r
+        SELECT * FROM maquina JOIN placaRede as r
         ON fkMaquina = idMaquina JOIN maquina as m
         ON r.fkMaquina = m.idMaquina JOIN limites as l
         ON l.fkMaquina = m.idMaquina
-        WHERE m.idMaquina = ${id};
+        WHERE m.idMaquina = ${id} LIMIT 1;
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

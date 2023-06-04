@@ -7,7 +7,7 @@ router.get("/listar", function (req, res) {
   limitesController.listar(req, res);
 });
 
-router.get("/listarGrafico", function (req, res) {
+router.get("/listarGrafico/:idEmpresa", function (req, res) {
   limitesController.listarGrafico(req, res);
 });
 
@@ -19,8 +19,8 @@ router.put("/atualizar/:id", function (req, res) {
   limitesController.atualizar(req, res);
 });
 
-router.put("/atualizarGrafico/:id", function (req, res) {
-  limitesController.atualizar(req, res);
+router.put("/atualizarGrafico", function (req, res) {
+  limitesController.atualizarGrafico(req, res);
 });
 
 router.delete("/deletar/:id", function (req, res) {

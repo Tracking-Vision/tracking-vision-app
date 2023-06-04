@@ -8,8 +8,9 @@ function testar(req, res) {
 }
 
 function listar(req, res) {
-    maquinaModel
-    .listarCommand()
+  var idEmpresa = req.params.idEmpresa;
+  maquinaModel
+    .listarCommand(idEmpresa)
     .then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
