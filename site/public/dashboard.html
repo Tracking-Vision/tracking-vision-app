@@ -25,7 +25,7 @@
                     <nav id="menuClose" class="boxClose">
                         <div class="box_nav">
                             <a href="cadastroFuncionario.html" id="cadastroFunc">Cadastro funcionário</a>
-                            <a href="cadastroJanela.html" id="cadastroMaq">Cadastro janela</a>
+                            <a href="bloqueio.html" id="cadastroMaq">Cadastro janela</a>
                             <a onclick="limparSessao()">Sair</a>
                             <div id="containerClose" class="container_imgClose">
                                 <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
@@ -698,6 +698,7 @@
                                         'success'
                                     )
                                 }
+                                location.reload();
                             })
                         }
                     })
@@ -732,11 +733,11 @@
                         var statusVar;
 
                         if (resposta.ok) {
-                            resposta.json().then(json => {
+                            resposta.json().then(async json => {
                                 console.log(json);
                                 console.log(JSON.stringify(json));
 
-                                const { value: formValues } = Swal.fire({
+                                const { value: formValues } = await Swal.fire({
                                     customClass: {
                                         confirmButton: 'btn_maquina',
                                     },
@@ -848,36 +849,27 @@
                                     }
                                 })
 
+                                fetch(`/maquina/editar/${id}`, {
+                                    method: "PATCH",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        modeloDiscoServer: modeloDiscoVar,
+                                        armazenamentoServer: armazenamentoVar,
+                                        modeloRamServer: modeloRamVar,
+                                        ramServer: ramVar,
+                                        modeloCpuServer: modeloCpuVar,
+                                        leituraDiscoServer: leituraDicoVar,
+                                        escritaDiscoServer: escritaDiscoVar,
+                                        nomeHostServer: nomeHostVar,
+                                        clockCpuServer: clockCpuVar,
+                                        statusServer: statusVar,
+                                    }),
+                                })
+
                                 if (formValues) {
-
-                                    Swal.fire(JSON.stringify(formValues))
-                                    fetch(`/maquina/editar/${id}`, {
-                                        method: "PATCH",
-                                        headers: {
-                                            "Content-Type": "application/json"
-                                        },
-                                        body: JSON.stringify({
-                                            modeloDiscoServer: modeloDiscoVar,
-                                            armazenamentoServer: armazenamentoVar,
-                                            modeloRamServer: modeloRamVar,
-                                            ramServer: ramVar,
-                                            modeloCpuServer: modeloCpuVar,
-                                            leituraDiscoServer: leituraDicoVar,
-                                            escritaDiscoServer: escritaDiscoVar,
-                                            nomeHostServer: nomeHostVar,
-                                            clockCpuServer: clockCpuVar,
-                                            statusServer: statusVar,
-                                        }),
-                                    }).then(async function (resposta) {
-
-                                        // if (resposta.statusTex) {
-
-                                        // }
-
-                                        if (formValues) {
-                                            Swal.fire(JSON.stringify(formValues))
-                                        }
-                                    })
+                                    location.reload();
                                 }
                             })
                         }
@@ -963,18 +955,14 @@
                                 }),
                             }).then(async function (resposta) {
 
-                                if (resposta.status === 204) {
-                                    $(ui.helper).remove();
-                                    $(ui.draggable).remove();
-                                    qtdMaquina--;
-                                    verifyQtd();
-
-                                    Swal.fire(
-                                        'Sucesso!',
-                                        'A máquina foi deletada.',
-                                        'success'
-                                    )
-                                }
+                                Swal.fire(
+                                    'Sucesso!',
+                                    'A métrica foi atualizada.',
+                                    'success'
+                                )
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000);
 
                             })
 
@@ -1015,7 +1003,6 @@
 
     function verifyStatus() {
 
-
         // setInterval(() => {
         fetch(`/dashboard/listarBytesHorario/${idEmpresa}`, {
             method: "GET",
@@ -1038,28 +1025,19 @@
                         somaEnviados += Number(json[index].totalBytesEnviados);
                     }
 
-                    // function setHorario() {
                     moment.locale('pt-br');
                     for (let index = json.length; index >= 0; index--) {
                         const dta = moment(minutos[index - 1]).format('HH:mm');
                         minutosFinal.push(dta);
                     }
-                    // minutosFinal.shift(minutos[0]);
-                    // }
 
-                    // function setDataRec() {
                     for (let index = json.length; index >= 0; index--) {
                         dataFinal.push(recebidos[index - 1]);
                     }
-                    // dataFinal.shift(recebidos[0]);
-                    // }
 
-                    // function setDataEnv() {
                     for (let index = json.length; index >= 0; index--) {
                         dataFinalEnviado.push(enviados[index - 1]);
                     }
-                    // dataFinalEnviado.shift(enviados[0]);
-                    // }
 
                     percentFinal1 = Math.round((((somaEnviados + somaRecebidos) / 2) / (json.length * 1000)) * 100);
                     statusGrafico1 = percentFinal1;
@@ -1108,7 +1086,7 @@
                 })
             }
         })
-        // }, 3000);
+        // }, 10000);
 
         fetch(`/dashboard/listarStatusMaquina/${idEmpresa}`, {
             method: "GET",
@@ -1195,70 +1173,72 @@
             }
         })
 
-        percentFinal3 = Math.round(0.6 * 100);
-        statusGrafico3 = percentFinal3;
-        var perigo3 = valuePerigo3;
-        var aviso3 = valueAviso3;
-        var ok3 = valueOk3;
+        setTimeout(() => {
+            percentFinal3 = Math.round(0.5 * 100);
+            statusGrafico3 = percentFinal3;
+            var perigo3 = valuePerigo3;
+            var aviso3 = valueAviso3;
+            var ok3 = valueOk3;
 
-        if (ok3 > perigo3) {
-            if (statusGrafico3 >= ok3) {
-                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
-            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
+            if (ok3 > perigo3) {
+                if (statusGrafico3 >= ok3) {
+                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
+                } else if (statusGrafico3 >= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
+                } else {
+                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
+                }
             } else {
-                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
-            }
-        } else {
-            if (statusGrafico3 <= ok3) {
-                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
-            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
-            } else {
-                box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
-            }
-        }
-
-        if (ok3 > perigo3) {
-            if (statusGrafico3 >= ok3) {
-                boxAlert3.classList.toggle("alertOk");
-            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 < aviso3 && statusGrafico3 > perigo3)) {
-                boxAlert3.classList.toggle("alertAviso");
-            } else {
-                boxAlert3.classList.toggle("alertPerigo");
-            }
-        } else {
-            if (statusGrafico3 <= ok3) {
-                boxAlert3.classList.toggle("alertOk");
-            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                boxAlert3.classList.toggle("alertAviso");
-            } else {
-                boxAlert3.classList.toggle("alertPerigo");
-            }
-        }
-
-        var graph3 = document.getElementById("valuePercent3");
-
-        graph3.innerHTML = `${percentFinal3}%`;
-
-        new Chart(ctx3, {
-            type: 'bar',
-            data: {
-                labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                datasets: [{
-                    label: 'Uso dos computadores',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                if (statusGrafico3 <= ok3) {
+                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
+                } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
+                } else {
+                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
                 }
             }
-        });
+
+            if (ok3 > perigo3) {
+                if (statusGrafico3 >= ok3) {
+                    boxAlert3.classList.toggle("alertOk");
+                } else if (statusGrafico3 >= aviso3 || (statusGrafico3 < aviso3 && statusGrafico3 > perigo3)) {
+                    boxAlert3.classList.toggle("alertAviso");
+                } else {
+                    boxAlert3.classList.toggle("alertPerigo");
+                }
+            } else {
+                if (statusGrafico3 <= ok3) {
+                    boxAlert3.classList.toggle("alertOk");
+                } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                    boxAlert3.classList.toggle("alertAviso");
+                } else {
+                    boxAlert3.classList.toggle("alertPerigo");
+                }
+            }
+
+            var graph3 = document.getElementById("valuePercent3");
+
+            graph3.innerHTML = `${percentFinal3}%`;
+
+            new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    datasets: [{
+                        label: 'Uso dos computadores',
+                        data: [12, 19, 3, 5, 2, 3],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }, 100);
     }
 
     verifyStatus();
@@ -1343,23 +1323,23 @@
                 config
             );
 
-            setInterval(() => {
-                obterNovosDados().then(novosDados => {
-                    dados.labels = [];
-                    dados.datasets[0].data = [];
-                    dados.datasets[1].data = [];
+            // setInterval(() => {
+            obterNovosDados().then(novosDados => {
+                dados.labels = [];
+                dados.datasets[0].data = [];
+                dados.datasets[1].data = [];
 
-                    for (let i = 0; i < qtdBytes; i++) {
-                        dados.labels.push(novosDados.minutosFinal[i]);
-                        dados.datasets[0].data.push(novosDados.dataFinal[i]);
-                        dados.datasets[1].data.push(novosDados.dataFinalEnviado[i]);
-                    }
+                for (let i = 0; i < qtdBytes; i++) {
+                    dados.labels.push(novosDados.minutosFinal[i]);
+                    dados.datasets[0].data.push(novosDados.dataFinal[i]);
+                    dados.datasets[1].data.push(novosDados.dataFinalEnviado[i]);
+                }
 
-                    bytes.update();
-                }).catch(error => {
-                    console.log('Erro ao obter novos dados:', error);
-                });
-            }, 1000);
+                bytes.update();
+            }).catch(error => {
+                console.log('Erro ao obter novos dados:', error);
+            });
+            // }, 1000);
         }
 
         function obterNovosDados() {
@@ -1379,7 +1359,7 @@
                             let dataFinal = [];
                             let dataFinalEnviado = [];
 
-                            for (let index = json.length; index > 0; index--) {               
+                            for (let index = json.length; index > 0; index--) {
                                 minutosFinal.push(moment(json[index - 1].intervaloMinuto).format('HH:mm'));
                                 dataFinal.push(json[index - 1].totalBytesRecebidos);
                                 dataFinalEnviado.push(json[index - 1].totalBytesEnviados);
@@ -1402,9 +1382,6 @@
 
         atualizarGrafico();
     }, 1000);
-
-
-
     // setTimeout(() => atualizarGrafico(idEmpresa, dados, bytes), 1000);
 
 </script>

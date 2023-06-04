@@ -3,8 +3,10 @@ var limitesModel = require("../models/limitesModel");
 var sessoes = [];
 
 function listar(req, res) {
+  var id = req.params.idEmpresa;
+
   limitesModel
-    .listar()
+    .listar(id)
     .then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
@@ -142,7 +144,7 @@ function atualizarGrafico(req, res) {
 }
 
 function deletar(req, res) {
-  var id = req.body.idServer;
+  var id = req.params.id;
   limitesModel
     .deletar(id)
     .then(function (resultado) {

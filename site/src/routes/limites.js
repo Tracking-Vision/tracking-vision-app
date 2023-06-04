@@ -3,7 +3,7 @@ var router = express.Router();
 
 var limitesController = require("../controllers/limitesController");
 
-router.get("/listar", function (req, res) {
+router.get("/listar/:idEmpresa", function (req, res) {
   limitesController.listar(req, res);
 });
 

@@ -1,11 +1,13 @@
 var database = require("../database/config");
 
-function listar() {
+function listar(id) {
   console.log(
     "ACESSEI O LIMITES MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-        SELECT * FROM limites;
+        SELECT * FROM limites as l JOIN maquina as m
+        ON l.fkMaquina = idMaquina 
+        WHERE l.fkEmpresa = ${id} AND tipo = 1 AND (m.statusMaquina = 1 OR m.statusMaquina = 0);
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

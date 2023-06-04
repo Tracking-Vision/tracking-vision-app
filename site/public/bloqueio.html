@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracking Vision - Janelas</title>
+
+    <link rel="stylesheet" href="assets/css/style-bloqueio.css">
+    <link rel="stylesheet" href="./assets/css/style-login.css" />
+    <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/funcoes.js"></script>
+</head>
+
+<body>
+    <header>
+        <hr class="barra_header" />
+        <div class="container_header">
+            <div class="box_header">
+                <a href="index.html">
+                    <img class="logo_header" src="./assets/imgs/Logo T-Vision.png" alt="Logo" />
+                </a>
+                <div id="menu" class="container_nav_menu">
+                    <nav id="menuClose" class="boxClose">
+                        <div class="box_nav">
+                            <a href="index.html" id="cadastroFunc">Home</a>
+                            <a href="cadastro.html" id="cadastroMaq">Cadastro</a>
+                            <div id="containerClose" class="container_imgClose">
+                                <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
+                                    <img src="./assets/imgs/close.png" alt="img_close" />
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
+                        <div class="box_imgMenu">
+                            <img src="./assets/imgs/menu.png" alt="img_hamburger" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="container_all">
+            <div class="container_janela">
+                <div class="box_janela">
+                    <span id="titulo" class="titulo_cadastro">Cadastro janela</span>
+                    <div class="box_container">
+                        <input id="ipt_nomeJanela" type="text" placeholder="Nome da janela" required>
+                        <input id="ipt_enderecoJanela" type="text" placeholder="Endereço da janela" required>
+                    </div>
+                    <div id="btn">
+                        <div class="btn_cadastro" onclick="cadastroJanela()">
+                            <span>Cadastro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="barra_divisao">
+            <div class="container_listagem">
+                <span class="titulo_listagem">Listagem janela</span>
+                <div id="container_list" class="box_listagem"></div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+<script>
+    var idEmpresa = sessionStorage.getItem("ID_USUARIO");
+    var containerLista = document.getElementById("container_list");
+    var idJanela;
+
+    function openNav() {
+        document.getElementById("nav_open").style.display = "block";
+        document.getElementById("nav_close").style.display = "none";
+    }
+    function closeNav() {
+        document.getElementById("nav_close").style.display = "block";
+        document.getElementById("nav_open").style.display = "none";
+    }
+
+    function cadastroJanela() {
+        var nomeVar = document.getElementById("ipt_nomeJanela").value;
+        var enderecoVar = document.getElementById("ipt_enderecoJanela").value;
+
+        fetch(`/janelas/cadastrar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                enderecoServer: enderecoVar,
+                idEmpresaServer: idEmpresa,
+            }),
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                Swal.fire(
+                    'Sucesso!',
+                    'A janela foi cadastrada.',
+                    'success'
+                )
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            }
+        })
+    }
+
+    function listarJanela() {
+        fetch(`/janelas/listar/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    for (let index = 0; index < json.length; index++) {
+                        var nome = json[index].nome;
+                        var endereco = json[index].endereco;
+                        var idBloqJanela = json[index].idJanelasBloqueadas;
+
+                        containerLista.innerHTML += `
+                        <div id="item_list${index}" class="item_list">
+                            <span>${json[index].nome}</span>
+                            <div class="box_img">
+                                <img onclick="atualizar('${nome}', '${endereco}', ${idBloqJanela}, ${index})" src="assets/imgs/editar.png" alt="Atualizar">
+                                <img onclick="deletar(${idBloqJanela})" src="assets/imgs/deletar.png" alt="Deletar">
+                            </div>
+                        </div>
+                    `;
+                    }
+                })
+            }
+        })
+    }
+
+    function atualizarJanela() {
+        var nomeVar = document.getElementById("ipt_nomeJanela").value;
+        var enderecoVar = document.getElementById("ipt_enderecoJanela").value;
+
+        fetch(`/janelas/atualizar/${idJanela}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                enderecoServer: enderecoVar,
+                idServer: idJanela,
+            }),
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                Swal.fire(
+                    'Sucesso!',
+                    'A janela foi atualizada.',
+                    'success'
+                )
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            }
+        })
+    }
+
+    var boxOld;
+    var first = false;
+    var switchJanela = false;
+
+    function atualizar(nome, endereco, id, index) {
+        var nomeVar = document.getElementById("ipt_nomeJanela");
+        var enderecoVar = document.getElementById("ipt_enderecoJanela");
+        var titulo = document.getElementById("titulo");
+        var box = document.getElementById(`item_list${index}`)
+
+        if (first) {
+            boxOld.classList.remove("selected");
+        }
+
+        if (switchJanela) {
+            titulo.innerHTML = "Cadastrar janela"
+            nomeVar.value = "";
+            enderecoVar.value = "";
+
+            var btnText = document.getElementById("btn");
+            btnText.innerHTML = `
+            <div class="btn_cadastro" onclick="atualizarJanela()">
+                <span>Cadastrar</span>
+            </div>
+            `;
+            switchJanela = false;
+        } else {
+            titulo.innerHTML = "Atualizar janela"
+            box.classList.toggle("selected")
+
+            nomeVar.value = nome;
+            enderecoVar.value = endereco;
+
+            idJanela = id;
+
+            var btnText = document.getElementById("btn");
+            btnText.innerHTML = `
+            <div class="btn_cadastro" onclick="atualizarJanela()">
+                <span>Atualizar</span>
+            </div>
+            `;
+
+            switchJanela = true;
+        }
+        boxOld = box;
+        first = true;
+    }
+
+    function deletar(id) {
+        Swal.fire({
+            title: 'Aviso',
+            text: 'Você deseja excluir essa janela?',
+            icon: 'warning',
+            confirmButtonText: 'Confirmar',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/janelas/deletar/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(function (resposta) {
+                    if (resposta.ok) {
+                        Swal.fire(
+                            'Sucesso!',
+                            'A janela foi deletada.',
+                            'success'
+                        )
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                    }
+                })
+            }
+        })
+    }
+
+    listarJanela();
+</script>

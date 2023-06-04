@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracking Vision - Janelas</title>
+
+    <link rel="stylesheet" href="assets/css/style-limite.css">
+    <link rel="stylesheet" href="./assets/css/style-login.css" />
+    <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/funcoes.js"></script>
+</head>
+
+<body>
+    <header>
+        <hr class="barra_header" />
+        <div class="container_header">
+            <div class="box_header">
+                <a href="index.html">
+                    <img class="logo_header" src="./assets/imgs/Logo T-Vision.png" alt="Logo" />
+                </a>
+                <div id="menu" class="container_nav_menu">
+                    <nav id="menuClose" class="boxClose">
+                        <div class="box_nav">
+                            <a href="index.html" id="cadastroFunc">Home</a>
+                            <a href="cadastro.html" id="cadastroMaq">Cadastro</a>
+                            <div id="containerClose" class="container_imgClose">
+                                <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
+                                    <img src="./assets/imgs/close.png" alt="img_close" />
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
+                        <div class="box_imgMenu">
+                            <img src="./assets/imgs/menu.png" alt="img_hamburger" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="container_all">
+            <div class="container_janela">
+                <div class="box_janela">
+                    <span id="titulo" class="titulo_cadastro">Cadastro limite</span>
+                    <div class="box_container">
+                        <input id="ipt_ok" type="text" placeholder="Perigo %" required>
+                        <input id="ipt_aviso" type="text" placeholder="Aviso %" required>
+                        <input id="ipt_perigo" type="text" placeholder="Ok %" required>
+                        <input id="ipt_idMaquina" type="text" placeholder="Id máquina" required>
+                    </div>
+                    <div id="btn">
+                        <div class="btn_cadastro" onclick="cadastroLimite()">
+                            <span>Cadastro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="barra_divisao">
+            <div class="container_listagem">
+                <span class="titulo_listagem">Listagem limites</span>
+                <div id="container_list" class="box_listagem"></div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+<script>
+    var idEmpresa = sessionStorage.getItem("ID_USUARIO");
+    var containerLista = document.getElementById("container_list");
+    var idMaquina;
+
+    function openNav() {
+        document.getElementById("nav_open").style.display = "block";
+        document.getElementById("nav_close").style.display = "none";
+    }
+    function closeNav() {
+        document.getElementById("nav_close").style.display = "block";
+        document.getElementById("nav_open").style.display = "none";
+    }
+
+    function cadastroLimite() {
+        var okVar = document.getElementById("ipt_ok").value;
+        var avisoVar = document.getElementById("ipt_aviso").value;
+        var perigoVar = document.getElementById("ipt_perigo").value;
+        var idVar = document.getElementById("ipt_idMaquina").value;
+
+        fetch(`/limites/cadastrar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                okServer: okVar,
+                avisoServer: avisoVar,
+                perigoServer: perigoVar,
+                tipoServer: 1,
+                fkMaquinaServer: idVar,
+                idEmpresaServer: idEmpresa,
+            }),
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                Swal.fire(
+                    'Sucesso!',
+                    'A janela foi cadastrada.',
+                    'success'
+                )
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            }
+        })
+    }
+
+    function listarLimite() {
+        fetch(`/limites/listar/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    for (let index = 0; index < json.length; index++) {
+                        var nome = json[index].hostnameMaquina;
+                        var ok = json[index].ok;
+                        var aviso = json[index].aviso;
+                        var perigo = json[index].perigo;
+                        var idMaquina = json[index].idMaquina;
+                        var idLimite = json[index].idLimites;
+
+                        containerLista.innerHTML += `
+                        <div id="item_list${index}" class="item_list">
+                            <span>${json[index].hostnameMaquina}</span>
+                            <div class="box_img">
+                                <img onclick="atualizar(${ok}, ${aviso}, ${perigo}, ${idMaquina}, ${index})" src="assets/imgs/editar.png" alt="Atualizar">
+                                <img onclick="deletar(${idLimite})" src="assets/imgs/deletar.png" alt="Deletar">
+                            </div>
+                        </div>
+                    `;
+                    }
+                })
+            }
+        })
+    }
+
+    function atualizarLimite() {
+        var nomeVar = document.getElementById("ipt_ok").value;
+        var enderecoVar = document.getElementById("ipt_aviso").value;
+
+        fetch(`/janelas/atualizar/${idMaquina}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                enderecoServer: enderecoVar,
+                idServer: idJanela,
+            }),
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                Swal.fire(
+                    'Sucesso!',
+                    'A janela foi atualizada.',
+                    'success'
+                )
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            }
+        })
+    }
+
+    var boxOld;
+    var first = false;
+    var switchJanela = false;
+
+    function atualizar(ok, aviso, perigo, id, index) {
+        var okVar = document.getElementById("ipt_ok");
+        var avisoVar = document.getElementById("ipt_aviso");
+        var perigoVar = document.getElementById("ipt_perigo");
+        var maquinaVar = document.getElementById("ipt_idMaquina");
+
+        var titulo = document.getElementById("titulo");
+        var box = document.getElementById(`item_list${index}`)
+
+        if (first) {
+            boxOld.classList.remove("selected");
+        }
+
+        if (switchJanela) {
+            titulo.innerHTML = "Cadastrar limite"
+            okVar.value = "";
+            avisoVar.value = "";
+            perigoVar.value = "";
+            maquinaVar.value = "";
+
+            var btnText = document.getElementById("btn");
+            btnText.innerHTML = `
+            <div class="btn_cadastro" onclick="atualizarLimite()">
+                <span>Cadastrar</span>
+            </div>
+            `;
+            switchJanela = false;
+        } else {
+            titulo.innerHTML = "Atualizar limite"
+            box.classList.toggle("selected")
+
+            okVar.value = ok;
+            avisoVar.value = aviso;
+            perigoVar.value = perigo;
+            maquinaVar.value = id;
+
+            idMaquina = id;
+
+            var btnText = document.getElementById("btn");
+            btnText.innerHTML = `
+            <div class="btn_cadastro" onclick="atualizarLimite()">
+                <span>Atualizar</span>
+            </div>
+            `;
+
+            switchJanela = true;
+        }
+        boxOld = box;
+        first = true;
+    }
+
+    function deletar(id) {
+        Swal.fire({
+            title: 'Aviso',
+            text: 'Você deseja excluir esse limite?',
+            icon: 'warning',
+            confirmButtonText: 'Confirmar',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/limites/deletar/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(function (resposta) {
+                    if (resposta.ok) {
+                        Swal.fire(
+                            'Sucesso!',
+                            'A janela foi deletada.',
+                            'success'
+                        )
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                    }
+                })
+            }
+        })
+    }
+
+    listarLimite();
+</script>

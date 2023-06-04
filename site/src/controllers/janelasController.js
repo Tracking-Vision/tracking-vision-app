@@ -1,10 +1,11 @@
-var limitesModel = require("../models/janelasModel");
+var janelasModel = require("../models/janelasModel");
 
 var sessoes = [];
 
 function listar(req, res) {
+  var idEmpresa = req.params.idEmpresa;
   janelasModel
-    .listar()
+    .listar(idEmpresa)
     .then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
@@ -25,13 +26,15 @@ function listar(req, res) {
 function cadastrar(req, res) {
   var nome = req.body.nomeServer;
   var endereco = req.body.enderecoServer;
-  var id = req.body.idServer;
+  var id = req.body.idEmpresaServer;
 
   if (nome == undefined) {
     res.status(400).send("Nome está undefined!");
   } else if (endereco == undefined) {
     res.status(400).send("Endereço está undefined!");
-  } else {
+  } else if (id == undefined) {
+    res.status(400).send("Id está undefined!");
+  }else {
     janelasModel
       .cadastrar(nome, endereco, id)
       .then(function (resultado) {
@@ -57,9 +60,11 @@ function atualizar(req, res) {
     res.status(400).send("Nome está undefined!");
   } else if (endereco == undefined) {
     res.status(400).send("Endereço está undefined!");
+  } else if (id == undefined) {
+    res.status(400).send("Id está undefined!");
   } else {
     janelasModel
-      .atualizar(nome, endereco,id)
+      .atualizar(nome, endereco, id)
       .then(function (resultado) {
         res.json(resultado);
       })
@@ -72,7 +77,7 @@ function atualizar(req, res) {
 }
 
 function deletar(req, res) {
-  var id = req.body.idServer;
+  var id = req.params.idJanela;
   janelasModel
     .deletar(id)
     .then(function (resultado) {
