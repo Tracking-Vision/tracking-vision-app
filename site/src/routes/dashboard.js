@@ -15,4 +15,8 @@ router.get("/listarBytesHorario/:idEmpresa", function (req, res) {
     dashboardController.listarBytes(req, res);
 });
 
+router.get("/listarMaquinaHora/:idEmpresa", function (req, res) {
+    dashboardController.listarMaquina(req, res);
+});
+
 module.exports = router;

@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tracking Vision - Janelas</title>
+    <title>Tracking Vision - Limites</title>
 
     <link rel="stylesheet" href="assets/css/style-limite.css">
     <link rel="stylesheet" href="./assets/css/style-login.css" />
@@ -154,18 +154,22 @@
     }
 
     function atualizarLimite() {
-        var nomeVar = document.getElementById("ipt_ok").value;
-        var enderecoVar = document.getElementById("ipt_aviso").value;
+        var okVar = document.getElementById("ipt_ok").value;
+        var avisoVar = document.getElementById("ipt_aviso").value;
+        var perigoVar = document.getElementById("ipt_perigo").value;
+        var maquinaVar = document.getElementById("ipt_idMaquina").value;
 
-        fetch(`/janelas/atualizar/${idMaquina}`, {
+        fetch(`/limites/atualizar`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                nomeServer: nomeVar,
-                enderecoServer: enderecoVar,
-                idServer: idJanela,
+                okServer: okVar,
+                avisoServer: avisoVar,
+                perigoServer: perigoVar,
+                tipoServer: 1,
+                idServer: maquinaVar,
             }),
         }).then(function (resposta) {
             if (resposta.ok) {
@@ -221,8 +225,6 @@
             perigoVar.value = perigo;
             maquinaVar.value = id;
 
-            idMaquina = id;
-
             var btnText = document.getElementById("btn");
             btnText.innerHTML = `
             <div class="btn_cadastro" onclick="atualizarLimite()">
@@ -255,7 +257,7 @@
                     if (resposta.ok) {
                         Swal.fire(
                             'Sucesso!',
-                            'A janela foi deletada.',
+                            'O limite foi deletado.',
                             'success'
                         )
                         setTimeout(() => {

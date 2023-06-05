@@ -398,7 +398,7 @@
                     var maqEscritaDisco = document.getElementById("escritaDisco");
                     var maqIpv4 = document.getElementById("ipv4");
 
-                    alert(JSON.stringify(json));
+                    // alert(JSON.stringify(json));
 
                     if (JSON.stringify(json[0].idMaquina).length > 13) {
                         maqId.innerHTML += `<marquee scrolldelay="125">${json[0].idMaquina}</marquee>`;
@@ -972,7 +972,6 @@
             }
         })
     }
-
     var percentFinal1;
     var percentFinal2;
     var percentFinal3;
@@ -991,8 +990,6 @@
     var minutos = [];
     var recebidos = [];
     var enviados = [];
-    var somaRecebidos = 0;
-    var somaEnviados = 0;
     var graph = true;
 
     var minutosFinal = [];
@@ -1003,90 +1000,95 @@
 
     function verifyStatus() {
 
-        // setInterval(() => {
-        fetch(`/dashboard/listarBytesHorario/${idEmpresa}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
+        setInterval(() => {
+            var somaRecebidos = 0;
+            var somaEnviados = 0;
 
-            console.log("resposta: ", resposta);
+            fetch(`/dashboard/listarBytesHorario/${idEmpresa}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (resposta) {
 
-            if (resposta.ok) {
-                resposta.json().then(json => {
-                    qtdBytes = json.length;
+                console.log("resposta: ", resposta);
 
-                    for (let index = 0; index < json.length; index++) {
-                        minutos.push(json[index].intervaloMinuto);
-                        recebidos.push(json[index].totalBytesRecebidos);
-                        enviados.push(json[index].totalBytesEnviados);
-                        somaRecebidos += Number(json[index].totalBytesRecebidos);
-                        somaEnviados += Number(json[index].totalBytesEnviados);
-                    }
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        qtdBytes = json.length;
 
-                    moment.locale('pt-br');
-                    for (let index = json.length; index >= 0; index--) {
-                        const dta = moment(minutos[index - 1]).format('HH:mm');
-                        minutosFinal.push(dta);
-                    }
-
-                    for (let index = json.length; index >= 0; index--) {
-                        dataFinal.push(recebidos[index - 1]);
-                    }
-
-                    for (let index = json.length; index >= 0; index--) {
-                        dataFinalEnviado.push(enviados[index - 1]);
-                    }
-
-                    percentFinal1 = Math.round((((somaEnviados + somaRecebidos) / 2) / (json.length * 1000)) * 100);
-                    statusGrafico1 = percentFinal1;
-
-                    var perigo1 = valuePerigo1;
-                    var aviso1 = valueAviso1;
-                    var ok1 = valueOk1;
-
-                    if (ok1 > perigo1) {
-                        if (statusGrafico1 >= ok1) {
-                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/correto.png'>`;
-                        } else if (statusGrafico1 >= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
-                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/aviso.png'>`;
-                        } else {
-                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/perigo.png'>`;
+                        for (let index = 0; index < json.length; index++) {
+                            minutos.push(json[index].intervaloMinuto);
+                            recebidos.push(json[index].totalBytesRecebidos);
+                            enviados.push(json[index].totalBytesEnviados);
+                            somaRecebidos += Number(json[index].totalBytesRecebidos);
+                            somaEnviados += Number(json[index].totalBytesEnviados);
                         }
-                    } else {
-                        if (statusGrafico1 <= ok1) {
-                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/correto.png'>`;
-                        } else if (statusGrafico1 <= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
-                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/aviso.png'>`;
-                        } else {
-                            box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/perigo.png'>`;
-                        }
-                    }
 
-                    if (ok1 > perigo1) {
-                        if (statusGrafico1 >= ok1) {
-                            boxAlert1.classList.toggle("alertOk");
-                        } else if (statusGrafico1 >= aviso1 || (statusGrafico1 < aviso1 && statusGrafico1 > perigo1)) {
-                            boxAlert1.classList.toggle("alertAviso");
-                        } else {
-                            boxAlert1.classList.toggle("alertPerigo");
+                        moment.locale('pt-br');
+                        for (let index = json.length; index >= 0; index--) {
+                            const dta = moment(minutos[index - 1]).format('HH:mm');
+                            minutosFinal.push(dta);
                         }
-                    } else {
-                        if (statusGrafico1 <= ok1) {
-                            boxAlert1.classList.toggle("alertOk");
-                        } else if (statusGrafico1 <= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
-                            boxAlert1.classList.toggle("alertAviso");
-                        } else {
-                            boxAlert1.classList.toggle("alertPerigo");
+
+                        for (let index = json.length; index >= 0; index--) {
+                            dataFinal.push(recebidos[index - 1]);
                         }
-                    }
-                    var graph1 = document.getElementById("valuePercent1");
-                    graph1.innerHTML = `${percentFinal1}%`;
-                })
-            }
-        })
-        // }, 10000);
+
+                        for (let index = json.length; index >= 0; index--) {
+                            dataFinalEnviado.push(enviados[index - 1]);
+                        }
+
+                        // alert(((somaEnviados + somaRecebidos) / 2))
+                        // alert(json.length * 1000)
+                        percentFinal1 = Math.round((((somaEnviados + somaRecebidos) / 2) / (json.length * 1000)) * 100);
+                        statusGrafico1 = percentFinal1;
+
+                        var perigo1 = valuePerigo1;
+                        var aviso1 = valueAviso1;
+                        var ok1 = valueOk1;
+
+                        if (ok1 > perigo1) {
+                            if (statusGrafico1 >= ok1) {
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/correto.png'>`;
+                            } else if (statusGrafico1 >= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/aviso.png'>`;
+                            } else {
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/perigo.png'>`;
+                            }
+                        } else {
+                            if (statusGrafico1 <= ok1) {
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/correto.png'>`;
+                            } else if (statusGrafico1 <= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/aviso.png'>`;
+                            } else {
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/perigo.png'>`;
+                            }
+                        }
+
+                        if (ok1 > perigo1) {
+                            if (statusGrafico1 >= ok1) {
+                                boxAlert1.classList.toggle("alertOk");
+                            } else if (statusGrafico1 >= aviso1 || (statusGrafico1 < aviso1 && statusGrafico1 > perigo1)) {
+                                boxAlert1.classList.toggle("alertAviso");
+                            } else {
+                                boxAlert1.classList.toggle("alertPerigo");
+                            }
+                        } else {
+                            if (statusGrafico1 <= ok1) {
+                                boxAlert1.classList.toggle("alertOk");
+                            } else if (statusGrafico1 <= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
+                                boxAlert1.classList.toggle("alertAviso");
+                            } else {
+                                boxAlert1.classList.toggle("alertPerigo");
+                            }
+                        }
+                        var graph1 = document.getElementById("valuePercent1");
+                        graph1.innerHTML = `${percentFinal1}%`;
+                    })
+                }
+            })
+        }, 1000);
 
         fetch(`/dashboard/listarStatusMaquina/${idEmpresa}`, {
             method: "GET",
@@ -1115,19 +1117,19 @@
 
                     if (ok2 > perigo2) {
                         if (statusGrafico2 >= ok2) {
-                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
+                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
                         } else if (statusGrafico2 >= aviso2 || (statusGrafico2 < aviso2 && statusGrafico2 > perigo2)) {
-                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
+                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
                         } else {
-                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
+                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
                         }
                     } else {
                         if (statusGrafico2 <= ok2) {
-                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
+                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
                         } else if (statusGrafico2 <= aviso2 || (statusGrafico2 > aviso2 && statusGrafico2 < perigo2)) {
-                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
+                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
                         } else {
-                            box_alert_grafico2.innerHTML += `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
+                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
                         }
                     }
 
@@ -1173,72 +1175,115 @@
             }
         })
 
+        var horas = [];
+        var horaFinal = [];
         setTimeout(() => {
-            percentFinal3 = Math.round(0.5 * 100);
-            statusGrafico3 = percentFinal3;
-            var perigo3 = valuePerigo3;
-            var aviso3 = valueAviso3;
-            var ok3 = valueOk3;
 
-            if (ok3 > perigo3) {
-                if (statusGrafico3 >= ok3) {
-                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
-                } else if (statusGrafico3 >= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
-                } else {
-                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
+            fetch(`/dashboard/listarMaquinaHora/${idEmpresa}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
                 }
-            } else {
-                if (statusGrafico3 <= ok3) {
-                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
-                } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
-                } else {
-                    box_alert_grafico3.innerHTML += `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
-                }
-            }
+            }).then(function (resposta) {
 
-            if (ok3 > perigo3) {
-                if (statusGrafico3 >= ok3) {
-                    boxAlert3.classList.toggle("alertOk");
-                } else if (statusGrafico3 >= aviso3 || (statusGrafico3 < aviso3 && statusGrafico3 > perigo3)) {
-                    boxAlert3.classList.toggle("alertAviso");
-                } else {
-                    boxAlert3.classList.toggle("alertPerigo");
-                }
-            } else {
-                if (statusGrafico3 <= ok3) {
-                    boxAlert3.classList.toggle("alertOk");
-                } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                    boxAlert3.classList.toggle("alertAviso");
-                } else {
-                    boxAlert3.classList.toggle("alertPerigo");
-                }
-            }
+                console.log("resposta: ", resposta);
 
-            var graph3 = document.getElementById("valuePercent3");
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
 
-            graph3.innerHTML = `${percentFinal3}%`;
+                        var qtdFinal = json[0].qtdMaquinaHora;
 
-            new Chart(ctx3, {
-                type: 'bar',
-                data: {
-                    labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                    datasets: [{
-                        label: 'Uso dos computadores',
-                        data: [12, 19, 3, 5, 2, 3],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                        percentFinal3 = Math.round((json[0].qtdMaquinaHora / qtdMaquina) * 100);
+
+                        for (let index = 0; index < json.length; index++) {
+                            horas.push(json[index].horario);
                         }
-                    }
+
+                        moment.locale('pt-br');
+
+                        for (let index = 0; index < json.length; index++) {
+                            const dta = moment(horas[index]).format('HH:mm');
+                            horaFinal.push(dta);
+                        }
+
+                        statusGrafico3 = percentFinal3;
+                        var perigo3 = valuePerigo3;
+                        var aviso3 = valueAviso3;
+                        var ok3 = valueOk3;
+
+                        if (ok3 > perigo3) {
+                            if (statusGrafico3 >= ok3) {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
+                            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
+                            } else {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
+                            }
+                        } else {
+                            if (statusGrafico3 <= ok3) {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
+                            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
+                            } else {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
+                            }
+                        }
+
+                        if (ok3 > perigo3) {
+                            if (statusGrafico3 >= ok3) {
+                                boxAlert3.classList.toggle("alertOk");
+                            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                                boxAlert3.classList.toggle("alertAviso");
+                            } else {
+                                boxAlert3.classList.toggle("alertPerigo");
+                            }
+                        } else {
+                            if (statusGrafico3 <= ok3) {
+                                boxAlert3.classList.toggle("alertOk");
+                            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                                boxAlert3.classList.toggle("alertAviso");
+                            } else {
+                                boxAlert3.classList.toggle("alertPerigo");
+                            }
+                        }
+
+                        var graph3 = document.getElementById("valuePercent3");
+
+                        graph3.innerHTML = `${percentFinal3}%`;
+
+                        new Chart(ctx3, {
+                            type: 'bar',
+                            data: {
+                                labels: horaFinal,
+                                datasets: [
+                                    {
+                                        label: 'Ativos',
+                                        data: [qtdFinal],
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Total',
+                                        data: [qtdMaquina],
+                                        borderWidth: 1
+                                    }
+                                ]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+
+                    })
                 }
-            });
+            })
         }, 100);
+
     }
 
     verifyStatus();
@@ -1268,6 +1313,8 @@
     //         }
     //     }
     // });
+
+    // Gráfico de linha separado - recarrega em tempo real
 
     setTimeout(() => {
         let labels = [];
@@ -1323,23 +1370,23 @@
                 config
             );
 
-            // setInterval(() => {
-            obterNovosDados().then(novosDados => {
-                dados.labels = [];
-                dados.datasets[0].data = [];
-                dados.datasets[1].data = [];
+            setInterval(() => {
+                obterNovosDados().then(novosDados => {
+                    dados.labels = [];
+                    dados.datasets[0].data = [];
+                    dados.datasets[1].data = [];
 
-                for (let i = 0; i < qtdBytes; i++) {
-                    dados.labels.push(novosDados.minutosFinal[i]);
-                    dados.datasets[0].data.push(novosDados.dataFinal[i]);
-                    dados.datasets[1].data.push(novosDados.dataFinalEnviado[i]);
-                }
+                    for (let i = 0; i < qtdBytes; i++) {
+                        dados.labels.push(novosDados.minutosFinal[i]);
+                        dados.datasets[0].data.push(novosDados.dataFinal[i]);
+                        dados.datasets[1].data.push(novosDados.dataFinalEnviado[i]);
+                    }
 
-                bytes.update();
-            }).catch(error => {
-                console.log('Erro ao obter novos dados:', error);
-            });
-            // }, 1000);
+                    bytes.update();
+                }).catch(error => {
+                    console.log('Erro ao obter novos dados:', error);
+                });
+            }, 1000);
         }
 
         function obterNovosDados() {

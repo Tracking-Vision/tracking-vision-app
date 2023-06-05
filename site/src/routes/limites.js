@@ -15,7 +15,7 @@ router.post("/cadastrar", function (req, res) {
   limitesController.cadastrar(req, res);
 });
 
-router.put("/atualizar/:id", function (req, res) {
+router.patch("/atualizar", function (req, res) {
   limitesController.atualizar(req, res);
 });
 

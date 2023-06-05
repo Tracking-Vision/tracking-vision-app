@@ -100,7 +100,7 @@ function atualizar(req, res) {
   } else if (id == undefined) {
     res.status(400).send("ID da maquina está undefined!");
   } else if (tipo == undefined){
-    res.status(400).send("Tipo da maquina está undefined!")
+    res.status(400).send("Tipo do limite está undefined!")
   } else {
     limitesModel
       .atualizar(perigo, aviso, ok, id)
