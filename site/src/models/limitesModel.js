@@ -5,8 +5,9 @@ function listar(id) {
     "ACESSEI O LIMITES MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-        SELECT * FROM limites as l JOIN maquina as m
-        ON l.fkMaquina = idMaquina 
+        SELECT *
+        FROM limites AS l
+        JOIN maquina AS m ON l.fkMaquina = m.idMaquina
         WHERE l.fkEmpresa = ${id} AND tipo = 1 AND (m.statusMaquina = 1 OR m.statusMaquina = 0);
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);

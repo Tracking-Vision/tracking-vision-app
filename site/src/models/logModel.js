@@ -5,7 +5,7 @@ function listarCommand(id) {
     "ACESSEI O LOG MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-        SELECT * FROM log WHERE fkMaquina = ${id} ORDER BY idLog DESC LIMIT 1;
+        SELECT TOP 1 * FROM log WHERE fkMaquina = ${id} ORDER BY idLog DESC;
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

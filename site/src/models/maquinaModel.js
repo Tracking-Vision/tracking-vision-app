@@ -17,11 +17,11 @@ function listarMaquinaId(id) {
     "ACESSEI O MAQUINA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarMaquinaId(): ",
   );
   var instrucao = `
-        SELECT * FROM maquina JOIN placaRede as r
-        ON fkMaquina = idMaquina JOIN maquina as m
-        ON r.fkMaquina = m.idMaquina JOIN limites as l
-        ON l.fkMaquina = m.idMaquina
-        WHERE m.idMaquina = ${id} LIMIT 1;
+        SELECT m.*, r.*, l.*
+        FROM maquina AS m
+        JOIN placaRede AS r ON r.fkMaquina = m.idMaquina
+        JOIN limites AS l ON l.fkMaquina = m.idMaquina
+        WHERE m.idMaquina = ${id};
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

@@ -398,8 +398,6 @@
                     var maqEscritaDisco = document.getElementById("escritaDisco");
                     var maqIpv4 = document.getElementById("ipv4");
 
-                    // alert(JSON.stringify(json));
-
                     if (JSON.stringify(json[0].idMaquina).length > 13) {
                         maqId.innerHTML += `<marquee scrolldelay="125">${json[0].idMaquina}</marquee>`;
                     } else {
@@ -454,7 +452,7 @@
                         maqNomeHost.innerHTML += `${json[0].hostnameMaquina}`;
                     }
 
-                    maqStatus.innerHTML += `${json[0].statusMaquina.data[0] == 1 ? "Ativo" : "Inativo"}`;
+                    maqStatus.innerHTML += `${json[0].statusMaquina[0] == true ? "Ativo" : "Inativo"}`;
 
                     if (JSON.stringify(json[0].nomeModeloRam).length > 13) {
                         maqModelRAM.innerHTML += `<marquee scrolldelay="125">${json[0].nomeModeloRam}</marquee>`;
@@ -872,6 +870,8 @@
                                     location.reload();
                                 }
                             })
+                        } else if (resposta.status === 204) {
+                            console.log("Nenhuma máquina ou/e log")
                         }
                     })
                 }
@@ -969,6 +969,8 @@
                         }
                     })
                 })
+            } else if (resposta.status === 204) {
+                console.log("Nenhuma máquina ou/e log")
             }
         })
     }
@@ -1000,23 +1002,27 @@
 
     function verifyStatus() {
 
-        setInterval(() => {
-            var somaRecebidos = 0;
-            var somaEnviados = 0;
+        // setInterval(() => {
+        var somaRecebidos = 0;
+        var somaEnviados = 0;
 
-            fetch(`/dashboard/listarBytesHorario/${idEmpresa}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(function (resposta) {
+        fetch(`/dashboard/listarBytesHorario/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
 
-                console.log("resposta: ", resposta);
+            console.log("resposta: ", resposta);
 
-                if (resposta.ok) {
+            if (resposta.ok) {
+                if (Object.keys(resposta.json()) == 0) {
+                    box_alert_grafico1.innerHTML = `<span id="valuePercent1">0%</span>`;
+                    boxAlert1.classList.toggle("emptyPercent")
+                    console.log("Nenhuma máquina ou/e log")
+                } else {
                     resposta.json().then(json => {
                         qtdBytes = json.length;
-
                         for (let index = 0; index < json.length; index++) {
                             minutos.push(json[index].intervaloMinuto);
                             recebidos.push(json[index].totalBytesRecebidos);
@@ -1039,9 +1045,7 @@
                             dataFinalEnviado.push(enviados[index - 1]);
                         }
 
-                        // alert(((somaEnviados + somaRecebidos) / 2))
-                        // alert(json.length * 1000)
-                        percentFinal1 = Math.round((((somaEnviados + somaRecebidos) / 2) / (json.length * 1000)) * 100);
+                        percentFinal1 = Math.round((((somaEnviados + somaRecebidos) / 2) / (qtdBytes * 1000)) * 100);
                         statusGrafico1 = percentFinal1;
 
                         var perigo1 = valuePerigo1;
@@ -1050,19 +1054,19 @@
 
                         if (ok1 > perigo1) {
                             if (statusGrafico1 >= ok1) {
-                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/correto.png'>`;
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img id="statusGraph1" src='./assets/imgs/correto.png'>`;
                             } else if (statusGrafico1 >= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
-                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/aviso.png'>`;
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img id="statusGraph1" src='./assets/imgs/aviso.png'>`;
                             } else {
-                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/perigo.png'>`;
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img id="statusGraph1" src='./assets/imgs/perigo.png'>`;
                             }
                         } else {
                             if (statusGrafico1 <= ok1) {
-                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/correto.png'>`;
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img id="statusGraph1" src='./assets/imgs/correto.png'>`;
                             } else if (statusGrafico1 <= aviso1 || (statusGrafico1 > aviso1 && statusGrafico1 < perigo1)) {
-                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/aviso.png'>`;
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img id="statusGraph1" src='./assets/imgs/aviso.png'>`;
                             } else {
-                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img src='./assets/imgs/perigo.png'>`;
+                                box_alert_grafico1.innerHTML = `<span id="valuePercent1">${statusGrafico1}%</span> <img id="statusGraph1" src='./assets/imgs/perigo.png'>`;
                             }
                         }
 
@@ -1087,8 +1091,9 @@
                         graph1.innerHTML = `${percentFinal1}%`;
                     })
                 }
-            })
-        }, 1000);
+            }
+        })
+        // }, 1000);
 
         fetch(`/dashboard/listarStatusMaquina/${idEmpresa}`, {
             method: "GET",
@@ -1100,78 +1105,82 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
+                if (resposta.status === 204) {
+                    console.log("Nenhuma máquina ou/e log")
+                } else {
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
 
-                    var qtdStatus = json[0][0].QTD;
+                        var qtdStatus = json[0].QTD;
 
-                    var percentAtivo = json[0][0].ATIVO / qtdStatus;
+                        var percentAtivo = json[0].ATIVO / qtdStatus;
 
-                    percentFinal2 = Math.round(percentAtivo * 100);
-                    statusGrafico2 = percentFinal2;
+                        percentFinal2 = Math.round(percentAtivo * 100);
+                        statusGrafico2 = percentFinal2;
 
-                    var perigo2 = valuePerigo2;
-                    var aviso2 = valueAviso2;
-                    var ok2 = valueOk2;
+                        var perigo2 = valuePerigo2;
+                        var aviso2 = valueAviso2;
+                        var ok2 = valueOk2;
 
-                    if (ok2 > perigo2) {
-                        if (statusGrafico2 >= ok2) {
-                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
-                        } else if (statusGrafico2 >= aviso2 || (statusGrafico2 < aviso2 && statusGrafico2 > perigo2)) {
-                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
+                        if (ok2 > perigo2) {
+                            if (statusGrafico2 >= ok2) {
+                                box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
+                            } else if (statusGrafico2 >= aviso2 || (statusGrafico2 < aviso2 && statusGrafico2 > perigo2)) {
+                                box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
+                            } else {
+                                box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
+                            }
                         } else {
-                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
+                            if (statusGrafico2 <= ok2) {
+                                box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
+                            } else if (statusGrafico2 <= aviso2 || (statusGrafico2 > aviso2 && statusGrafico2 < perigo2)) {
+                                box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
+                            } else {
+                                box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
+                            }
                         }
-                    } else {
-                        if (statusGrafico2 <= ok2) {
-                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/correto.png'>`;
-                        } else if (statusGrafico2 <= aviso2 || (statusGrafico2 > aviso2 && statusGrafico2 < perigo2)) {
-                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/aviso.png'>`;
+
+                        if (ok2 > perigo2) {
+                            if (statusGrafico2 >= ok2) {
+                                boxAlert2.classList.toggle("alertOk");
+                            } else if (statusGrafico2 >= aviso2 || (statusGrafico2 < aviso2 && statusGrafico2 > perigo2)) {
+                                boxAlert2.classList.toggle("alertAviso");
+                            } else {
+                                boxAlert2.classList.toggle("alertPerigo");
+                            }
                         } else {
-                            box_alert_grafico2.innerHTML = `<span id="valuePercent2">${statusGrafico2}%</span> <img id="statusGraph" src='./assets/imgs/perigo.png'>`;
+                            if (statusGrafico2 <= ok2) {
+                                boxAlert2.classList.toggle("alertOk");
+                            } else if (statusGrafico2 <= aviso2 || (statusGrafico2 > aviso2 && statusGrafico2 < perigo2)) {
+                                boxAlert2.classList.toggle("alertAviso");
+                            } else {
+                                boxAlert2.classList.toggle("alertPerigo");
+                            }
                         }
-                    }
 
-                    if (ok2 > perigo2) {
-                        if (statusGrafico2 >= ok2) {
-                            boxAlert2.classList.toggle("alertOk");
-                        } else if (statusGrafico2 >= aviso2 || (statusGrafico2 < aviso2 && statusGrafico2 > perigo2)) {
-                            boxAlert2.classList.toggle("alertAviso");
-                        } else {
-                            boxAlert2.classList.toggle("alertPerigo");
+                        if (qtdStatus == 0) {
+                            var status = document.getElementById("statusGraph");
+                            status.classList.toggle("imgStatus");
+                            boxAlert2.classList.toggle("emptyPercent")
                         }
-                    } else {
-                        if (statusGrafico2 <= ok2) {
-                            boxAlert2.classList.toggle("alertOk");
-                        } else if (statusGrafico2 <= aviso2 || (statusGrafico2 > aviso2 && statusGrafico2 < perigo2)) {
-                            boxAlert2.classList.toggle("alertAviso");
-                        } else {
-                            boxAlert2.classList.toggle("alertPerigo");
-                        }
-                    }
 
-                    if (qtdStatus == 0) {
-                        var status = document.getElementById("statusGraph");
-                        status.classList.toggle("imgStatus");
-                        boxAlert2.classList.toggle("emptyPercent")
-                    }
+                        var graph2 = document.getElementById("valuePercent2");
+                        graph2.innerHTML = `${qtdStatus != 0 ? percentFinal2 : 0}%`;
 
-                    var graph2 = document.getElementById("valuePercent2");
-                    graph2.innerHTML = `${qtdStatus != 0 ? percentFinal2 : 0}%`;
-
-                    new Chart(ctx2, {
-                        type: 'pie',
-                        data: {
-                            labels: ['Ativo', 'Inativo'],
-                            datasets: [{
-                                label: 'Quantidade de computadores',
-                                data: [json[0][0].ATIVO, json[0][0].INATIVO],
-                                borderWidth: 1
-                            }]
-                        },
-                    });
-                })
+                        new Chart(ctx2, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Ativo', 'Inativo'],
+                                datasets: [{
+                                    label: 'Quantidade de computadores',
+                                    data: [json[0].ATIVO, json[0].INATIVO],
+                                    borderWidth: 1
+                                }]
+                            },
+                        });
+                    })
+                }
             }
         })
 
@@ -1195,8 +1204,6 @@
 
                         var qtdFinal = json[0].qtdMaquinaHora;
 
-                        percentFinal3 = Math.round((json[0].qtdMaquinaHora / qtdMaquina) * 100);
-
                         for (let index = 0; index < json.length; index++) {
                             horas.push(json[index].horario);
                         }
@@ -1215,19 +1222,19 @@
 
                         if (ok3 > perigo3) {
                             if (statusGrafico3 >= ok3) {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/correto.png'>`;
                             } else if (statusGrafico3 >= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/aviso.png'>`;
                             } else {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/perigo.png'>`;
                             }
                         } else {
                             if (statusGrafico3 <= ok3) {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/correto.png'>`;
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/correto.png'>`;
                             } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/aviso.png'>`;
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/aviso.png'>`;
                             } else {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img src='./assets/imgs/perigo.png'>`;
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/perigo.png'>`;
                             }
                         }
 
@@ -1247,6 +1254,15 @@
                             } else {
                                 boxAlert3.classList.toggle("alertPerigo");
                             }
+                        }
+
+                        if (qtdFinal == 0 && qtdMaquina == 0) {
+                            percentFinal3 = 0;
+                            var status = document.getElementById("statusGraph3");
+                            status.classList.toggle("imgStatus");
+                            boxAlert3.classList.toggle("emptyPercent")
+                        } else {
+                            percentFinal3 = Math.round((json[0].qtdMaquinaHora / qtdMaquina) * 100);
                         }
 
                         var graph3 = document.getElementById("valuePercent3");
@@ -1341,7 +1357,6 @@
         };
 
         console.log('----------------------------------------------');
-        console.log('Estes dados foram recebidos pela função "obterDados" e passados para "desenharGrafico":');
 
         function atualizarGrafico() {
             for (let i = 0; i < qtdBytes; i++) {
@@ -1401,23 +1416,27 @@
                     }
                 }).then(function (resposta) {
                     if (resposta.ok) {
-                        resposta.json().then(json => {
-                            let minutosFinal = [];
-                            let dataFinal = [];
-                            let dataFinalEnviado = [];
+                        if (resposta.status === 204) {
+                            console.log("Nenhuma máquina ou/e log")
+                        } else {
+                            resposta.json().then(json => {
+                                let minutosFinal = [];
+                                let dataFinal = [];
+                                let dataFinalEnviado = [];
 
-                            for (let index = json.length; index > 0; index--) {
-                                minutosFinal.push(moment(json[index - 1].intervaloMinuto).format('HH:mm'));
-                                dataFinal.push(json[index - 1].totalBytesRecebidos);
-                                dataFinalEnviado.push(json[index - 1].totalBytesEnviados);
-                            }
+                                for (let index = json.length; index > 0; index--) {
+                                    minutosFinal.push(moment(json[index - 1].intervaloMinuto).format('HH:mm'));
+                                    dataFinal.push(json[index - 1].totalBytesRecebidos);
+                                    dataFinalEnviado.push(json[index - 1].totalBytesEnviados);
+                                }
 
-                            resolve({
-                                minutosFinal: minutosFinal,
-                                dataFinal: dataFinal,
-                                dataFinalEnviado: dataFinalEnviado
+                                resolve({
+                                    minutosFinal: minutosFinal,
+                                    dataFinal: dataFinal,
+                                    dataFinalEnviado: dataFinalEnviado
+                                });
                             });
-                        });
+                        }
                     } else {
                         reject(new Error('Erro na requisição'));
                     }
