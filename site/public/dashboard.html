@@ -134,6 +134,9 @@
     </section>
     <section>
         <div class="container_maquina">
+            <div class="box_tituloMaquina">
+                <span>Máquinas</span>
+            </div>
             <div class="container_card_all_maquina">
                 <div class="container_card_maquina">
                     <div class="containerBox_maquina" id="maquinas_box"></div>
@@ -147,6 +150,11 @@
                     <img draggable="false" src="../assets/imgs/excluir.png" alt="Icon excluir">
                 </div>
             </div>
+        </div>
+        <div class="help_box">
+            <a target="_blank" href="https://app.pipefy.com/public/form/1GE-jkdt">
+                <img src="assets/imgs/help.png" alt="Ajuda">
+            </a>
         </div>
     </section>
 
@@ -354,42 +362,44 @@
                                 resposta.json().then(json => {
                                     console.log(json);
 
-                                    var box = document.getElementById(`box${index}`);
+                                    setTimeout(() => {
+                                        var box = document.getElementById(`box${index}`);
 
-                                    var limiteOk = json[0].ok;
-                                    var limiteAviso = json[0].aviso;
-                                    var limitePerigo = json[0].perigo;
+                                        var limiteOk = json[0].ok;
+                                        var limiteAviso = json[0].aviso;
+                                        var limitePerigo = json[0].perigo;
 
-                                    var percentDesempenhoRam = (usoRam / json[0].capacidadeTotalRam);
-                                    // alert(percentDesempenhoRam);
+                                        var percentDesempenhoRam = (usoRam / json[0].capacidadeTotalRam) * 100;
+                                        // alert(percentDesempenhoRam);
 
-                                    var percentDesempenhoDisco = (usoDisco / json[0].capacidadeTotalDisco);
-                                    // alert(percentDesempenhoDisco);
+                                        var percentDesempenhoDisco = (usoDisco / json[0].capacidadeTotalDisco) * 100;
+                                        // alert(percentDesempenhoDisco);
 
-                                    var percentDesempenhoCpu = (usoCpu / json[0].clockCpu);
-                                    // alert(percentDesempenhoCpu);
+                                        var percentDesempenhoCpu = (usoCpu / json[0].clockCpu) * 100;
+                                        // alert(percentDesempenhoCpu);
 
-                                    var percentDesempenhoMaquina = (percentDesempenhoRam + percentDesempenhoDisco + percentDesempenhoCpu) / 3;
+                                        var percentDesempenhoMaquina = (percentDesempenhoRam + percentDesempenhoDisco + percentDesempenhoCpu) / 3;
 
-                                    // alert((percentDesempenhoMaquina * 100).toFixed(2))
+                                        // alert((percentDesempenhoMaquina).toFixed(2))
 
-                                    if (limiteOk > limitePerigo) {
-                                        if (percentDesempenhoMaquina >= limiteOk) {
-                                            box.classList.toggle("box_dado_green");
-                                        } else if (percentDesempenhoMaquina >= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
-                                            box.classList.toggle("box_dado_yellow");
+                                        if (limiteOk > limitePerigo) {
+                                            if (percentDesempenhoMaquina >= limiteOk) {
+                                                box.classList.toggle("box_dado_green");
+                                            } else if (percentDesempenhoMaquina >= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
+                                                box.classList.toggle("box_dado_yellow");
+                                            } else {
+                                                box.classList.toggle("box_dado_red");
+                                            }
                                         } else {
-                                            box.classList.toggle("box_dado_red");
+                                            if (percentDesempenhoMaquina <= limiteOk) {
+                                                box.classList.toggle("box_dado_green");
+                                            } else if (percentDesempenhoMaquina <= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
+                                                box.classList.toggle("box_dado_yellow");
+                                            } else {
+                                                box.classList.toggle("box_dado_red");
+                                            }
                                         }
-                                    } else {
-                                        if (percentDesempenhoMaquina <= limiteOk) {
-                                            box.classList.toggle("box_dado_green");
-                                        } else if (percentDesempenhoMaquina <= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
-                                            box.classList.toggle("box_dado_yellow");
-                                        } else {
-                                            box.classList.toggle("box_dado_red");
-                                        }
-                                    }
+                                    }, 1000);
                                 })
                             }
                         })
@@ -479,26 +489,27 @@
                                 resposta.json().then(json => {
                                     console.log(json);
 
-                                    var box = document.getElementById(`box${index}`);
+                                    setTimeout(() => {
+                                        var box = document.getElementById(`box${index}`);
 
-                                    var limiteOk = json[0].ok;
-                                    var limiteAviso = json[0].aviso;
-                                    var limitePerigo = json[0].perigo;
+                                        var limiteOk = json[0].ok;
+                                        var limiteAviso = json[0].aviso;
+                                        var limitePerigo = json[0].perigo;
 
-                                    // alert(limiteOk);
-                                    
-                                    // setTimeout(() => {
-                                        var percentDesempenhoRam = (usoRam / json[0].capacidadeTotalRam);
-                                        // alert(percentDesempenhoRam);
-    
-                                        var percentDesempenhoDisco = (usoDisco / json[0].capacidadeTotalDisco);
+                                        // alert(limiteOk);
+
+                                        // setTimeout(() => {
+                                        var percentDesempenhoRam = (usoRam / json[0].capacidadeTotalRam) * 100;
+                                        // alert(`${percentDesempenhoRam} - maquina${index}`);
+
+                                        var percentDesempenhoDisco = (usoDisco / json[0].capacidadeTotalDisco) * 100;
                                         // alert(percentDesempenhoDisco);
-    
-                                        var percentDesempenhoCpu = (usoCpu / json[0].clockCpu);
+
+                                        var percentDesempenhoCpu = (usoCpu / json[0].clockCpu) * 100;
                                         // alert(json[0].clockCpu)
-                                        
+
                                         var percentDesempenhoMaquina = (percentDesempenhoRam + percentDesempenhoDisco + percentDesempenhoCpu) / 3;
-                                        
+
                                         // alert((percentDesempenhoMaquina * 100).toFixed(2))
 
                                         // alert("Maquina" + percentDesempenhoMaquina);
@@ -520,6 +531,7 @@
                                                 box.classList.toggle("box_dado_red");
                                             }
                                         }
+                                    }, 2000);
                                     // }, 2000);
                                 })
                             }
@@ -541,7 +553,7 @@
 
     setInterval(() => {
         atualizarLogMaquina();
-    }, 1000);
+    }, 5000);
 
     function abrirMaquina(id) {
         Swal.fire({

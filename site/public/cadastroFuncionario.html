@@ -1,83 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tracking Vision - Cadastro Funcionário</title>
-    <link rel="stylesheet" href="assets/css/style-cadastroF.css" />
-    <link rel="icon" href="assets/imgs/Logo T-Vision.png" />
-    <script src="js/funcoes.js"></script>
-  </head>
-  <body>
-    <header>
-      <hr class="barra_header" />
-      <div class="container_header">
-        <div class="box_header">
-          <a href="#home">
-            <img
-              class="logo_header"
-              src="assets/imgs/Logo T-Vision.png"
-              alt="Logo"
-            />
-          </a>
-          <div id="menu" class="container_nav_menu">
-            <nav id="menuClose" class="boxClose">
-              <div class="box_nav">
-                <a href="dashboard.html">Dashboard</a>
-                <a href="gerenciarJanela.html">Gerenciar janela</a>
-                <a href="gerenciarLimite.html">Gerenciar limite</a>
-                <a onclick="limparSessao()">Sair</a>
-                <div id="containerClose" class="container_imgClose">
-                  <div
-                    id="imgClose"
-                    class="box_imgClose"
-                    onclick="MenuHidden()"
-                  >
-                    <img src="assets/imgs/close.png" alt="img_close" />
-                  </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracking Vision - Cadastro Funcionário</title>
+  <link rel="stylesheet" href="assets/css/style-cadastroF.css" />
+  <link rel="icon" href="assets/imgs/Logo T-Vision.png" />
+  <script src="js/funcoes.js"></script>
+</head>
+
+<body>
+  <header>
+    <hr class="barra_header" />
+    <div class="container_header">
+      <div class="box_header">
+        <a href="#home">
+          <img class="logo_header" src="assets/imgs/Logo T-Vision.png" alt="Logo" />
+        </a>
+        <div id="menu" class="container_nav_menu">
+          <nav id="menuClose" class="boxClose">
+            <div class="box_nav">
+              <a href="dashboard.html">Dashboard</a>
+              <a href="gerenciarJanela.html">Gerenciar janela</a>
+              <a href="gerenciarLimite.html">Gerenciar limite</a>
+              <a onclick="limparSessao()">Sair</a>
+              <div id="containerClose" class="container_imgClose">
+                <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
+                  <img src="assets/imgs/close.png" alt="img_close" />
                 </div>
               </div>
-            </nav>
-            <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
-              <div class="box_imgMenu">
-                <img src="assets/imgs/menu.png" alt="img_hamburger" />
-              </div>
+            </div>
+          </nav>
+          <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
+            <div class="box_imgMenu">
+              <img src="assets/imgs/menu.png" alt="img_hamburger" />
             </div>
           </div>
         </div>
       </div>
-    </header>
-    <section>
-      <img src="assets/imgs/cadastroF.png" alt="img_cadastroF" />
-      <div class="decoration">
-        <div class="box_cadastro">
-          <h1>Cadastro - Funcionário</h1>
-          <div class="inputs">
-            <input
-              type="text"
-              placeholder="Nome funcionario"
-              id="nomeFuncionario"
-            />
-            <input type="email" placeholder="E-mail" id="emailFuncionario" />
-          </div>
-          <div class="inputs">
-            <input type="text" placeholder="CPF" id="cpfFuncionario" />
-            <input type="text" placeholder="Cargo" id="cargoFuncionario" />
-          </div>
-          <div class="inputs">
-            <input type="password" placeholder="Senha" id="senha" />
-            <input
-              type="password"
-              placeholder="Confirme a senha"
-              id="confirmaSenha"
-            />
-          </div>
-          <button onclick="cadastrar()">Cadastrar</button>
+    </div>
+  </header>
+  <section>
+    <img src="assets/imgs/cadastroF.png" alt="img_cadastroF" />
+    <div class="decoration">
+      <div class="box_cadastro">
+        <h1>Cadastro - Funcionário</h1>
+        <div class="inputs">
+          <input type="text" placeholder="Nome funcionario" id="nomeFuncionario" />
+          <input type="email" placeholder="E-mail" id="emailFuncionario" />
         </div>
+        <div class="inputs">
+          <input type="text" placeholder="CPF" id="cpfFuncionario" />
+          <input type="text" placeholder="Cargo" id="cargoFuncionario" />
+        </div>
+        <div class="inputs">
+          <input type="password" placeholder="Senha" id="senha" />
+          <input type="password" placeholder="Confirme a senha" id="confirmaSenha" />
+        </div>
+        <button onclick="cadastrar()">Cadastrar</button>
       </div>
-    </section>
-  </body>
+    </div>
+  </section>
+</body>
+
 </html>
 <script src="./js/verificacoesFuncionario.js"></script>
 <script>
@@ -86,7 +73,11 @@
     var validacoes = validarCadastro();
     console.log(validacoes);
     if (validacoes) {
-      alert("Os campos não foram preenchidos corretamente!");
+      Swal.fire(
+        'Erro ao cadastrar',
+        'Os campos não foram preenchidos corretamente!',
+        'error'
+      )
     } else {
       //Recupere o valor da nova input pelo nome do id
       // Agora vá para o método fetch logo abaixo
@@ -122,8 +113,12 @@
           if (resposta.ok) {
             //cardErro.style.display = "block";
 
+            Swal.fire(
+              'Sucesso!',
+              'Cadastro realizado com sucesso!',
+              'success'
+            )
             //  mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-            alert("Cadastro realizado com sucesso!");
             nomeFuncionario.value = "";
             emailFuncionario.value = "";
             cpfFuncionario.value = "";
