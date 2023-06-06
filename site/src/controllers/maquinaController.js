@@ -67,7 +67,7 @@ function editar(req, res) {
     maquinaModel
       .editar(idMaquina, modeloDisco, armazenamento, modeloRam, ram, leituraDisco, escritaDisco, nomeHost, status, modeloCpu, clockCpu)
       .then(function (resultado) {
-        console.log(`\nResultados encontrados: ${resultado.length}`);
+        console.log(`\nResultados encontrados: ${resultado}`);
         console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
       })
       .catch(function (erro) {

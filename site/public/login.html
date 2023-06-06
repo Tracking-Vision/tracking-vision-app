@@ -1,72 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tracking Vision - Login</title>
 
-    <link rel="stylesheet" href="./assets/css/style-login.css" />
-    <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
-    <script src="js/funcoes.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracking Vision - Login</title>
+  <link rel="stylesheet" href="./assets/css/style-login.css" />
+  <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
+  <script src="js/funcoes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 
-  <body>
-    <header>
-      <hr class="barra_header" />
-      <div class="container_header">
-        <div class="box_header">
-          <a href="index.html">
-            <img
-              class="logo_header"
-              src="./assets/imgs/Logo T-Vision.png"
-              alt="Logo"
-            />
-          </a>
-          <div id="menu" class="container_nav_menu">
-            <nav id="menuClose" class="boxClose">
-              <div class="box_nav">
-                <a href="index.html" id="cadastroFunc">Home</a>
-                <a href="cadastro.html" id="cadastroMaq">Cadastro</a>
-                <div id="containerClose" class="container_imgClose">
-                  <div
-                    id="imgClose"
-                    class="box_imgClose"
-                    onclick="MenuHidden()"
-                  >
-                    <img src="./assets/imgs/close.png" alt="img_close" />
-                  </div>
+<body>
+  <header>
+    <hr class="barra_header" />
+    <div class="container_header">
+      <div class="box_header">
+        <a href="index.html">
+          <img class="logo_header" src="./assets/imgs/Logo T-Vision.png" alt="Logo" />
+        </a>
+        <div id="menu" class="container_nav_menu">
+          <nav id="menuClose" class="boxClose">
+            <div class="box_nav">
+              <a href="index.html" id="cadastroFunc">Home</a>
+              <a href="cadastro.html" id="cadastroMaq">Cadastro</a>
+              <div id="containerClose" class="container_imgClose">
+                <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
+                  <img src="./assets/imgs/close.png" alt="img_close" />
                 </div>
               </div>
-            </nav>
-            <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
-              <div class="box_imgMenu">
-                <img src="./assets/imgs/menu.png" alt="img_hamburger" />
-              </div>
+            </div>
+          </nav>
+          <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
+            <div class="box_imgMenu">
+              <img src="./assets/imgs/menu.png" alt="img_hamburger" />
             </div>
           </div>
         </div>
       </div>
-    </header>
-    <section>
-      <div class="decoration">
-        <div class="box_login">
-          <h1>Login</h1>
-          <input type="email" placeholder="E-mail" id="emailEmpresa" />
-          <input type="password" placeholder="Senha" id="senha" />
-          <div class="spans">
-            <span
-              >Não possui uma conta?
-              <a href="cadastro.html">Cadastra-se</a></span
-            >
-            <span><a href="">Esqueci a senha</a></span>
-          </div>
-          <button onclick="entrar()">Entrar</button>
+    </div>
+  </header>
+  <section>
+    <div class="decoration">
+      <div class="box_login">
+        <h1>Login</h1>
+        <input type="email" placeholder="E-mail" id="emailEmpresa" />
+        <input type="password" placeholder="Senha" id="senha" />
+        <div class="spans">
+          <span>Não possui uma conta?
+            <a href="cadastro.html">Cadastra-se</a></span>
+          <span><a href="">Esqueci a senha</a></span>
         </div>
+        <button onclick="entrar()">Entrar</button>
       </div>
-      <img src="./assets/imgs/img_login.png" alt="img_login" />
-    </section>
-  </body>
+    </div>
+    <img src="./assets/imgs/img_login.png" alt="img_login" />
+  </section>
+</body>
+
 </html>
 <script src="./js/verificacoesLogin.js"></script>
 <script>
@@ -84,7 +76,11 @@
     var validacoes = validarLogin();
     console.log("VALIDAÇÕES: ", validacoes);
     if (validacoes) {
-      alert("Campos inválidos!");
+      Swal.fire(
+        'Campos inválidos!',
+        'Verifique os campos e tente novamente!',
+        'error'
+      )
     } else {
       var emailVar = emailEmpresa.value;
       var senhaVar = senha.value;
@@ -126,14 +122,22 @@
               sessionStorage.NOME_USUARIO = json.nomeEmpresa;
               sessionStorage.ID_USUARIO = json.idEmpresa;
               sessionStorage.EMAIL_FUNCIONARIO = json.email;
-              alert("Login realizado com sucesso!");
+              Swal.fire(
+                'Sucesso!',
+                'Login realizado com sucesso.',
+                'success'
+              )
               setTimeout(function () {
                 window.location = "dashboard.html";
               }, 1000); // apenas para exibir o loading
             });
           } else {
             console.log("Houve um erro ao tentar realizar o login!");
-            alert("Houve um erro ao tentar realizar o login!");
+            Swal.fire(
+              'Erro ao entrar',
+              'Houve um erro ao tentar realizar o login!',
+              'error'
+            )
             emailEmpresa.value = "";
             senha.value = "";
             resposta.text().then((texto) => {

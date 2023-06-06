@@ -25,7 +25,8 @@
                     <nav id="menuClose" class="boxClose">
                         <div class="box_nav">
                             <a href="cadastroFuncionario.html" id="cadastroFunc">Cadastro funcionário</a>
-                            <a href="bloqueio.html" id="cadastroMaq">Cadastro janela</a>
+                            <a href="gerenciarJanela.html" id="cadastroMaq">Gerenciar janela</a>
+                            <a href="gerenciarLimite.html" id="cadastroMaq">Gerenciar limite</a>
                             <a onclick="limparSessao()">Sair</a>
                             <div id="containerClose" class="container_imgClose">
                                 <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
@@ -47,7 +48,7 @@
         <div class="container_grafico">
             <div class="box_grafico">
                 <div class="box_tituloAlert">
-                    <span>Nome Gráfico</span>
+                    <span>Bytes minuto</span>
                     <div class="box_alert" id="box_alert_grafico1"></div>
                 </div>
                 <div class="chart">
@@ -75,7 +76,7 @@
             </div>
             <div class="box_grafico">
                 <div class="box_tituloAlert">
-                    <span>Nome Gráfico</span>
+                    <span>Status máquina</span>
                     <div class="box_alert" id="box_alert_grafico2"></div>
                 </div>
                 <div class="chart2">
@@ -103,7 +104,7 @@
             </div>
             <div class="box_grafico">
                 <div class="box_tituloAlert">
-                    <span>Nome Gráfico</span>
+                    <span>Ativos última hora</span>
                     <div class="box_alert" id="box_alert_grafico3"></div>
                 </div>
                 <div class="chart3">
@@ -266,6 +267,281 @@
     }
 
     carregarLimites();
+
+    function createMaquina() {
+        var idEmpresa = sessionStorage.getItem("ID_USUARIO");
+
+        fetch(`/maquina/listar/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.status == 200) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    var idLog;
+                    qtdMaquina = json.length;
+
+                    verifyQtd();
+
+                    for (let index = 0; index < json.length; index++) {
+                        containerMaquina.innerHTML += `
+                        <div ondrag="dragg(${json[index].idMaquina})" class="box_maquina" id="box${index}" onclick="abrirMaquina(${json[index].idMaquina})">
+                            <div class="box_nome_maquina_status">
+                               <h3>${json[index].hostnameMaquina}</h3>
+                            </div>
+                            <div id="ram${index}" class="box_dado">                          
+                            </div>
+                            <div id="disco${index}" class="box_dado">
+                            </div>
+                            <div id="cpu${index}" class="box_dado">
+                            </div>
+                        </div>`;
+
+                        var maquina = document.getElementById(`box${index}`);
+                        maquina.ondrag();
+
+                        idMaq = json[index].idMaquina;
+
+                        var usoRam;
+                        var usoDisco;
+                        var usoCpu;
+
+                        fetch(`/log/listar/${idMaq}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(function (resposta) {
+
+                            console.log("resposta: ", resposta);
+
+                            var idRam = document.getElementById(`ram${index}`);
+                            var idDisco = document.getElementById(`disco${index}`);
+                            var idCpu = document.getElementById(`cpu${index}`);
+
+                            if (resposta.status == 200) {
+                                resposta.json().then(json => {
+                                    console.log(json);
+
+                                    usoRam = json[0].usoRam;
+                                    usoDisco = json[0].usoDisco;
+                                    usoCpu = json[0].usoCpu;
+
+                                    idRam.innerHTML += `<span>RAM:  ${json[0].usoRam} Gb</span>`
+                                    idDisco.innerHTML += `<span>Disco:  ${json[0].usoDisco} Gb</span>`
+                                    idCpu.innerHTML += `<span>CPU:  ${json[0].usoCpu} %</span>`
+                                })
+                            }
+                        })
+
+                        fetch(`/maquina/listarPorId/${idMaq}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(function (resposta) {
+
+                            console.log("resposta: ", resposta);
+
+                            if (resposta.status == 200) {
+                                resposta.json().then(json => {
+                                    console.log(json);
+
+                                    var box = document.getElementById(`box${index}`);
+
+                                    var limiteOk = json[0].ok;
+                                    var limiteAviso = json[0].aviso;
+                                    var limitePerigo = json[0].perigo;
+
+                                    var percentDesempenhoRam = (usoRam / json[0].capacidadeTotalRam);
+                                    // alert(percentDesempenhoRam);
+
+                                    var percentDesempenhoDisco = (usoDisco / json[0].capacidadeTotalDisco);
+                                    // alert(percentDesempenhoDisco);
+
+                                    var percentDesempenhoCpu = (usoCpu / json[0].clockCpu);
+                                    // alert(percentDesempenhoCpu);
+
+                                    var percentDesempenhoMaquina = (percentDesempenhoRam + percentDesempenhoDisco + percentDesempenhoCpu) / 3;
+
+                                    // alert((percentDesempenhoMaquina * 100).toFixed(2))
+
+                                    if (limiteOk > limitePerigo) {
+                                        if (percentDesempenhoMaquina >= limiteOk) {
+                                            box.classList.toggle("box_dado_green");
+                                        } else if (percentDesempenhoMaquina >= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
+                                            box.classList.toggle("box_dado_yellow");
+                                        } else {
+                                            box.classList.toggle("box_dado_red");
+                                        }
+                                    } else {
+                                        if (percentDesempenhoMaquina <= limiteOk) {
+                                            box.classList.toggle("box_dado_green");
+                                        } else if (percentDesempenhoMaquina <= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
+                                            box.classList.toggle("box_dado_yellow");
+                                        } else {
+                                            box.classList.toggle("box_dado_red");
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    }
+
+                })
+            } else if (resposta.status == 204) {
+                qtdMaquina = 0;
+
+                verifyQtd();
+            } else {
+                throw ("Houve um erro ao tentar realizar a listagem das máquinas!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function atualizarLogMaquina() {
+        var idEmpresa = sessionStorage.getItem("ID_USUARIO");
+
+        fetch(`/maquina/listar/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.status == 200) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    var idLog;
+                    qtdMaquina = json.length;
+
+                    verifyQtd();
+
+                    for (let index = 0; index < json.length; index++) {
+
+                        idMaq = json[index].idMaquina;
+
+                        var usoRam;
+                        var usoDisco;
+                        var usoCpu;
+
+                        fetch(`/log/listar/${idMaq}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(function (resposta) {
+
+                            console.log("resposta: ", resposta);
+
+                            var idRam = document.getElementById(`ram${index}`);
+                            var idDisco = document.getElementById(`disco${index}`);
+                            var idCpu = document.getElementById(`cpu${index}`);
+
+                            if (resposta.status == 200) {
+                                resposta.json().then(json => {
+                                    console.log(json);
+
+                                    usoRam = json[0].usoRam;
+                                    usoDisco = json[0].usoDisco;
+                                    usoCpu = json[0].usoCpu;
+
+                                    idRam.innerHTML = `<span>RAM:  ${json[0].usoRam} Gb</span>`
+                                    idDisco.innerHTML = `<span>Disco:  ${json[0].usoDisco} Gb</span>`
+                                    idCpu.innerHTML = `<span>CPU:  ${json[0].usoCpu} %</span>`
+                                })
+                            }
+                        })
+
+                        fetch(`/maquina/listarPorId/${idMaq}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(function (resposta) {
+
+                            console.log("resposta: ", resposta);
+
+                            if (resposta.status == 200) {
+                                resposta.json().then(json => {
+                                    console.log(json);
+
+                                    var box = document.getElementById(`box${index}`);
+
+                                    var limiteOk = json[0].ok;
+                                    var limiteAviso = json[0].aviso;
+                                    var limitePerigo = json[0].perigo;
+
+                                    // alert(limiteOk);
+                                    
+                                    // setTimeout(() => {
+                                        var percentDesempenhoRam = (usoRam / json[0].capacidadeTotalRam);
+                                        // alert(percentDesempenhoRam);
+    
+                                        var percentDesempenhoDisco = (usoDisco / json[0].capacidadeTotalDisco);
+                                        // alert(percentDesempenhoDisco);
+    
+                                        var percentDesempenhoCpu = (usoCpu / json[0].clockCpu);
+                                        // alert(json[0].clockCpu)
+                                        
+                                        var percentDesempenhoMaquina = (percentDesempenhoRam + percentDesempenhoDisco + percentDesempenhoCpu) / 3;
+                                        
+                                        // alert((percentDesempenhoMaquina * 100).toFixed(2))
+
+                                        // alert("Maquina" + percentDesempenhoMaquina);
+
+                                        if (limiteOk > limitePerigo) {
+                                            if (percentDesempenhoMaquina >= limiteOk) {
+                                                box.classList.toggle("box_dado_green");
+                                            } else if (percentDesempenhoMaquina >= limiteAviso || (percentDesempenhoMaquina < limiteAviso && percentDesempenhoMaquina > limitePerigo)) {
+                                                box.classList.toggle("box_dado_yellow");
+                                            } else {
+                                                box.classList.toggle("box_dado_red");
+                                            }
+                                        } else {
+                                            if (percentDesempenhoMaquina <= limiteOk) {
+                                                box.classList.toggle("box_dado_green");
+                                            } else if (percentDesempenhoMaquina <= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
+                                                box.classList.toggle("box_dado_yellow");
+                                            } else {
+                                                box.classList.toggle("box_dado_red");
+                                            }
+                                        }
+                                    // }, 2000);
+                                })
+                            }
+                        })
+                    }
+
+                })
+            } else if (resposta.status == 204) {
+                qtdMaquina = 0;
+
+                verifyQtd();
+            } else {
+                throw ("Houve um erro ao tentar realizar a listagem das máquinas!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    setInterval(() => {
+        atualizarLogMaquina();
+    }, 1000);
 
     function abrirMaquina(id) {
         Swal.fire({
@@ -452,7 +728,7 @@
                         maqNomeHost.innerHTML += `${json[0].hostnameMaquina}`;
                     }
 
-                    maqStatus.innerHTML += `${json[0].statusMaquina[0] == true ? "Ativo" : "Inativo"}`;
+                    maqStatus.innerHTML += `${json[0].statusMaquina == true ? "Ativo" : "Inativo"}`;
 
                     if (JSON.stringify(json[0].nomeModeloRam).length > 13) {
                         maqModelRAM.innerHTML += `<marquee scrolldelay="125">${json[0].nomeModeloRam}</marquee>`;
@@ -491,151 +767,11 @@
         var a = document.getElementById("ativo");
         var i = document.getElementById("inativo");
 
-        if (data == 0) {
+        if (data == false) {
             i.setAttribute("selected", "selected");
-        } else if (data == 1) {
+        } else if (data == true) {
             a.setAttribute("selected", "selected");
         }
-    }
-
-    function createMaquina() {
-        var idEmpresa = sessionStorage.getItem("ID_USUARIO");
-
-        fetch(`/maquina/listar/${idEmpresa}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
-
-            console.log("resposta: ", resposta);
-
-            if (resposta.status == 200) {
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-
-                    var idLog;
-                    qtdMaquina = json.length;
-
-                    verifyQtd();
-
-                    for (let index = 0; index < json.length; index++) {
-                        containerMaquina.innerHTML += `
-                        <div ondrag="dragg(${json[index].idMaquina})" class="box_maquina" id="box${index}" onclick="abrirMaquina(${json[index].idMaquina})">
-                            <div class="box_nome_maquina_status">
-                               <h3>${json[index].hostnameMaquina}</h3>
-                            </div>
-                            <div id="ram${index}" class="box_dado">                          
-                            </div>
-                            <div id="disco${index}" class="box_dado">
-                            </div>
-                            <div id="cpu${index}" class="box_dado">
-                            </div>
-                        </div>`;
-
-                        var maquina = document.getElementById(`box${index}`);
-                        maquina.ondrag();
-
-                        idMaq = json[index].idMaquina;
-
-                        var usoRam;
-                        var usoDisco;
-                        var usoCpu;
-
-                        fetch(`/log/listar/${idMaq}`, {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json"
-                            }
-                        }).then(function (resposta) {
-
-                            console.log("resposta: ", resposta);
-
-                            var idRam = document.getElementById(`ram${index}`);
-                            var idDisco = document.getElementById(`disco${index}`);
-                            var idCpu = document.getElementById(`cpu${index}`);
-
-                            if (resposta.status == 200) {
-                                resposta.json().then(json => {
-                                    console.log(json);
-
-                                    usoRam = json[0].usoRam;
-                                    usoDisco = json[0].usoDisco;
-                                    usoCpu = json[0].usoCpu;
-
-                                    idRam.innerHTML += `<span>RAM:  ${json[0].usoRam} Gb</span>`
-                                    idDisco.innerHTML += `<span>Disco:  ${json[0].usoDisco} Gb</span>`
-                                    idCpu.innerHTML += `<span>CPU:  ${json[0].usoCpu} %</span>`
-                                })
-                            }
-                        })
-
-                        fetch(`/maquina/listarPorId/${idMaq}`, {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json"
-                            }
-                        }).then(function (resposta) {
-
-                            console.log("resposta: ", resposta);
-
-                            if (resposta.status == 200) {
-                                resposta.json().then(json => {
-                                    console.log(json);
-
-                                    var box = document.getElementById(`box${index}`);
-
-                                    var limiteOk = json[0].ok;
-                                    var limiteAviso = json[0].aviso;
-                                    var limitePerigo = json[0].perigo;
-
-                                    var percentDesempenhoRam = (usoRam / json[0].capacidadeTotalRam);
-                                    // alert(percentDesempenhoRam);
-
-                                    var percentDesempenhoDisco = (usoDisco / json[0].capacidadeTotalDisco);
-                                    // alert(percentDesempenhoDisco);
-
-                                    var percentDesempenhoCpu = (usoCpu / json[0].clockCpu);
-                                    // alert(percentDesempenhoCpu);
-
-                                    var percentDesempenhoMaquina = (percentDesempenhoRam + percentDesempenhoDisco + percentDesempenhoCpu) / 3;
-
-                                    // alert((percentDesempenhoMaquina * 100).toFixed(2))
-
-                                    if (limiteOk > limitePerigo) {
-                                        if (percentDesempenhoMaquina >= limiteOk) {
-                                            box.classList.toggle("box_dado_green");
-                                        } else if (percentDesempenhoMaquina >= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
-                                            box.classList.toggle("box_dado_yellow");
-                                        } else {
-                                            box.classList.toggle("box_dado_red");
-                                        }
-                                    } else {
-                                        if (percentDesempenhoMaquina <= limiteOk) {
-                                            box.classList.toggle("box_dado_green");
-                                        } else if (percentDesempenhoMaquina <= limiteAviso || (percentDesempenhoMaquina > limiteAviso && percentDesempenhoMaquina < limitePerigo)) {
-                                            box.classList.toggle("box_dado_yellow");
-                                        } else {
-                                            box.classList.toggle("box_dado_red");
-                                        }
-                                    }
-                                })
-                            }
-                        })
-                    }
-
-                })
-            } else if (resposta.status == 204) {
-                qtdMaquina = 0;
-
-                verifyQtd();
-            } else {
-                throw ("Houve um erro ao tentar realizar a listagem das máquinas!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
     }
 
     async function dragg(id) {
@@ -758,12 +894,12 @@
                                         `<input id="swal-input8" placeholder="Nome host: ${json[0].hostnameMaquina}" class="box_dado_maquina" required><br>` +
                                         `<input id="swal-input9" placeholder="Clock cpu: ${json[0].clockCpu}" class="box_dado_maquina" required><br>` +
                                         `<select id="swal-input10" class="box_dado_maquina input_complement"> 
-                                        <option id="ativo" value="true">Ativo</option> 
-                                        <option id="inativo" value="false">Inativo</option> 
+                                        <option id="ativo" value="1">Ativo</option> 
+                                        <option id="inativo" value="0">Inativo</option> 
                                         </select>
                                         <div class="box_data_statusMaquina">
                                         ${setTimeout(() => {
-                                            setar(json[0].statusMaquina.data);
+                                            setar(json[0].statusMaquina);
                                         }, "100")
                                         }
                                         </div>` +
@@ -826,11 +962,7 @@
                                             clockCpuVar = document.getElementById("swal-input9").value;
                                         }
 
-                                        if (document.getElementById("swal-input10").value == '') {
-                                            statusVar = json[0].statusMaquina.data;
-                                        } else {
-                                            statusVar = document.getElementById("swal-input10").value;
-                                        }
+                                        statusVar = document.getElementById("swal-input10").value;
 
                                         return [
                                             modeloDiscoVar,
@@ -867,7 +999,14 @@
                                 })
 
                                 if (formValues) {
-                                    location.reload();
+                                    Swal.fire(
+                                        'Sucesso!',
+                                        'A máquina foi editada.',
+                                        'success'
+                                    )
+                                    setTimeout(() => {
+                                        location.reload();
+                                    }, 1000);
                                 }
                             })
                         } else if (resposta.status === 204) {
@@ -1002,26 +1141,28 @@
 
     function verifyStatus() {
 
-        // setInterval(() => {
-        var somaRecebidos = 0;
-        var somaEnviados = 0;
+        setInterval(() => {
+            var somaRecebidos = 0;
+            var somaEnviados = 0;
 
-        fetch(`/dashboard/listarBytesHorario/${idEmpresa}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
+            fetch(`/dashboard/listarBytesHorario/${idEmpresa}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (resposta) {
 
-            console.log("resposta: ", resposta);
+                console.log("resposta: ", resposta);
 
-            if (resposta.ok) {
-                if (Object.keys(resposta.json()) == 0) {
-                    box_alert_grafico1.innerHTML = `<span id="valuePercent1">0%</span>`;
-                    boxAlert1.classList.toggle("emptyPercent")
-                    console.log("Nenhuma máquina ou/e log")
-                } else {
+                if (resposta.ok) {
+                    // alert(Object.keys(resposta.json()))
+                    // if (Object.keys(resposta.json()) == 0) {
+                    //     box_alert_grafico1.innerHTML = `<span id="valuePercent1">0%</span>`;
+                    //     boxAlert1.classList.toggle("emptyPercent")
+                    //     console.log("Nenhuma máquina ou/e log")
+                    // } else {
                     resposta.json().then(json => {
+                        // alert(JSON.stringify(json))
                         qtdBytes = json.length;
                         for (let index = 0; index < json.length; index++) {
                             minutos.push(json[index].intervaloMinuto);
@@ -1088,12 +1229,12 @@
                             }
                         }
                         var graph1 = document.getElementById("valuePercent1");
-                        graph1.innerHTML = `${percentFinal1}%`;
+                        graph1.innerHTML = `${percentFinal1 >= 100 ? 100 : percentFinal1}%`;
                     })
                 }
-            }
-        })
-        // }, 1000);
+                // }    
+            })
+        }, 1000);
 
         fetch(`/dashboard/listarStatusMaquina/${idEmpresa}`, {
             method: "GET",
@@ -1186,6 +1327,7 @@
 
         var horas = [];
         var horaFinal = [];
+
         setTimeout(() => {
 
             fetch(`/dashboard/listarMaquinaHora/${idEmpresa}`, {
@@ -1215,54 +1357,54 @@
                             horaFinal.push(dta);
                         }
 
-                        statusGrafico3 = percentFinal3;
                         var perigo3 = valuePerigo3;
                         var aviso3 = valueAviso3;
                         var ok3 = valueOk3;
 
-                        if (ok3 > perigo3) {
-                            if (statusGrafico3 >= ok3) {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/correto.png'>`;
-                            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/aviso.png'>`;
-                            } else {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/perigo.png'>`;
-                            }
-                        } else {
-                            if (statusGrafico3 <= ok3) {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/correto.png'>`;
-                            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/aviso.png'>`;
-                            } else {
-                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/perigo.png'>`;
-                            }
-                        }
-
-                        if (ok3 > perigo3) {
-                            if (statusGrafico3 >= ok3) {
-                                boxAlert3.classList.toggle("alertOk");
-                            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                                boxAlert3.classList.toggle("alertAviso");
-                            } else {
-                                boxAlert3.classList.toggle("alertPerigo");
-                            }
-                        } else {
-                            if (statusGrafico3 <= ok3) {
-                                boxAlert3.classList.toggle("alertOk");
-                            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
-                                boxAlert3.classList.toggle("alertAviso");
-                            } else {
-                                boxAlert3.classList.toggle("alertPerigo");
-                            }
-                        }
+                        percentFinal3 = Math.round((qtdFinal / qtdMaquina) * 100);
+                        statusGrafico3 = percentFinal3;
 
                         if (qtdFinal == 0 && qtdMaquina == 0) {
                             percentFinal3 = 0;
                             var status = document.getElementById("statusGraph3");
                             status.classList.toggle("imgStatus");
                             boxAlert3.classList.toggle("emptyPercent")
+                        }
+
+                        if (ok3 > perigo3) {
+                            if (statusGrafico3 >= ok3) {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/correto.png'>`;
+                            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 < aviso3 && statusGrafico3 > perigo3)) {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/aviso.png'>`;
+                            } else {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/perigo.png'>`;
+                            }
                         } else {
-                            percentFinal3 = Math.round((json[0].qtdMaquinaHora / qtdMaquina) * 100);
+                            if (statusGrafico3 <= ok3) {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/correto.png'>`;
+                            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/aviso.png'>`;
+                            } else {
+                                box_alert_grafico3.innerHTML = `<span id="valuePercent3">${statusGrafico3}%</span> <img id="statusGraph3" src='./assets/imgs/perigo.png'>`;
+                            }
+                        }
+
+                        if (ok3 > perigo3) {
+                            if (statusGrafico3 >= ok3) {
+                                boxAlert3.classList.toggle("alertOk");
+                            } else if (statusGrafico3 >= aviso3 || (statusGrafico3 < aviso3 && statusGrafico3 > perigo3)) {
+                                boxAlert3.classList.toggle("alertAviso");
+                            } else {
+                                boxAlert3.classList.toggle("alertPerigo");
+                            }
+                        } else {
+                            if (statusGrafico3 <= ok3) {
+                                boxAlert3.classList.toggle("alertOk");
+                            } else if (statusGrafico3 <= aviso3 || (statusGrafico3 > aviso3 && statusGrafico3 < perigo3)) {
+                                boxAlert3.classList.toggle("alertAviso");
+                            } else {
+                                boxAlert3.classList.toggle("alertPerigo");
+                            }
                         }
 
                         var graph3 = document.getElementById("valuePercent3");
@@ -1298,8 +1440,8 @@
                     })
                 }
             })
-        }, 100);
 
+        }, 100);
     }
 
     verifyStatus();

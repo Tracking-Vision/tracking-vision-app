@@ -8,7 +8,6 @@
     <title>Tracking Vision - Janelas</title>
 
     <link rel="stylesheet" href="assets/css/style-bloqueio.css">
-    <link rel="stylesheet" href="./assets/css/style-login.css" />
     <link rel="icon" href="./assets/imgs/Logo T-Vision.png" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/funcoes.js"></script>
@@ -16,27 +15,29 @@
 
 <body>
     <header>
-        <hr class="barra_header" />
+        <hr class="barra_header">
         <div class="container_header">
             <div class="box_header">
-                <a href="index.html">
-                    <img class="logo_header" src="./assets/imgs/Logo T-Vision.png" alt="Logo" />
+                <a href="#home">
+                    <img class="logo_header" src="./assets/imgs/Logo T-Vision.png" alt="Logo">
                 </a>
                 <div id="menu" class="container_nav_menu">
                     <nav id="menuClose" class="boxClose">
                         <div class="box_nav">
-                            <a href="index.html" id="cadastroFunc">Home</a>
-                            <a href="cadastro.html" id="cadastroMaq">Cadastro</a>
+                            <a href="cadastroFuncionario.html" id="cadastroFunc">Cadastro funcionário</a>
+                            <a href="dashboard.html" id="cadastroMaq">Dashboard</a>
+                            <a href="gerenciarLimite.html" id="cadastroMaq">Gerenciar limite</a>
+                            <a onclick="limparSessao()">Sair</a>
                             <div id="containerClose" class="container_imgClose">
                                 <div id="imgClose" class="box_imgClose" onclick="MenuHidden()">
-                                    <img src="./assets/imgs/close.png" alt="img_close" />
+                                    <img src="./assets/imgs/close.png" alt="img_close">
                                 </div>
                             </div>
                         </div>
                     </nav>
                     <div id="menuOpen" class="boxOpen" onclick="MenuShow()">
                         <div class="box_imgMenu">
-                            <img src="./assets/imgs/menu.png" alt="img_hamburger" />
+                            <img src="./assets/imgs/menu.png" alt="img_hamburger">
                         </div>
                     </div>
                 </div>

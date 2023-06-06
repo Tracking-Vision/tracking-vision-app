@@ -49,12 +49,12 @@ function editar(idMaquina, modeloDisco, armazenamento, modeloRam, ram, leituraDi
   var instrucao = `
         UPDATE maquina SET 
         statusMaquina = ${status},
-        hostnameMaquina = "${nomeHost}",
-        nomeModeloCpu = "${modeloCpu}",
+        hostnameMaquina = '${nomeHost}',
+        nomeModeloCpu = '${modeloCpu}',
         clockCpu = ${clockCpu},
-        nomeModeloRam = "${modeloRam}",
+        nomeModeloRam = '${modeloRam}',
         capacidadeTotalRam = ${ram},
-        nomeModeloDisco = "${modeloDisco}",
+        nomeModeloDisco = '${modeloDisco}',
         capacidadeTotalDisco = ${armazenamento},       
         leituraDisco = ${leituraDisco},
         escritaDisco = ${escritaDisco}

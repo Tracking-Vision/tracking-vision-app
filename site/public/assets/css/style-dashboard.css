@@ -5,7 +5,7 @@
   height: 7vh;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: #8b04bb;
   border-radius: 10px;
   cursor: pointer;
@@ -33,7 +33,7 @@
 }
 
 .box_nav {
-  width: 30vw;
+  width: 35vw;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -46,7 +46,7 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
   color: white;
   padding: 10px;
 }
@@ -86,7 +86,7 @@
 }
 
 .menu_move_open {
-  width: 600px;
+  width: 680px;
   cursor: default;
   transition: all 0.3s;
 }

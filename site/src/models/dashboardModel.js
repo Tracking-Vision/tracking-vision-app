@@ -16,7 +16,7 @@ function listarBytesHorario(idEmpresa) {
     "ACESSEI O DASHBOARD MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-  SELECT FORMAT(horarioCapturado, 'yyyy-MM-dd HH:mm:00') AS intervaloMinuto, SUM(bytesRecebidos) AS totalBytesRecebidos, SUM(bytesEnviados) AS totalBytesEnviados
+  SELECT switchoffset (FORMAT(horarioCapturado, 'yyyy-MM-dd HH:mm:00'), '-03:00') AS intervaloMinuto, SUM(bytesRecebidos) AS totalBytesRecebidos, SUM(bytesEnviados) AS totalBytesEnviados
   FROM log
   JOIN maquina ON fkMaquina = idMaquina
   WHERE fkEmpresa = ${idEmpresa}
